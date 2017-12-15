@@ -20,3 +20,16 @@
 .ui.page{
     background-color: #082b4f;
 }
+
+.ui.huge.form > .field {
+    margin-top: 20px;
+    height: 30px;
+    
+}
+
+.ui.huge.form > .field > input{
+    height: 40px;
+    width: 360px;
+    color: #000000;
+    font-size: 18px;
+}

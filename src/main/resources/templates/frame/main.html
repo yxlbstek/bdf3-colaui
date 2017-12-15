@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta charset="UTF-8"/>
 	<title>$applicationTitle</title>
-	<link rel="stylesheet" type="text/css" href="../../resources/nprogress/nprogress.css">
-	<link rel="stylesheet" type="text/css" href="../../resources/cola-ui-1.8/semantic.css">
-	<!-- <link rel="stylesheet" type="text/css" href="../../resources/common/common.css"> -->
-	<link rel="stylesheet" type="text/css" href="main.css">
-	<script src="../../resources/nprogress/nprogress.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/nprogress/nprogress.css"/>
+	<link rel="stylesheet" type="text/css" href="static/cola-ui/semantic.css"/>
+	<link rel="stylesheet" type="text/css" href="static/frame/main.css"/>
+	<script src="static/nprogress/nprogress.js"></script>
 </head>
 <body style="background-color: #f3f3f4 !important">
 	<script type="text/javascript">
@@ -27,9 +26,7 @@
 		</a>
 		<div class="item" c-bind="applicationName"></div>
 		<div class="right menu">
-			<a class="icon item" c-onclick="refreshPage()"
-				data-position="bottom center"
-				c-data-tooltip="currentUrl ? '刷新' + currentUrl.name : '刷新不可用' "
+			<a class="icon item" c-onclick="refreshPage()" data-position="bottom center" c-data-tooltip="currentUrl ? '刷新' + currentUrl.name : '刷新不可用' "
 				data-inverted=""> <i class="refresh large icon"></i>
 			</a> <a class="icon item" c-onclick="openUserCenter()"
 				data-position="bottom center"
@@ -37,7 +34,7 @@
 				data-inverted="">
 				<div id="messageTotal" class="floating ui circular red label">0</div>
 				<img class="ui image avatar"
-				c-src="loginUser.avatar ? loginUser.avatar :'./static/resources/images/avatars/large/matthew.png'">
+				c-src="loginUser.avatar ? loginUser.avatar :'./static/resources/images/avatars/large/matthew.png'"/>
 			</a>
 		</div>
 
@@ -52,7 +49,7 @@
 				c-onclick="switchBar()"></i>
 				<div style="width: auto;" class="ui inverted transparent input">
 					<input type="text" c-bind="searchUrlKey" placeholder="搜索..."
-						c-onkeyup="searchUrl()">
+						c-onkeyup="searchUrl()"/>
 				</div>
 			</a> <a class="item" c-searching="searching"
 				c-display="isEmpty(item.parentId) || searching"
@@ -63,12 +60,10 @@
 		</div>
 	</div>
 
-	</div>
-
 	<div id="userCenter" class="ui right vertical overlay sidebar ">
 		<div class="me">
 			<img class="ui image avatar"
-				c-src="loginUser.avatar ? loginUser.avatar :'./static/resources/images/avatars/large/matthew.png'">
+				c-src="loginUser.avatar ? loginUser.avatar :'./static/resources/images/avatars/large/matthew.png'"/>
 			<div c-onclick="openMe()" class="user-info"
 				c-bind="loginUser.${userMetadataServiceImpl.nicknameProp}">
 				登录用户名</div>
@@ -97,13 +92,13 @@
 
 	<div id="main"></div>
 </body>
-	<script src="../../resources/jquery/jquery-2.1.3.js"></script>
-	<script src="../../resources/jquery/jquery.cookie.js"></script>
-	<script src="../../resources/cola-ui-1.8/3rd.js"></script>
-	<script src="../../resources/cola-ui-1.8/semantic.js"></script>
-	<script src="../../resources/cola-ui-1.8/cola-core.js" charset="UTF-8"></script>
-	<script src="../../resources/common/common.js"></script>
-	<script src="main.js"></script>
+	<script src="static/jquery/jquery-2.1.3.js"></script>
+	<script src="static/jquery/jquery.cookie.js"></script>
+	<script src="static/cola-ui/3rd.js"></script>
+	<script src="static/cola-ui/semantic.js"></script>
+	<script src="static/cola-ui/cola-core.js" charset="UTF-8"></script>
+	<script src="static/common/common.js"></script>
+	<script src="static/frame/main.js"></script>
 	<script type="text/javascript">
 		var messageDisabled = $messageDisabled;
 		var longPollingTimeout = $longPollingTimeout;
