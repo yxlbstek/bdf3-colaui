@@ -22,6 +22,9 @@ public class FrameworkServiceImpl implements FrameworkService {
 	@Value("${bdf3.security.loginSuccessPath:main}")
 	private String loginSuccessPath;
 	
+	@Value("${bdf3.security.loginPath:frame/login}")
+	protected String loginPath;
+	
 
 	@Override
 	public String getHomePage() {
@@ -30,7 +33,7 @@ public class FrameworkServiceImpl implements FrameworkService {
 
 	@Override
 	public String getLoginPage() {
-		return "frame/login";
+		return loginPath;
 	}
 
 	@Override
