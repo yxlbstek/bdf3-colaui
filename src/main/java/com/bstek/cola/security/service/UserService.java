@@ -1,6 +1,5 @@
 package com.bstek.cola.security.service;
 
-import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +19,9 @@ public interface UserService {
 
 	void remove(String id);
 
-	void add(Map<String, Object> user) throws Exception;
+	void add(User user) throws Exception;
 
-	void modify(Map<String, Object> user) throws Exception;
+	void modify(User user) throws Exception;
 
 	void changePassword(String username, String newPassword);
 
@@ -35,5 +34,7 @@ public interface UserService {
 	void removeRoleGrantedAuthority(String id);
 
 	void modifyNickname(String username, String nickname);
+
+	void resetPassword(User user);
 
 }

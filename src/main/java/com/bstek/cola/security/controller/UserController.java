@@ -1,6 +1,5 @@
 package com.bstek.cola.security.controller;
 
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,27 +36,33 @@ public class UserController {
 		return userService.load(pageable, searchKey);
 	}
 	
-	@RequestMapping(path = "/user/remove/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/user/remove", method = RequestMethod.POST)
 	@Transactional
-	public void remove(@PathVariable String id) {
-		userService.remove(id);
+	public void remove(@RequestParam String username) {
+		userService.remove(username);
 	}
 	
 	@RequestMapping(path = "/user/add", method = RequestMethod.POST)
 	@Transactional
-	public void add(@RequestBody Map<String, Object> user) throws Exception {
+	public void add(@RequestBody User user) throws Exception {
 		userService.add(user);
 	}
 
 	@RequestMapping(path = "/user/modify", method = RequestMethod.PUT)
 	@Transactional
-	public void modify(@RequestBody Map<String, Object> user) throws Exception {
+	public void modify(@RequestBody User user) throws Exception {
 		userService.modify(user);
 	}
 	
-	@RequestMapping(path = "/user/exist/{username}", method = RequestMethod.GET)
-	public boolean validate(@PathVariable("username") String username) {
+	@RequestMapping(path = "/user/exist", method = RequestMethod.GET)
+	public boolean validate(@RequestParam String username) {
 		return !userService.isExist(username);
+	}
+	
+	@RequestMapping(path = "/user/resetPassword", method = RequestMethod.PUT)
+	@Transactional
+	public void resetPassword(@RequestBody User user) {
+		userService.resetPassword(user);
 	}
 	
 	@RequestMapping(path = "/authority/add", method = RequestMethod.POST)

@@ -1,6 +1,5 @@
 package com.bstek.cola.security.service.impl;
 
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +33,26 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void remove(String id) {
-
+	public void remove(String username) {
+		JpaUtil.lind(User.class).equal("username", username).delete();
 	}
 
 	@Override
 	@Transactional
-	public void add(Map<String, Object> user) throws Exception {
-
+	public void add(User user) throws Exception {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		JpaUtil.persist(user);
 	}
 
 	@Override
-	public void modify(Map<String, Object> user) throws Exception {
-
+	public void modify(User user) throws Exception {
+		JpaUtil.merge(user);
+	}
+	
+	@Override
+	public void resetPassword(User user) {
+		user.setPassword(passwordEncoder.encode("123456"));
+		JpaUtil.merge(user);
 	}
 
 	@Override
@@ -63,7 +69,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(readOnly = true)
 	public boolean isExist(String username) {
-		return true;
+		boolean result = JpaUtil.linq(User.class).equal("username", username).exists();
+		return result;
 	}
 
 	@Override
@@ -86,4 +93,6 @@ public class UserServiceImpl implements UserService {
 	public void modifyNickname(String username, String nickname) {
 		
 	}
+
+	
 }
