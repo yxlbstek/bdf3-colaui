@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bstek.bdf3.security.orm.Url;
@@ -32,6 +33,16 @@ public class UrlController {
 	@RequestMapping(path = "/url/load-tree", method = RequestMethod.GET)
 	public List<Url> loadTree() {
 		return urlService.loadTree();
+	}
+	
+	@RequestMapping(path = "/url/loadTop", method = RequestMethod.GET)
+	public List<Url> loadTop() {
+		return urlService.loadTop();
+	}
+	
+	@RequestMapping(path = "/url/loadSub", method = RequestMethod.GET)
+	public List<Url> loadSub(@RequestParam(required=false) String parentId) {
+		return urlService.loadSub(parentId);
 	}
 	
 	@RequestMapping(path = "/url/load", method = RequestMethod.GET)

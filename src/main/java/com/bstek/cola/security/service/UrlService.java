@@ -22,4 +22,8 @@ public interface UrlService {
 
 	void modify(Url url);
 
+	List<Url> loadTop();
+
+	List<Url> loadSub(String parentId);
+
 }

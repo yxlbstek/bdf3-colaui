@@ -55,6 +55,24 @@ public class UrlServiceImpl implements UrlService {
 		}
 		return result;
 	}
+	
+	@Override
+	public List<Url> loadTop() {
+		return JpaUtil
+			.linq(Url.class)
+			.isNull("parentId")
+			.asc("order")
+			.list();
+	}
+
+	@Override
+	public List<Url> loadSub(String parentId) {
+		return JpaUtil
+			.linq(Url.class)
+			.equal("parentId", parentId)
+			.asc("order")
+			.list();
+	}
 
 	@Override
 	public List<Url> load() {
@@ -81,4 +99,6 @@ public class UrlServiceImpl implements UrlService {
 	public void modify(Url url) {
 		JpaUtil.merge(url);
 	}
+
+	
 }
