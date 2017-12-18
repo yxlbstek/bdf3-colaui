@@ -29,7 +29,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Page<User> load(Pageable pageable, String searchKey) {		
-		return JpaUtil.linq(User.class).paging(pageable);
+		return JpaUtil
+			.linq(User.class)
+			.addIf(searchKey)
+				.or()
+					.like("username", "%" + searchKey + "%")
+					.like("nickname", "%" + searchKey + "%")
+				.end()
+			.endIf()
+			.paging(pageable);
 	}
 
 	@Override
