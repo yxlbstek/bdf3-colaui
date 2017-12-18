@@ -1,0 +1,58 @@
+
+body {
+  background-color: #f3f3f4;
+  padding: 0.8em;
+}
+
+/*搜索框*/
+#search > div {
+  width: 260px !important;
+}
+#search > div > input{
+  height: 38px !important;
+}
+
+/* 添加用户页面 */
+#form {
+  font-size : 18px;
+  color : #C0C0C0;
+  padding : 10px;
+}
+#msgModal .header {
+  color : #C0C0C0;
+  font-size: 22px;
+}
+fields.cols-5 {
+  padding-left: 40px;
+}
+field.cols-1 {
+  padding-top: 10px;
+}
+.cols-1.ui.field > input {
+  height: 18px;
+  width: 18px;
+  margin-top: 5px;
+}
+#enabled {
+  width: 60px;
+}
+
+/* 删除页面 */
+.icon.help.circle {
+  margin-left: 400px;
+  font-size: 80px;
+}
+.ui.modal > .content > .description {
+  margin-left: 285px;
+
+}
+
+
+
+
+
+
+
+
+
+

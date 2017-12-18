@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta charset="UTF-8"/>
+	<title>${applicationTitle}</title>	
+	<link rel="stylesheet" type="text/css" href="static/nprogress/nprogress.css"/>
+	<link rel="stylesheet" type="text/css" href="static/cola-ui/cola.css"/>
+	<link rel="stylesheet" type="text/css" href="static/cola-ui/semantic.css"/>
+	<link rel="stylesheet" type="text/css" href="static/bdf3/user.css"/>
+	<script src="static/nprogress/nprogress.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		//NProgress.configure({showSpinner: false, minimum: 0.3});
+		//NProgress.start();
+	</script>
+	<v-box style="width:100%;">
+		<box style="height: 60px;">
+			<h-box>
+				<box>
+					<c-button class="violet" icon="plus" click="add">添加</c-button>
+					<c-button class="violet" icon="student" click="addManager">赋予管理员身份</c-button>
+					<c-button class="violet" icon="minus circle" click="cancelManager">取消管理员身份</c-button>
+				</box>
+				<flex-box>
+				</flex-box>
+				<box>
+					<div id="search" class="ui category search">
+						<div class="ui icon input">
+							<input class="prompt" type="text" placeholder="根据用户名或昵称搜索..." c-bind="contain" c-onkeydown="search()"/>
+							<i class="icon search"></i>
+						</div>
+					</div>
+				</box>
+			</h-box>
+		</box>
+		<flex-box>
+			<c-table bind="users" sortMode="local">
+				<template name="action">
+					<div>
+						<c-button class="ui circular negative trash icon button" title="删除" c-onclick="remove(item)">
+							<i class="trash icon"></i>
+						</c-button>
+						<c-button class="ui circular violet write icon button" title="修改" c-onclick="modify(item)">
+							<i class="write icon"></i>
+						</c-button>
+						<c-button class="ui circular blue privacy icon button" title="重置密码" c-onclick="changePassword(item)">
+							<i class="privacy icon"></i>
+						</c-button>
+					</div>
+				</template>
+				<column property="username" caption="用户名" sortable="true"></column>
+				<column property="nickname" caption="昵称" sortable="true"></column>
+				<column property="administrator" caption="是管理员" sortable="true" template="checkbox-column"></column>
+				<column property="enabled" caption="可用" sortable="true" template="checkbox-column"></column>
+				<column caption="操作" template="action"></column>
+			</c-table>
+		</flex-box>
+		<box style="height: 60px;">
+			<c-pager bind="users"></c-pager>
+		</box>
+	</v-box>
+	
+	<!--用户信息添加-->
+	<div id="msgModal" class="ui basic modal">
+		<div class="header">
+			<i class="icon user"></i> <span class="caption">用户信息维护</span>
+		</div>
+		<div class="content">
+			<form-layout id="form">
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>用户名</label>
+						<c-input id="username" c-bind="editItem.username"></c-input>
+					</field>
+				</fields>
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>昵称</label>
+						<c-input c-bind="editItem.nickname"></c-input>
+					</field>
+				</fields>
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>密码</label>
+						<c-input id="password" c-bind="editItem.password"></c-input>
+					</field>
+				</fields>
+				<fields class="cols-5">
+					<field class="cols-1">
+						<label>账户未过期</label>
+						<input type="checkbox" c-bind="editItem.accountNonExpired"/>
+					</field>
+					<field class="cols-1">
+						<label>账户未锁定</label>
+						<input type="checkbox" c-bind="editItem.accountNonLocked"/>
+					</field>
+					<field class="cols-1">
+						<label>证书未过期</label>
+						<input type="checkbox" c-bind="editItem.credentialsNonExpired"/>
+					</field>
+					<field class="cols-1">
+						<label id="enabled">可用</label>
+						<input type="checkbox" c-bind="editItem.enabled"/>
+					</field>
+				</fields>
+			</form-layout>
+		</div>
+		<div class="actions">
+			<c-button class="violet" icon="save" click="save">保存</c-button>
+			<c-button class="negative" icon="remove" click="cancel">取消</c-button>
+		</div>
+	</div>
+
+	<!--删除用户-->
+	<div id="delModal" class="ui basic modal">
+		<i class="icon help circle"></i>
+		<div class="content">
+			<div class="description">
+				<h1>是否删除该用户及其关联信息?</h1>
+			</div>
+		</div>
+		<div class="actions">
+			<div class="actions">
+				<div c-widget="button; click:remove; size:large"
+					 class="ui green inverted">
+					<i class="checkmark icon"></i>
+					删除
+				</div>
+				<div c-widget="button; click:cancelRemove; size:large"
+					 class="ui red inverted">
+					<i class="remove icon"></i>
+					取消
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<script src="static/jquery/jquery-2.1.3.js"></script>
+	<script src="static/jquery/jquery.cookie.js"></script>
+	<script src="static/cola-ui/3rd.js"></script>
+	<script src="static/cola-ui/semantic.js"></script>
+	<script src="static/cola-ui/cola-core.js" charset="UTF-8"></script>	
+	<script src="static/cola-ui/cola.js" charset="UTF-8"></script>
+	<script src="static/bdf3/user.js"></script>
+</body>
+
+</html>
