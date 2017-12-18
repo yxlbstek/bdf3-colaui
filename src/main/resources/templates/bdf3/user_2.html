@@ -17,7 +17,7 @@
 		//NProgress.configure({showSpinner: false, minimum: 0.3});
 		//NProgress.start();
 	</script>
-	<v-box style="width:100%;">
+	<v-box style="width:100%; padding: 20px;" class="ui fragment">
 		<box style="height: 60px;">
 			<h-box>
 				<box>
@@ -30,7 +30,7 @@
 				<box>
 					<div id="search" class="ui category search">
 						<div class="ui icon input">
-							<input class="prompt" type="text" placeholder="根据用户名或昵称搜索..." c-bind="contain" c-onkeydown="search()"/>
+							<input class="prompt" type="text" placeholder="根据用户名或昵称搜索..." c-bind="searchKey" c-onkeydown="search()"/>
 							<i class="icon search"></i>
 						</div>
 					</div>
@@ -41,13 +41,13 @@
 			<c-table bind="users" sortMode="local">
 				<template name="action">
 					<div>
-						<c-button class="ui circular negative trash icon button" title="删除" c-onclick="remove(item)">
+						<c-button class="ui circular negative trash icon button" title="删除" c-onclick="removeTip(item)">
 							<i class="trash icon"></i>
 						</c-button>
 						<c-button class="ui circular violet write icon button" title="修改" c-onclick="modify(item)">
 							<i class="write icon"></i>
 						</c-button>
-						<c-button class="ui circular blue privacy icon button" title="重置密码" c-onclick="changePassword(item)">
+						<c-button class="ui circular blue privacy icon button" title="重置密码" c-onclick="resetPassword(item)">
 							<i class="privacy icon"></i>
 						</c-button>
 					</div>
@@ -86,7 +86,7 @@
 				<fields class="cols-4">
 					<field class="cols-3">
 						<label>密码</label>
-						<c-input id="password" c-bind="editItem.password"></c-input>
+						<c-input id="password" inputType="password" c-bind="editItem.password"></c-input>
 					</field>
 				</fields>
 				<fields class="cols-5">
@@ -120,22 +120,12 @@
 		<i class="icon help circle"></i>
 		<div class="content">
 			<div class="description">
-				<h1>是否删除该用户及其关联信息?</h1>
+				<h2>是否删除该用户及其关联信息?</h2>
 			</div>
 		</div>
 		<div class="actions">
-			<div class="actions">
-				<div c-widget="button; click:remove; size:large"
-					 class="ui green inverted">
-					<i class="checkmark icon"></i>
-					删除
-				</div>
-				<div c-widget="button; click:cancelRemove; size:large"
-					 class="ui red inverted">
-					<i class="remove icon"></i>
-					取消
-				</div>
-			</div>
+			<c-button class="negative" icon="save" click="remove">删除</c-button>
+			<c-button class="violet" icon="remove" click="cancelRemove">取消</c-button>
 		</div>
 	</div>
 		

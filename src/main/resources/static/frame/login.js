@@ -24,9 +24,9 @@
              }
         });
 
-        /*if (loginError) {
-            $(".ui.form").form("add errors", [loginError]);
-        }*/
+//        if (loginError) {
+//            $(".ui.form").form("add errors", [loginError]);
+//        }
     });
 
 }).call(this);
