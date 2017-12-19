@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="static/cola-ui/semantic.css"/>
     <link rel="stylesheet" type="text/css" href="static/cola-ui/cola.css"/>
     <!--<link rel="stylesheet" type="text/css" href="static/common/common.css"/>-->
-    <link rel="stylesheet" type="text/css" href="static/bdf3/url.css"/>
+    <link rel="stylesheet" type="text/css" href="static/bdf3/url_2.css"/>
     <script src="static/nprogress/nprogress.js"></script>
 </head>
 <body>
@@ -24,19 +24,28 @@
             <c-panel caption="菜单" height="100%" collapsible="false">
                 <template name="tools">
                     <div id="toolsBtn">
-                        <c-button class="ui circular violet plus icon button" title="添加顶级菜单" c-onclick="removeTip(item)">
+                        <c-button class="ui circular violet plus icon button" title="添加顶级菜单" click="addTop">
                             <i class="plus icon"></i>
                         </c-button>
-                        <c-button class="ui circular violet plus icon button" title="添加子级菜单" c-onclick="modify(item)">
+                        <c-button class="ui circular violet plus icon button" title="添加子级菜单" click="addChild">
                             <i class="plus icon"></i>
                         </c-button>
-                        <c-button class="ui circular negative minus icon button" title="删除当前菜单" c-onclick="resetPassword(item)">
+                        <c-button class="ui circular negative minus icon button" title="删除当前菜单" click="removeShow">
                             <i class="minus icon"></i>
+                        </c-button>
+                        <c-button class="ui circular blue undo icon button" title="刷新" click="refresh">
+                            <i class="undo icon"></i>
                         </c-button>
                     </div>
                 </template>
                 <div class="content">
-                    <c-tree id="urlTree"></c-tree>
+                    <c-tree id="urlTree">
+                        <!--<template name="node-default">
+                            &lt;!&ndash;<div>
+                                <i class="icon editItem.icon"></i><span c-bind="editItem.name"></span>
+                            </div>&ndash;&gt;
+                        </template>-->
+                    </c-tree>
                 </div>
             </c-panel>
         </box>
@@ -79,9 +88,12 @@
                         <fields class="cols-4">
                             <field class="cols-3">
                                 <label style="margin-top: -140px;">描述</label>
-                                <c-textarea c-bind="editItem.description" style="width: 459px;"></c-textarea>
+                                <c-textarea c-bind="editItem.description" style="width: 10%;"></c-textarea>
                             </field>
                         </fields>
+                        <div class="ui segment basic" style="float: right; margin-right: 23%;">
+                            <c-button id="saveBtn" class="violet" icon="save" click="save" style="float: right;">保存</c-button>
+                        </div>
                     </form-layout>
                 </div>
             </c-panel>
@@ -90,76 +102,21 @@
 
 
 
-
-    <div id="removeConfirmModal" class="ui basic modal">
-        <div class="ui icon header">
-            <h2>确定要删除吗？</h2>
-        </div>
+    <!--*******************************************************************-->
+    <!--删除菜单-->
+    <div id="delModal" class="ui basic modal">
+        <i class="icon help circle"></i>
         <div class="content">
-            <p></p>
+            <div class="description">
+                <h2>是否删除该菜单及其关联信息?</h2>
+            </div>
         </div>
         <div class="actions">
-            <div class="ui red basic cancel inverted button"><i class="remove icon"></i> 取消 </div>
-            <div class="ui green ok inverted button" c-onclick="remove()"><i class="checkmark icon"></i> 确定 </div>
+            <c-button class="negative" icon="save" click="remove">删除</c-button>
+            <c-button class="violet" icon="remove" click="cancelRemove">取消</c-button>
         </div>
     </div>
 
-    <div id="editModal" class="ui basic small modal">
-        <div class="ui icon header">
-            <h2>修改菜单信息</h2>
-        </div>
-        <div class="content">
-            <form id="editRoleForm" class="ui large form">
-                <div class="field">
-                    <div class="ui large transparent left inverted input">
-                        <label>名称</label>
-                        <input data-validate="name" type="text" c-bind="editUrl.name" c-onkeyup="keyup()" placeholder="名称..."/>
-                    </div>
-                    <div class="ui divider"></div>
-                </div>
-                <div class="field">
-                    <div class="ui large transparent left inverted input">
-                        <label>图标</label>
-                        <input type="text" c-bind="editUrl.icon" c-onkeyup="keyup()" placeholder="图标..."/>
-                    </div>
-                    <div class="ui divider"></div>
-                </div>
-                <div class="field">
-                    <div class="ui large transparent left inverted input">
-                        <label>路径</label>
-                        <input type="text" c-bind="editUrl.path" c-onkeyup="keyup()" placeholder="名称..."/>
-                    </div>
-                    <div class="ui divider"></div>
-                </div>
-                <div class="field">
-                    <div class="ui large transparent left inverted input">
-                        <label>排序号</label>
-                        <input type="number" c-bind="editUrl.order" c-onkeyup="keyup()" placeholder="排序号..."/>
-                    </div>
-                    <div class="ui divider"></div>
-                </div>
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input type="checkbox" c-bind="editUrl.navigable" c-onchange="keyup()"/>
-                        <label>可导航</label>
-                    </div>
-                    <div class="ui divider"></div>
-                </div>
-                <div class="field">
-                    <div class="ui large transparent left inverted input">
-                        <label>描述</label>
-                        <input type="text" c-bind="editUrl.description" placeholder="描述..." c-onkeyup="keyup()"/>
-                    </div>
-                    <div class="ui divider"></div>
-                </div>
-                <div class="ui error inverted message"></div>
-            </form>
-        </div>
-        <div class="actions">
-            <div class="ui red basic cancel inverted button"><i class="remove icon"></i> 取消 </div>
-            <div id="editSaveBtn" class="ui green inverted button" c-onclick="edit()"><i class="checkmark icon"></i> 提交修改 </div>
-        </div>
-    </div>
 
 </body>
     <script src="static/jquery/jquery-2.1.3.js"></script>
@@ -169,6 +126,6 @@
     <script src="static/cola-ui/cola-core.js" charset="UTF-8"></script>
     <script src="static/cola-ui/cola.js" charset="UTF-8"></script>
     <!--<script src="static/common/common.js"></script>-->
-    <script src="static/bdf3/url.js"></script>
+    <script src="static/bdf3/url_2.js"></script>
 
 </html>

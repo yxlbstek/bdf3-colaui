@@ -137,3 +137,15 @@ html body {
 	margin-left: -5.5px;
 }
 
+
+
+/* 删除页面 */
+.icon.help.circle {
+    margin-left: 400px;
+    font-size: 80px;
+}
+.ui.modal > .content > .description {
+    margin-left: 285px;
+
+}
+

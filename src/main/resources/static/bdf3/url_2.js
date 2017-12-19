@@ -4,6 +4,21 @@
         model.dataType({
             name: "Url",
             properties: {
+                name: {
+                    validators: [
+                        "required",
+                        new cola.AjaxValidator({
+                            method: "GET",
+                            name: "nameAjaxValidator",
+                            message: "菜单已存在!",
+                            disabled: true,
+                            data: {
+                                name: ":data"
+                            },
+                            url: "./api/url/exist"
+                        })
+                    ]
+                },
                 urls: {
                     dataType: "Url",
                     provider: {
@@ -20,8 +35,8 @@
         model.describe("urls", {
             dataType: "Url",
             provider: {
-                url : "./api/url/loadTop",
-                parameter : {
+                url: "./api/url/loadTop",
+                parameter: {
                     searchKey: "{{searchKey}}"
                 }
             }
@@ -47,120 +62,132 @@
                     var current = self.get("currentNode");
                     model.set("editItem", current.get("data").toJSON());
                 },
-                height : "100%",
-                width : "440",
+                height: "100%",
             }
         });
 
+       model.action({
+           save: function() {
+               var entity = model.get("editItem");
+               var result = entity.validate();
+               if (result) {
+                   var isNew = entity.get("editType") === "新增";
+                   var path = isNew ? "./api/url/add" : "./api/url/modify";
+                   var data = entity.toJSON();
+                   $.ajax({
+                       data: JSON.stringify(data),
+                       type: isNew ? "POST" : "PUT",
+                       contentType : "application/json",
+                       url: path,
+                       success: function() {
+                           //model.get("urls").insert(data);
+                           //$("#msgModal").modal('hide');
+                           model.flush("urls");
+                           cola.NotifyTipManager.success({
+                               message: "保存成功！！！",
+                               showDuration: 1500,
+                           });
+                       }
+                   });
+               }
+           },
 
+           addTop: function () {
+               model.definition("nameAjaxValidator").set("disabled", false);
+               model.set("editItem", {
+                   editType: "新增",
+                   name: "新菜单",
+                   navigable: true
+               });
+               model.get("urls").insert(model.get("editItem").toJSON());
+           },
 
-       // model.action({
-            //     search : function() {
-            //         var key = window.event.keyCode;
-            //         if (key == 13) {
-            //             model.flush("menus");
-            //         }
-            //     },
-            //     addCancel : function () {
-            //         model.set("currentEditItem", {});
-            //         $("#addModal").modal('hide');
-            //     },
-            //     removeCancel : function () {
-            //         $("#removeModal").modal('hide');
-            //     },
-            //     save : function () {
-            //         var entity =  model.get("currentEditItem");
-            //         if(entity){
-            //             var data = entity.toJSON();
-            //             $.ajax({
-            //                 url : "./service/menu/add",
-            //                 data : JSON.stringify(data),
-            //                 type : "POST",
-            //                 contentType : "application/json",
-            //                 success : function () {
-            //                     model.get("menus").insert(data);
-            //                     $("#addModal").modal('hide');
-            //                     model.flush("menus");
-            //                 },
-            //             });
-            //             cola.NotifyTipManager.success({
-            //                 message : "保存成功！！！",
-            //                 showDuration : 1500,
-            //             });
-            //         }
-            //     },
-            //     addRoot : function () {
-            //         model.set("currentEditItem", {});
-            //         $("#addModal").modal('show');
-            //     },
-            //
-            //     addChild : function() {
-            //         var childNodes, currentNode, newEntity, tree;
-            //         tree = cola.widget("menuTree");
-            //         currentNode = tree.get("currentNode");
-            //         var entity = currentNode.get("data");
-            //         if (entity.state == "new") {
-            //             cola.NotifyTipManager.error({
-            //                 message : "添加失败！！",
-            //                 description : "您添加的节点未保存，请先保存再添加子节点！!",
-            //                 showDuration: 2000
-            //             });
-            //         }else {
-            //             childNodes = entity.get("menus", "sync");
-            //             if (!childNodes) {
-            //                 entity.set("menus", []);
-            //                 childNodes = entity.get("menus");
-            //             }
-            //             newEntity = childNodes.insert({
-            //                 name : "New Node",
-            //                 parentId : entity.get("id")
-            //             });
-            //             var newCurrentNode = tree.findNode(entity);
-            //             tree.expand(newCurrentNode);
-            //             tree.set("currentItem", newEntity);
-            //             $("#addModal").modal('show');
-            //             return false;
-            //         }
-            //     },
-            //     removeShow : function () {
-            //         $("#removeModal").modal('show');
-            //     },
-            //     remove : function () {
-            //         var entity = model.get("currentEditItem");
-            //         var  childs = entity.get("menus","sync");
-            //         if(childs && childs.entityCount > 0){
-            //             $("#removeModal").modal('hide');
-            //             cola.NotifyTipManager.error({
-            //                 message : "删除失败",
-            //                 description : "您删除的节点有子节点，请先删除子节点！",
-            //                 showDuration : 2000,
-            //             });
-            //         }else{
-            //             $.ajax({
-            //                 url : "./service/menu/remove",
-            //                 data : {
-            //                     "id" : entity.get("id")
-            //                 },
-            //                 type : "POST",
-            //                 success : function() {
-            //                     entity.remove();
-            //                     $("#removeModal").modal('hide');
-            //                     model.flush("menus");
-            //                 }
-            //             }).done(function(){
-            //                 var currentNode = cola.widget("menuTree").get("currentNode");
-            //                 if (currentNode) {
-            //                     return currentNode.get("data").remove();
-            //                 }
-            //             });
-            //             cola.NotifyTipManager.success({
-            //                 message : "删除成功！！！",
-            //                 showDuration : 1500,
-            //             });
-            //         }
-            //     }
-            // });
-        //
+           addChild: function() {
+               var childNodes, currentNode, newEntity, tree;
+               model.definition("nameAjaxValidator").set("disabled", false);
+               tree = cola.widget("urlTree");
+               currentNode = tree.get("currentNode");
+               var entity = currentNode.get("data");
+               if (entity.state == "new") {
+                   cola.NotifyTipManager.error({
+                       message: "添加失败！！",
+                       description: "您添加的节点未保存，请先保存再添加子节点！!",
+                       showDuration: 2000
+                   });
+               } else {
+                   childNodes = entity.get("urls", "sync");
+                   if (!childNodes) {
+                       entity.set("urls", []);
+                       childNodes = entity.get("urls");
+                   }
+                   newEntity = childNodes.insert({
+                       editType: "新增",
+                       name: "新菜单",
+                       navigable: true,
+                       parentId: entity.get("id")
+                   });
+                   var newCurrentNode = tree.findNode(entity);
+                   tree.expand(newCurrentNode);
+                   tree.set("currentItem", newEntity);
+                   return false;
+               }
+           },
+
+           removeShow: function () {
+               $("#delModal").modal('show');
+           },
+
+           search: function() {
+               var key = window.event.keyCode;
+               if (key == 13) {
+                   model.flush("urls");
+               }
+           },
+
+           cancelRemove: function () {
+               $("#delModal").modal('hide');
+           },
+
+           refresh: function() {
+               model.flush("urls");
+           },
+
+           remove: function () {
+               var entity = model.get("editItem");
+               var  childs = entity.get("urls", "sync");
+               if(childs && childs.entityCount > 0){
+                   $("#removeModal").modal('hide');
+                   cola.NotifyTipManager.error({
+                       message: "删除失败",
+                       description: "您删除的节点有子节点，请先删除子节点！",
+                       showDuration: 3000,
+                   });
+               } else {
+                   $.ajax({
+                       url: "./api/url/remove",
+                       data: {
+                           "id": entity.get("id")
+                       },
+                       type: "POST",
+                       success: function() {
+                           entity.remove();
+                           $("#delModal").modal('hide');
+                           model.flush("urls");
+                       }
+                   }).done(function(){
+                       var currentNode = cola.widget("urlTree").get("currentNode");
+                       if (currentNode) {
+                           return currentNode.get("data").remove();
+                       }
+                   });
+                   cola.NotifyTipManager.success({
+                       message: "删除成功！！！",
+                       showDuration: 1500,
+                   });
+               }
+           }
+       });
+
 
 
 
