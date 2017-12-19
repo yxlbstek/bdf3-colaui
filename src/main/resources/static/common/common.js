@@ -21,15 +21,36 @@
 
   if (!rootApp) {
     properties = {
-      mainView: "./frame/main",
+      mainView: "./frame/main.html",
       loginPath: "./login",
       longPollingTimeout: 0,
       longPollingInterval: 2000,
-      "service.messagePull": "../service/message/pull",
-      "service.login": "../service/account/login",
-      "service.logout": "../service/account/logout",
-      "service.menus": "../service/menus",
-      "service.user.detail": "../service/user/detail",
+      "service.messagePull": "./service/frame/message/pull",
+      "service.login": "./service/frame/account/login",
+      "service.logout": "./service/frame/account/logout",
+      "service.menus": "./service/frame/url/menus",
+      "service.user.detail": "./service/frame/user/detail",
+      "message.action": {
+          path: "http://cola-ui.com",
+          type: "subWindow",
+          label: "我的消息",
+          closeable: true,
+          icon: "icon mail"
+      },
+      "task.action": {
+          path: "http://cola-ui.com/docs",
+          type: "subWindow",
+          label: "我的任务",
+          closeable: true,
+          icon: "icon alarm"
+      },
+      "workbench": {
+          path: "./example/echarts/cola-visit.html",
+          type: "subWindow",
+          label: "我的工作台",
+          closeable: false,
+          icon: "icon dashboard"
+      },
       title: "Cola-Frame"
     };
   }
@@ -66,7 +87,7 @@
               },
               icon: config.icon,
               name: path,
-              closeable: config.closeable || true,
+              closeable: config.closeable,
               caption: config.label
             });
             viewTab = cola.widget("viewTab");
@@ -150,6 +171,34 @@
           return properties[key] = value;
         }
       }
+    },
+    resetComponentAuth: function (params) {
+        debugger;
+        $.ajax("./service/frame/component/auth", {
+          type: "POST",
+          data: JSON.stringify(params),
+          contentType: "application/json; charset=utf-8"
+        }).success(function (result) {
+          debugger;
+          if (result) {
+              for (var i = 0; i < result.length; i++) {
+                  var auth = result[i];
+                  if (!auth.visible) {
+                      $("#" + auth.id).css('display', 'none');
+                      continue;
+                  }
+                  var widget = cola.widget(auth.id);
+                  if (widget) {
+                      var type = widget.constructor.CLASS_NAME;
+                      if (type == 'button') {
+                          widget.set('disabled', auth.disabled);
+                      } else if (type.indexOf("input") >= 0) {
+                          widget.set('readOnly', auth.disabled);
+                      }
+                  }
+              }
+          }
+        });
     }
   };
 
@@ -182,10 +231,10 @@
 
   language = $.cookie("_language") || window.navigator.language;
 
- /* if (language) {
-    document.write("<script src=\"resources/i18n/zh/cola.js\"></script>");
-    document.write("<script src=\"common/common.js\"></script>");
-  }*/
+  if (language) {
+    document.write("<script src=\"resources/cola-ui/i18n/" + language + "/cola.js\"></script>");
+    // document.write("<script src=\"resources/i18n/" + language + "/common.js\"></script>");
+  }
 
   $(NProgress.done);
 
