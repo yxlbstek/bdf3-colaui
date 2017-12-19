@@ -27,12 +27,6 @@
                         <c-button class="ui circular violet plus icon button" title="添加顶级菜单" click="addTop">
                             <i class="plus icon"></i>
                         </c-button>
-                        <c-button class="ui circular violet plus icon button" title="添加子级菜单" click="addChild">
-                            <i class="plus icon"></i>
-                        </c-button>
-                        <c-button class="ui circular negative minus icon button" title="删除当前菜单" click="removeShow">
-                            <i class="minus icon"></i>
-                        </c-button>
                         <c-button class="ui circular blue undo icon button" title="刷新" click="refresh">
                             <i class="undo icon"></i>
                         </c-button>
@@ -40,11 +34,16 @@
                 </template>
                 <div class="content">
                     <c-tree id="urlTree">
-                        <!--<template name="node-default">
-                            &lt;!&ndash;<div>
-                                <i class="icon editItem.icon"></i><span c-bind="editItem.name"></span>
-                            </div>&ndash;&gt;
-                        </template>-->
+                        <template name="node-default">
+                            <div>
+                                <i c-classname="url.icon"></i>
+                                <span c-bind="url.name"></span>
+                                <div class="node-operation">
+                                    <i c-onclick="addChild()" title="添加子级菜单" class="positive icon plus"></i>
+                                    <i c-onclick="removeShow()" title="删除当前菜单" class="positive icon trash outline"></i>
+                                </div>
+                            </div>
+                        </template>
                     </c-tree>
                 </div>
             </c-panel>

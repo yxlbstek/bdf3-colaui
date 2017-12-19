@@ -7,6 +7,11 @@
                 name: {
                     validators: [
                         "required",
+                        {
+                            $type: "length",
+                            min: 0,
+                            max: 30
+                        },
                         new cola.AjaxValidator({
                             method: "GET",
                             name: "nameAjaxValidator",
@@ -18,6 +23,27 @@
                             url: "./api/url/exist"
                         })
                     ]
+                },
+                path: {
+                    validators: [{
+                        $type: "length",
+                        min: 0,
+                        max: 60
+                    }]
+                },
+                icon: {
+                    validators: ["required", {
+                        $type: "length",
+                        min: 0,
+                        max: 120
+                    }]
+                },
+                description: {
+                    validators: [{
+                        $type: "length",
+                        min: 0,
+                        max: 120
+                    }]
                 },
                 urls: {
                     dataType: "Url",
@@ -43,27 +69,28 @@
         });
 
         model.widgetConfig({
-            urlTree: {
-                $type: "tree",
-                lazyRenderChildNodes: false,
-                autoExpand: true,
-                autoCollapse: false,
-                highlightCurrentItem: true,
-                bind: {
-                    expression: "url in urls",
-                    textProperty: "name",
-                    child: {
-                        recursive: true,
-                        textProperty: "name",
-                        expression: "url in url.urls"
-                    }
-                },
-                currentNodeChange: function (self, arg) {
-                    var current = self.get("currentNode");
-                    model.set("editItem", current.get("data").toJSON());
-                },
-                height: "100%",
-            }
+             urlTree: {
+                 $type: "tree",
+                 lazyRenderChildNodes: false,
+                 autoExpand: true,
+                 autoCollapse: false,
+                 highlightCurrentItem: true,
+                 bind: {
+                     expression: "url in urls",
+                     textProperty: "name",
+                     child: {
+                         recursive: true,
+                         textProperty: "name",
+                         expression: "url in url.urls"
+                     }
+                 },
+                 currentNodeChange: function (self, arg) {
+                     var current = self.get("currentNode");
+                     model.set("editItem", current.get("data").toJSON());
+                 },
+                 height: "100%",
+             }
+
         });
 
        model.action({
@@ -93,21 +120,33 @@
            },
 
            addTop: function () {
+               var nodes, order, entity;
                model.definition("nameAjaxValidator").set("disabled", false);
-               model.set("editItem", {
+               nodes = model.get("urls");
+               if (!nodes) {
+                   order = 1;
+               } else {
+                   order = nodes.last().get("order") + 1;
+               }
+               entity = nodes.insert({
                    editType: "新增",
-                   name: "新菜单",
-                   navigable: true
+                   name : "<新菜单>",
+                   order : order,
+                   icon : "icon edit",
+                   navigable : true
                });
-               model.get("urls").insert(model.get("editItem").toJSON());
+               var tree = cola.widget("urlTree");
+               var currentNode = tree.findNode(entity);
+               tree.expand(currentNode);
+               tree.set("currentItem", entity);
            },
 
            addChild: function() {
-               var childNodes, currentNode, newEntity, tree;
+               var childNodes, currentNode, newEntity, order, entity, tree;
                model.definition("nameAjaxValidator").set("disabled", false);
                tree = cola.widget("urlTree");
                currentNode = tree.get("currentNode");
-               var entity = currentNode.get("data");
+               entity = currentNode.get("data");
                if (entity.state == "new") {
                    cola.NotifyTipManager.error({
                        message: "添加失败！！",
@@ -116,13 +155,19 @@
                    });
                } else {
                    childNodes = entity.get("urls", "sync");
+                   order = 1;
                    if (!childNodes) {
                        entity.set("urls", []);
                        childNodes = entity.get("urls");
+                   } else {
+                       if (childNodes.entityCount > 0)
+                           order = childNodes.last().get("order") + 1;
                    }
                    newEntity = childNodes.insert({
                        editType: "新增",
-                       name: "新菜单",
+                       name: "<新菜单>",
+                       order: order,
+                       icon : "icon edit",
                        navigable: true,
                        parentId: entity.get("id")
                    });
