@@ -3,6 +3,7 @@ package com.bstek.cola.security.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +33,7 @@ public class RoleController {
 	private RoleService roleService;
 		
 	@RequestMapping(path = "/role/load", method = RequestMethod.GET)
-	public List<Role> load(Pageable pageable, @RequestParam(name = "searchKey", required = false) String searchKey) {
+	public Page<Role> load(Pageable pageable, @RequestParam(name = "searchKey", required = false) String searchKey) {
 		return roleService.load(pageable, searchKey);
 	}
 	
@@ -41,9 +42,9 @@ public class RoleController {
 		return roleService.loadUrls(roleId);
 	}
 	
-	@RequestMapping(path = "/role/remove/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/role/remove", method = RequestMethod.POST)
 	@Transactional
-	public void remove(@PathVariable String id) {
+	public void remove(@RequestParam String id) {
 		roleService.remove(id);
 	}
 	
@@ -58,4 +59,10 @@ public class RoleController {
 	public void modify(@RequestBody Role role) {
 		roleService.modify(role);
 	}
+	
+	@RequestMapping(path = "/role/exist", method = RequestMethod.GET)
+	public boolean validate(@RequestParam String name) {
+		return !roleService.isExist(name);
+	}
+	
 }

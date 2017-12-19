@@ -2,6 +2,7 @@ package com.bstek.cola.security.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.bstek.bdf3.security.orm.Role;
@@ -15,7 +16,7 @@ import com.bstek.bdf3.security.orm.Url;
 */
 public interface RoleService {
 
-	List<Role> load(Pageable pageable, String searchKey);
+	Page<Role> load(Pageable pageable, String searchKey);
 
 	List<Role> load(String username);
 
@@ -26,5 +27,7 @@ public interface RoleService {
 	String add(Role role);
 
 	void modify(Role role);
+
+	boolean isExist(String name);
 
 }

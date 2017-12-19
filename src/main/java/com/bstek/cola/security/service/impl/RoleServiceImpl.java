@@ -3,6 +3,7 @@ package com.bstek.cola.security.service.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ import com.bstek.cola.security.service.RoleService;
 public class RoleServiceImpl implements RoleService {
 
 	@Override
-	public List<Role> load(Pageable pageable, String searchKey) {
+	public Page<Role> load(Pageable pageable, String searchKey) {
 		return JpaUtil
 				.linq(Role.class)
 				.addIf(searchKey)
@@ -32,7 +33,7 @@ public class RoleServiceImpl implements RoleService {
 						.like("name", "%" + searchKey + "%")
 						.like("description", "%" + searchKey + "%")
 				.endIf()
-				.list(pageable);
+				.paging(pageable);
 	}
 
 	@Override
@@ -83,5 +84,11 @@ public class RoleServiceImpl implements RoleService {
 	@SecurityCacheEvict
 	public void modify(Role role) {
 		JpaUtil.merge(role);
+	}
+
+	@Override
+	public boolean isExist(String name) {
+		boolean result = JpaUtil.linq(Role.class).equal("name", name).exists();
+		return result;
 	}
 }

@@ -23,7 +23,7 @@ cola(function(model) {
                         "required", {
                             $type: "length",
                             min: 6,
-                            max: 30
+                            max: 120
                         }
                     ]
                 },
@@ -78,7 +78,7 @@ cola(function(model) {
                     success: function() {
                         model.get("users").insert(data);
                         $("#msgModal").modal('hide');
-                        //model.flush("users");
+                        model.flush("users");
                         cola.NotifyTipManager.success({
                             message: "保存成功！！！",
                             showDuration: 1500,
