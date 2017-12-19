@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,9 +49,9 @@ public class UrlController {
 		return urlService.load();
 	}
 	
-	@RequestMapping(path = "/url/remove/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/url/remove", method = RequestMethod.POST)
 	@Transactional
-	public void remove(@PathVariable String id) {
+	public void remove(@RequestParam String id) {
 		urlService.remove(id);
 	}
 	
@@ -66,6 +65,11 @@ public class UrlController {
 	@Transactional
 	public void modify(@RequestBody Url url) {
 		urlService.modify(url);
+	}
+	
+	@RequestMapping(path = "/url/exist", method = RequestMethod.GET)
+	public boolean validate(@RequestParam String name) {
+		return !urlService.isExist(name);
 	}
 	
 }

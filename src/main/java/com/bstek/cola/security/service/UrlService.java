@@ -26,4 +26,6 @@ public interface UrlService {
 
 	List<Url> loadSub(String parentId);
 
+	boolean isExist(String name);
+
 }

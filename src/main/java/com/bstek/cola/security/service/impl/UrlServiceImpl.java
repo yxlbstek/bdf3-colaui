@@ -100,5 +100,11 @@ public class UrlServiceImpl implements UrlService {
 		JpaUtil.merge(url);
 	}
 
+	@Override
+	public boolean isExist(String name) {
+		boolean result = JpaUtil.linq(Url.class).equal("name", name).exists();
+		return result;
+	}
+
 	
 }
