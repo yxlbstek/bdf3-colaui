@@ -5,12 +5,36 @@ body {
 }
 
 /*搜索框*/
-#search > div {
-  width: 260px !important;
+.ui.category.search > div {
+  width: 180px !important;
 }
-#search > div > input{
-  height: 38px !important;
+.ui.category.search > div > input{
+  height: 30px !important;
 }
+
+/*panel背景色*/
+#rolePanel > .header > .content, #allotPanel > .header > .content {
+  background-color: #E0E0E0;
+}
+
+/*表格列头*/
+.ui.widget-table table thead th {
+  background-color: #E0E0E0 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*********************************************************/
 
 /* 添加用户页面 */
 #form {
@@ -45,11 +69,6 @@ field.cols-1 {
 .ui.modal > .content > .description {
   margin-left: 285px;
 
-}
-
-/*表格列头*/
-.ui.widget-table table thead th {
-  background-color: #E0E0E0 !important;
 }
 
 

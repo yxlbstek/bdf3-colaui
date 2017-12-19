@@ -46,3 +46,7 @@ html body {
     margin-right: 0.5em;
 }
 
+/*panel头部*/
+c-panel > .header > .content {
+    background-color: #E0E0E0 !important;
+}

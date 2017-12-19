@@ -18,8 +18,8 @@
 		//NProgress.configure({showSpinner: false, minimum: 0.3});
 		//NProgress.start();
 	</script>
-	<v-box style="width:100%; padding: 20px;" class="ui fragment">
-		<box style="height: 60px;">
+	<v-box style="width:100%; padding: 15px; background-color: #FFF;" class="ui fragment">
+		<box style="height: 60px; background-color: #f3f3f4; padding: 15px;">
 			<h-box>
 				<box>
 					<c-button class="violet" icon="plus" click="add">添加</c-button>
@@ -36,8 +36,8 @@
 				</box>
 			</h-box>
 		</box>
-		<flex-box>
-			<c-table bind="roles" sortMode="local">
+		<flex-box style="background-color: #f3f3f4;">
+			<c-table bind="roles" sortMode="local" style="background-color: #f3f3f4; width: 99%; margin-left: 10px;">
 				<template name="action">
 					<div>
 						<c-button class="ui circular negative trash icon button" title="删除" c-onclick="removeTip(item)">
@@ -53,7 +53,7 @@
 				<column caption="操作" template="action"></column>
 			</c-table>
 		</flex-box>
-		<box style="height: 60px;">
+		<box style="height: 60px; background-color: #f3f3f4; padding: 10px;">
 			<c-pager bind="roles"></c-pager>
 		</box>
 	</v-box>

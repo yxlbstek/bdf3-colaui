@@ -47,6 +47,10 @@ field.cols-1 {
 
 }
 
+/*表格列头*/
+.ui.widget-table table thead th {
+  background-color: #E0E0E0 !important;
+}
 
 
 

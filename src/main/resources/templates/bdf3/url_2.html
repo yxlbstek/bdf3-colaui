@@ -19,8 +19,8 @@
         //NProgress.start();
     </script>
 
-    <h-box style="height: 100%; padding: 20px;">
-        <box style="width: 35%; padding: 20px;"  class="ui fragment">
+    <h-box style="height: 100%; padding: 15px; background-color: #FFF;">
+        <box style="width: 35%; padding: 15px; background-color: #E0E0E0;"  class="ui fragment">
             <c-panel caption="菜单" height="100%" collapsible="false">
                 <template name="tools">
                     <div id="toolsBtn">
@@ -32,8 +32,8 @@
                         </c-button>
                     </div>
                 </template>
-                <div class="content">
-                    <c-tree id="urlTree">
+                <div class="content" style="background-color: #f3f3f4; height: 100%;">
+                    <c-tree id="urlTree" style="background-color: #f3f3f4;">
                         <template name="node-default">
                             <div>
                                 <i c-classname="url.icon"></i>
@@ -50,9 +50,9 @@
         </box>
         <flex-box>
         </flex-box>
-        <box style="width: 63%; padding: 20px;"  class="ui fragment">
+        <box style="width: 63%; padding: 15px; background-color: #E0E0E0;"  class="ui fragment">
             <c-panel caption="详情" height="100%" collapsible="false">
-                <div class="content">
+                <div class="content" style="background-color: #f3f3f4; height: 100%;">
                     <form-layout id="form">
                         <fields class="cols-4">
                             <field class="cols-3">
