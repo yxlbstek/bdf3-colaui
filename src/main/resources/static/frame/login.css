@@ -14,11 +14,13 @@
 }
 
 .ui.header {
-    color: #D4D4D5;
+    color: #F0F0F0;
 }
 
 .ui.page{
-    background-color: #082b4f;
+    /*background-color: #082b4f;*/
+    background-image: url("../../static/resources/images/bg3.jpg");
+    background-size: 100% 100%;
 }
 
 .ui.huge.form > .field {
@@ -32,4 +34,5 @@
     width: 360px;
     color: #000000;
     font-size: 18px;
+    border-radius: 7px;
 }
