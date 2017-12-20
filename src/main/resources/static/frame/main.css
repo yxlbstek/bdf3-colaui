@@ -89,7 +89,7 @@ html body {
 }
 
 #viewTab > .contents {
-    padding: 0
+    /* margin-top: -20px; */
 }
 
 #viewTab > .contents .item {
