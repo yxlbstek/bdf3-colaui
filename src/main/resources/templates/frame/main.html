@@ -37,8 +37,7 @@
 		</div>
 		<div class="flex-box">
 			<div class="h-box">
-				<div id="frameworkSidebarBox"
-					class="box main-menu ui segment inverted basic vertical">
+				<div id="frameworkSidebarBox" class="box main-menu ui segment inverted basic vertical">
 					<div class="side-accordion">
 						<div c-onclick="toggleSidebar()" class="bar">
 							<i class="iconfont icon-sidebar"></i>
@@ -47,19 +46,21 @@
 							<div c-repeat="menu in menus" class="item active">
 								<div class="title menu-item"
 									c-onclick="menuItemClickParent(menu)"
-									onMouseOver="tipLabel(this,event)" onMouseOut="tipLabelOut()">
-									<i c-class="menu.icon"></i><span c-bind="menu.name"></span><i
-										c-display="dropdownIconVisible(menu)"
-										class="icon angle left dropdown-icon"></i>
+									onMouseOver="tipLabel(this,event)"
+								    onMouseOut="tipLabelOut()">
+									<i c-class="menu.icon"></i>
+									<span c-bind="menu.name"></span>
+									<i c-display="dropdownIconVisible(menu)" class="icon angle left dropdown-icon"></i>
 								</div>
 								<div class="content">
 									<div c-repeat="item in sort(menu.children, 'order')"
 										c-onclick="menuItemClickChildren(item)"
-										onMouseOver="tipLabel(this,event)" onMouseOut="tipLabelOut()"
+										onMouseOver="tipLabel(this,event)"
+									    onMouseOut="tipLabelOut()"
 										class="menu-item">
-										<i c-class="item.icon"></i><span c-bind="item.name"></span><i
-											c-display="dropdownIconVisible(item)"
-											class="icon angle left dropdown-icon"></i>
+										<i c-class="item.icon"></i>
+										<span c-bind="item.name"></span>
+										<i c-display="dropdownIconVisible(item)" class="icon angle left dropdown-icon"></i>
 									</div>
 								</div>
 							</div>
@@ -106,9 +107,10 @@
 			<div class="box">
 				<div class="ui segment text-center basic inverted basic-info">
 					<div class="avatar">
-						<img c-src="user.avatar" class="ui image tiny avatar centered" />
+						<!--<img c-src="user.avatar" class="ui image tiny avatar centered" />-->
+						<img src="static/resources/images/avatars/alex.png" class="ui image tiny avatar centered" />
 					</div>
-					<div c-bind="user.name" class="name"></div>
+					<div c-bind="user.nickname" class="name"></div>
 				</div>
 			</div>
 			<div class="flex-box">

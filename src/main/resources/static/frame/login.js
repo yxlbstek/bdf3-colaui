@@ -23,10 +23,18 @@
                  }
              }
         });
+        
+        var url = location.search;
+    	var loginError;
+    	if (url.length > 0) {
+    		loginError = "用户名或密码错误"; 
+    	} else {
+    		loginError = "";
+    	};
 
-//        if (loginError) {
-//            $(".ui.form").form("add errors", [loginError]);
-//        }
+        if (loginError) {
+            $(".ui.form").form("add errors", [loginError]);
+        }
     });
 
 }).call(this);

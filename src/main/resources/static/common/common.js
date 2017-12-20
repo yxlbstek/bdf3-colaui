@@ -46,10 +46,10 @@
 				icon : "icon alarm"
 			},
 			"workbench" : {
-				// path: "roleresource.html",
+				//path: "roleresource.html",
 				path : "",
 				type : "subWindow",
-				label : "我的工作台",
+				name : "我的工作台",
 				closeable : false,
 				icon : "icon dashboard"
 			},

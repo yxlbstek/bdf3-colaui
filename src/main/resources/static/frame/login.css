@@ -36,3 +36,9 @@
     font-size: 18px;
     border-radius: 7px;
 }
+
+.ui.error.message > ul > li {
+	width: 140px !important;
+    color: red !important;
+}
+
