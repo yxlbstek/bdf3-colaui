@@ -1,10 +1,4 @@
-/* 主色调定义 */
-/* 文字内容色调定义 */
-/* 背景色调定义 */
-/* 边框色调定义 */
-/* 主题色定义 */
-/* Input */
-/* main page */
+
 .icon-animated-bell {
   display: inline-block;
   -webkit-animation: ringing 2s 5 ease 1s;
@@ -725,4 +719,7 @@ html body small {
 }
 .ui.mini.button {
   padding: 0.7em 0.8em;
+}
+.ui.iframe {
+    height: 100%;
 }

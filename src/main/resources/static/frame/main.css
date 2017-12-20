@@ -1,208 +1,434 @@
 html body {
-    background-color: #f3f3f4 !important;
+    font-size: 14px !important
 }
 
-#topMenu {
-    background-color: #09C;
-    height: 50px;
-    border: none;
+.page-header.ui.menu .logo img {
+    margin-right: 0.6em
 }
 
-#topMenu .floating.label {
-   top: 0.7em;
-   left: 85%;
-   display: none;
+.page-header.ui.menu .item.msg {
+    padding-right: 0.52857143em;
+    padding-left: 0.52857143em;
+    position: relative
 }
 
-#topMenu .ui.avatar {
-    width: 2.5em;
-    height: 2.5em;
+.page-header.ui.menu .item.msg i {
+    font-size: 1.25em
 }
 
-#menuWrapper {
-    width: 54px;
-    top: 50px;
-    bottom: 0px;
-    background-color: #22282e;
-    overflow: hidden !important;
-    height: auto !important;
+.page-header.ui.menu .item.msg span.badge {
+    border-radius: 3px;
+    position: relative;
+    top: -8px;
+    left: 2px;
+    font-size: 0.8em;
+    background-color: #d93e50;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.2em 0.2em 0.1em 0.2em;
+    min-width: 16px;
+    text-align: center;
+    display: inline-block;
+    font-weight: bold
 }
 
-#menuWrapper .ui.menu {
-    background-color: #22282e;
-    width: 204px;
-    border: none;
-    overflow: auto;
-    overflow-x: hidden;
-    display: block;
-    height: 100%;
-    margin: 0px;
+.page-header.ui.menu .item.msg.mail span.badge {
+    background-color: #2f886e
 }
 
-#menu > .item{
-    min-width: 0px;
-    color: #aeb9c2;
-    height: 40px;
-    padding: 0px;
-    background: transparent;
-    line-height: 40px;
-    overflow: hidden;
+.page-header.ui.menu .user.item i {
+    margin: 0em 0em 0em 0.5em
 }
 
-
-#menu .item:hover {
-    color: #fff;
-    background: #37424f;
+.page-header.ui.menu .user.item .avatar {
+    margin: 0
 }
 
-#menu > .item:first-child {
-    background-color: #394555;
-    width: 54px;
+#loginDialog {
+    border-radius: 0.7571429rem
 }
 
-#menu > .item > .icon {
-    float: left;
-    display: block;
-    height: 40px;
-    width: 54px;
-    font-size: 1.4em !important;
-    margin: 0px;
-    -webkit-transition: all .1s ease;
-    -moz-transition: all .1s ease;
-    -o-transition: all .1s ease;
-    transition: all .1s ease;
+#loginDialog #containerSignIn {
+    border-radius: 0.7571429rem;
+    margin: 0;
+    padding: 2em 2em 1em 2em
 }
 
-#menu > .item > span {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    float: left;
-    display: block;
+#loginDialog #containerSignIn h2 {
+    margin: 0 0 25px;
+    font-size: 25px;
+    font-weight: 400;
+    text-align: center;
+    color: #323a45
 }
 
-#menu > .item:first-child  > .icon {
-    float: none !important;
-    margin: 0em auto 0.5rem !important;
+#loginDialog #containerSignIn .ui.form > .field:not(:last-child) {
+    margin-bottom: 1.6em
 }
 
-
-#logo {
-    background-color: #0087b4;
-    color: #FFF;
-    width: 54px;
-    padding: 0px;
-    height: 100%;
-    margin-left: 0px;
+#loginDialog #containerSignIn .ui.form a.float-right {
+    float: right
 }
 
-#logo:before {
-    width: 0px;
+#loginDialog #containerSignIn .ui.form .submit-btn {
+    margin-top: 1em
 }
 
-#logo i {
-    margin-left: auto;
-    margin-right: auto;
+#viewTab > .tab-bar {
+    height: 28px
 }
 
-#menu > .item.hidden,
-#main > .hidden {
-    display: none !important;
+#viewTab > .tab-bar > .tabs > .tab-button {
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    line-height: 36px;
+    font-size: 0.92em
 }
 
-#menu > .item.active {
-    background: #0099cc;
-    color: #fff;
+#viewTab > .tab-bar > .tabs > .tab-button.active {
+    box-shadow: inset 0 2px 0 #40bf97
 }
 
-#main {
-    height: 100% !important;
-    min-height: 100%;
-    padding: 50px 0px 0px 54px;
-    overflow: hidden;
+#viewTab > .contents {
+    padding: 0
 }
 
-#menu > .expand ~ .item[menu-level="1"][searching="false"] > i {
-    margin-left: 15px;
-
+#viewTab > .contents .item {
+    height: 100%
 }
 
-#menu > .expand ~ .item[menu-level="2"][searching="false"] > i {
-    margin-left: 30px;
+#viewTab > .contents .item > * {
+    height: inherit
 }
 
-#menu > .expand ~ .item[menu-level="3"][searching="false"] > i {
-    margin-left: 45px;
+#userSidebar {
+    width: 16em;
+    left: auto;
+    background-color: #314253
 }
 
-#menu > .expand ~ .item[menu-level="4"][searching="false"] > i {
-    margin-left: 60px;
+#userSidebar .box {
+    padding: 3em 1em
 }
 
-#menu > .expand ~ .item[menu-level="5"][searching="false"] > i {
-    margin-left: 75px;
+#userSidebar .ui.segment.basic-info {
+    background-color: transparent
 }
 
-
-#menu > .item:first-child,
-#menu > .item:last-child{
-    border-radius: 0px;
-}
-
-#userCenter {
-    background-color: #314253;
-}
-
-#userCenter .ui.avatar {
+#userSidebar .ui.segment.basic-info > .avatar {
+    display: inline-block;
     border: 2px solid rgba(255, 255, 255, 0.75);
-    border-radius: 50%;
-    margin: 2em auto 1em;
-    display: block;
-    width: 6em;
-    height: 6em;
+    border-radius: 50%
+}
+
+#userSidebar .ui.segment.basic-info .name {
+    margin-top: 0.5em;
+    line-height: 2em;
+    color: rgba(255, 255, 255, 0.8)
+}
+
+#userSidebar .flex-box a.msg {
     cursor: pointer;
+    font-size: 0.8em;
+    padding: 0 0.5em;
+    color: rgba(255, 255, 255, 0.8)
 }
 
-#userCenter .user-info {
+#userSidebar .flex-box a.msg i.icon.alarm {
+    color: #e59f52
+}
+
+#userSidebar .flex-box a.msg i.icon.mail {
+    color: #40bf97
+}
+
+#userSidebar .sign-out-btn {
+    box-shadow: 0 0 0 1px #40bf97 inset !important;
+    color: #40bf97 !important
+}
+
+.main-menu.ui.segment.inverted {
+    -webkit-transition: width 0.2s ease-out;
+    -moz-transition: width 0.2s ease-out;
+    -o-transition: width 0.2s ease-out;
+    transition: width 0.2s ease-out;
+    padding: 0;
+    background-color: #293846;
+    width: 14em;
+    overflow: hidden
+}
+
+.main-menu.ui.segment.inverted:hover {
+    overflow: auto
+}
+
+.main-menu.ui.segment.inverted .bar {
+    line-height: 2em;
+    background-color: #314253;
     text-align: center;
-    font-size: 1.3em;
-    color: #fff;
+    cursor: pointer
+}
+
+.main-menu.ui.segment.inverted .bar i {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.7)
+}
+
+.main-menu.ui.segment.inverted.collapsed {
+    width: 3em
+}
+
+.main-menu.ui.segment.inverted.collapsed .bar i {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+
+.main-menu.ui.segment.inverted.collapsed #frameworkSidebar > .item > .title .dropdown-icon,.main-menu.ui.segment.inverted.collapsed #frameworkSidebar > .item > .content .dropdown-icon {
+    display: none
+}
+
+.main-menu.ui.segment.inverted #frameworkSidebar {
+    padding: 0;
+    width: 14em
+}
+
+.main-menu.ui.segment.inverted #frameworkSidebar > .item ul {
+    padding: 0;
+    margin: 0;
+    list-style: none
+}
+
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .title {
+    background-color: #b03f4a
+}
+
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .content {
+    padding: 0
+}
+
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .content .content {
+    padding: 0 0 0 1em
+}
+
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .content .menu-item:hover, .main-menu.ui.segment.inverted #frameworkSidebar > .item > .content .menu-item.current-item {
+    background-color: #314253
+}
+
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .title, .main-menu.ui.segment.inverted #frameworkSidebar > .item .menu-item {
+    position: relative;
+    white-space: nowrap;
     cursor: pointer;
+    padding: 0;
+    line-height: 2.5em
 }
 
-#userCenter .me {
-    margin-bottom: 10px;
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .title .dropdown-icon, .main-menu.ui.segment.inverted #frameworkSidebar > .item .menu-item .dropdown-icon {
+    position: absolute;
+    right: 0.8em;
+    top: 50%;
+    width: 1rem;
+    -webkit-transform: scale(.8, .8);
+    -moz-transform: scale(.8, .8);
+    -ms-transform: scale(.8, .8);
+    -o-transform: scale(.8, .8);
+    transform: scale(.8, .8);
+    -webkit-transition: -webkit-transform 0.2s ease-out;
+    -moz-transition: -moz-transform 0.2s ease-out;
+    -o-transition: -o-transform 0.2s ease-out;
+    transition: transform 0.2s ease-out;
+    margin-top: -0.6rem;
+    line-height: 1.2rem;
+    display: inline-block
 }
 
-#userCenter .logout {
-    position: fixed;
-    bottom: 2em;
-    left: 5.8em;
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .title:hover:before, .main-menu.ui.segment.inverted #frameworkSidebar > .item .menu-item:hover:before, .main-menu.ui.segment.inverted #frameworkSidebar > .item > .title.current-item:before, .main-menu.ui.segment.inverted #frameworkSidebar > .item .menu-item.current-item:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "";
+    width: 3px;
+    background-color: #40bf97;
+    bottom: 0
 }
 
-.pusher {
-    min-height: 0px !important;
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .title > i, .main-menu.ui.segment.inverted #frameworkSidebar > .item .menu-item > i {
+    position: absolute;
+    color: #aeb9c2;
+    width: 3em;
+    text-align: center
 }
 
-
-@media only screen and (max-width: 760px) {
-    #menuWrapper {
-        width: 0px;
-    }
-
-    #main {
-        padding-left: 0px;
-    }
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .title > i.iconfont:before, .main-menu.ui.segment.inverted #frameworkSidebar > .item .menu-item > i.iconfont:before, .main-menu.ui.segment.inverted #frameworkSidebar > .item > .title > i.dropdown-icon:before, .main-menu.ui.segment.inverted #frameworkSidebar > .item .menu-item > i.dropdown-icon:before {
+    font-size: 20px
 }
 
-.ui.list[data-blank="true"] .blank {
-    background: transparent !important;
-    color: rgba(255, 255, 255, 0.5) !important;
-    padding-top: 5em;
-    text-align: center;
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .title > span, .main-menu.ui.segment.inverted #frameworkSidebar > .item .menu-item > span {
+    margin-left: 3.5em;
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.7)
 }
 
-.ui.list[data-blank="false"] .blank {
-    display: none;
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .title.active .dropdown-icon {
+    -webkit-transform: rotate(-90deg) scale(.8, .8);
+    -moz-transform: rotate(-90deg) scale(.8, .8);
+    -ms-transform: rotate(-90deg) scale(.8, .8);
+    -o-transform: rotate(-90deg) scale(.8, .8);
+    transform: rotate(-90deg) scale(.8, .8)
 }
 
+.main-menu.ui.segment.inverted #frameworkSidebar > .item > .content .menu-item.current-item .dropdown-icon {
+    -webkit-transform: rotate(-90deg) scale(.8, .8);
+    -moz-transform: rotate(-90deg) scale(.8, .8);
+    -ms-transform: rotate(-90deg) scale(.8, .8);
+    -o-transform: rotate(-90deg) scale(.8, .8);
+    transform: rotate(-90deg) scale(.8, .8)
+}
 
+#rightContainer {
+    position: relative
+}
+
+#rightContainer .layer-dimmer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    content: "";
+    background-color: transparent;
+    z-index: 60;
+    display: none
+}
+
+#rightContainer.lock .layer-dimmer {
+    display: block
+}
+
+#subMenuLayer {
+    overflow: hidden;
+    width: 16em;
+    -webkit-transition: width 0.2s ease-out;
+    -moz-transition: width 0.2s ease-out;
+    -o-transition: width 0.2s ease-out;
+    transition: width 0.2s ease-out
+}
+
+#subMenuLayer.collapsed {
+    width: 1.2em
+}
+
+#subMenuLayer.collapsed > .title > * {
+    display: none
+}
+
+#subMenuLayer.collapsed #subMenuTree {
+    display: none
+}
+
+#subMenuLayer #subMenuNavbar {
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    right: 0;
+    height: 48px;
+    margin-top: -24px;
+    background-color: transparent;
+    width: 12px;
+    padding: 12px 0
+}
+
+#subMenuLayer #subMenuNavbar:hover {
+    width: 14px
+}
+
+#subMenuLayer #subMenuNavbar > div {
+    display: inline-block;
+    height: 24px;
+    padding-top: 2px;
+    padding-left: 2px;
+    background-color: #ffffff;
+    color: #314253
+}
+
+#subMenuLayer #subMenuNavbar > div:before {
+    position: absolute;
+    right: 0;
+    content: "";
+    width: 0;
+    top: 0px;
+    left: 0px;
+    height: 0;
+    border-bottom: 12px solid #ffffff;
+    border-left: 14px solid transparent
+}
+
+#subMenuLayer #subMenuNavbar > div:after {
+    position: absolute;
+    content: "";
+    left: 0px;
+    width: 0;
+    height: 0;
+    bottom: 0px;
+    border-top: 12px solid #ffffff;
+    border-left: 14px solid transparent
+}
+
+#subMenuLayer #subMenuNavbar > div i {
+    line-height: 24px
+}
+
+#subMenuLayer > .v-box > .title {
+    height: 64px;
+    padding: 1em;
+    background-color: #D9DEE4;
+    line-height: 2.7em;
+    color: #000000
+}
+
+#subMenuLayer > .v-box > .title i {
+    font-size: 1.2em;
+    margin-right: 0.6em;
+    color: rgba(72, 179, 221, 0.81)
+}
+
+#subMenuLayer #subMenuTree {
+    background-color: #D9DEE4
+}
+
+#subMenuLayer #subMenuTree .child-nodes {
+    overflow: visible;
+    margin-left: 1.8em !important
+}
+
+#subMenuLayer .tree.item {
+    background-color: #fbfbfb
+}
+
+#subMenuLayer .tree.node > .expand-button {
+    width: 1.2em
+}
+
+#subMenuLayer .tree.node > .node-content > i {
+    position: absolute;
+    color: #aeb9c2;
+    width: 1.4em;
+    text-align: center
+}
+
+#subMenuLayer .tree.node > .node-content > span {
+    margin-left: 1.8em;
+    font-size: 0.95em
+}
+
+.just-tooltip{position:absolute;left:0;top:0;border-radius:5px;background:#000;/*display:inline-block;*/z-index:9999;}
+.just-tooltip .just-con{padding:8px 10px;color:#fff;}
+.just-tooltip .just-right{content:"";position:absolute;width:0;height:0;overflow:hidden;border-style:solid;}
+.just-tooltip .just-right{ left:-7px; top:50%;border-width: 5px 7px 5px 0;margin-top:-5px;
+    border-color: transparent #1B1E24 transparent transparent;
+    _border-color:#000000 #000000 #000000 #1B1E24;
+    _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+}
