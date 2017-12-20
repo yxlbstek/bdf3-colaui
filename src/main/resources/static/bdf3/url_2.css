@@ -12,13 +12,14 @@ html body {
 
 /****************************************************************************/
 
-/*新增删除按钮*/
+/*新增刷新按钮*/
 #toolsBtn > c-button {
     height: 25px !important;
     width: 25px !important;	
 }
 #toolsBtn > c-button > i {
-	margin-left: -5.5px;
+	margin-left: -3.5px;
+	margin-top: 1.5px;
 }
 
 /* 删除页面 */
