@@ -1,232 +1,148 @@
 cola(function(model) {
-	model.describe("users", {
-        dataType: {
-            name: "User",
-            properties: {
-                username: {
-                    validators: [
-                        "required",
-                        new cola.AjaxValidator({
-                            method: "GET",
-                            name: "usernameAjaxValidator",
-                            message: "用户名已存在",
-                            disabled: true,
-                            data: {
-                                username: ":data"
-                            },
-                            url: "./api/user/exist"
-                        })
-                    ]
-                },
-                password: {
-                    validators: [
-                        "required", {
-                            $type: "length",
-                            min: 6,
-                            max: 120
-                        }
-                    ]
-                },
-                nickname: {
-                    validators: [
-                        "required", {
-                            $type: "length",
-                            max: 10
-                        }
-                    ]
-                }
-            }
-        },
+    model.describe("roles", {
         provider: {
-            url: "./api/user/load",
+            url: "./api/role/load",
             pageSize: 10,
             parameter: {
-            	searchKey: "{{searchKey}}"
+                searchKey: "{{searchRoleKey}}"
+            }
+        }
+    });
+
+    model.get("roles", "sync");
+
+	model.describe("users", {
+        provider: {
+            url: "./api/role/loadNotAllotUser",
+            pageSize: 10,
+            // parameter: {
+            //     searchKey: "{{searchLeftKey}}",
+            //     roleId: model.get("roles").current.get("id")
+            // }
+            beforeSend: function (self, arg) {
+                var roleId = model.get("roles").current.get("id");
+                var searchKey = $("#leftSearch").val();
+                // 使用encodeURI() 为了解决GET下传递中文出现的乱码
+                arg.options.data.roleId = encodeURI(roleId);
+                arg.options.data.searchKey = searchKey;
+            }
+        }
+    });
+
+    model.describe("roleUsers", {
+        provider: {
+            url: "./api/role/loadIsAllotUser",
+            pageSize: 10,
+            beforeSend: function (self, arg) {
+                var roleId = model.get("roles").current.get("id");
+                var searchKey = $("#rightSearch").val();
+                arg.options.data.roleId = encodeURI(roleId);
+                arg.options.data.searchKey = searchKey;
             }
         }
     });
 	
-	model.describe("editItem", "User");
-	
 	model.action({
-		add: function () {
-			cola.widget("username").set("readOnly", false);
-            cola.widget("password").set("readOnly", false);
-            model.definition("usernameAjaxValidator").set("disabled", false);
-			model.set("editItem", {
-                editType: "新增",
-                accountNonExpired: true,
-                accountNonLocked: true,
-                credentialsNonExpired: true,
-                enabled: true
-            });
-            $("#msgModal").modal('show');
-		},
-		
-		save: function() {
-            var entity = model.get("editItem");
-            var result = entity.validate();
-            if (result) {
-            	var isNew = entity.get("editType") === "新增";
-            	var path = isNew ? "./api/user/add" : "./api/user/modify";
-                var data = entity.toJSON();
-                $.ajax({                
-                    data: JSON.stringify(data),
-                    type: isNew ? "POST" : "PUT",
-                    contentType : "application/json",
-                    url: path,
+		add: function() {
+            var currentRole = model.get("roles").current;
+            if (currentRole) {
+               var currentUser = model.get("users").current;
+                if (currentUser) {
+                    $.ajax({
+                        url: "./api/role/addRoleUser",
+                        data: {
+                            "roleId": currentRole.get("id"),
+                            "actorId": currentUser.get("username")
+                        },
+                        type: "POST",
+                        success: function() {
+                            //model.flush("users");
+                            currentUser.remove();
+                            model.get("roleUsers").insert(currentUser.toJSON());
+                            cola.NotifyTipManager.success({
+                                message: "添加成功！！！",
+                                showDuration: 1500,
+                            });
+                        }
+                    });
+                } else {
+                    cola.alert("请先添加用户！", {
+                        level: cola.MessageBox.level.WARNING
+                    })
+                }
+            } else {
+                cola.alert("请先添加角色！", {
+                    level: cola.MessageBox.level.WARNING
+                })
+            }
+        },
+
+        remove: function () {
+            var currentRoleUser = model.get("roleUsers").current;
+            if (currentRoleUser) {
+                var currentRole = model.get("roles").current;
+                $.ajax({
+                    url: "./api/role/removeRoleUser",
+                    data: {
+                        "roleId": currentRole.get("id"),
+                        "actorId": currentRoleUser.get("username")
+                    },
+                    type: "POST",
                     success: function() {
-                        model.get("users").insert(data);
-                        $("#msgModal").modal('hide');
-                        model.flush("users");
+                        //model.flush("users");
+                        currentRoleUser.remove();
+                        model.get("users").insert(currentRoleUser.toJSON());
                         cola.NotifyTipManager.success({
-                            message: "保存成功！！！",
+                            message: "移除成功！！！",
                             showDuration: 1500,
                         });
                     }
                 });
+            } else {
+                cola.alert("没有需要移除的用户！", {
+                    level: cola.MessageBox.level.WARNING
+                })
             }
         },
 
-		cancel: function() {
-            model.set("editItem", {});
-            $("#msgModal").modal('hide');
-        },
-		
-        removeTip: function (item) {
-        	model.set("editItem", item);
-        	$("#delModal").modal('show');
-        },
-        
-        remove: function () {
-	        var item = model.get("editItem");
-	        if(item){
-	            $.ajax({
-	                url: "./api/user/remove",
-	                data: {
-	                    "username" : item.get("username")
-	                },
-	                type: "POST",
-	                success: function() {
-	                    $("#delModal").modal('hide');
-	                    item.remove();
-	                    //model.flush("users");
-                        cola.NotifyTipManager.success({
-                            message: "删除成功！！！",
-                            showDuration: 1500,
-                        });
-	                }
-	            });
-	        }
 
-        },
-        
-        cancelRemove: function () {
-        	$("#delModal").modal('hide');
-        },
-        
-        modify: function(item) {
-            cola.widget("username").set("readOnly", true);
-            cola.widget("password").set("readOnly", true);
-            model.definition("usernameAjaxValidator").set("disabled", true);
-            model.set("editItem", item.toJSON());
-            $("#msgModal").modal('show');
-        },
-
-        addManager: function() {
-            var entity = model.get("users").current;
-            if (entity) {
-                var isManager = entity.get("administrator");
-                if (isManager) {
-                    cola.alert("该用户已是管理员！", {
-                        level: cola.MessageBox.level.WARNING
-                    })
-                } else {
-                    entity.set("administrator", true);
-                    $.ajax({
-                        data: JSON.stringify(entity.toJSON()),
-                        type: "PUT",
-                        contentType : "application/json",
-                        url: "./api/user/modify",
-                        success: function() {
-                            cola.NotifyTipManager.success({
-                                message: "保存成功！！！",
-                                showDuration: 1500,
-                            });
-                        }
-                    });
-                }
-            }
-        },
-
-        cancelManager: function() {
-            var entity = model.get("users").current;
-            if (entity) {
-                var isManager = entity.get("administrator");
-                if (!isManager) {
-                    cola.alert("该用户不是管理员，无需取消！", {
-                        level: cola.MessageBox.level.WARNING
-                    })
-                } else {
-                    entity.set("administrator", false);
-                    $.ajax({
-                        data: JSON.stringify(entity.toJSON()),
-                        type: "PUT",
-                        contentType : "application/json",
-                        url: "./api/user/modify",
-                        success: function() {
-                            cola.NotifyTipManager.success({
-                                message: "保存成功！！！",
-                                showDuration: 1500,
-                            });
-                        }
-                    });
-                }
-            }
-        },
-
-        resetPassword: function(item) {
-            $.ajax({
-                data: JSON.stringify(item.toJSON()),
-                type: "PUT",
-                contentType : "application/json",
-                url: "./api/user/resetPassword",
-                success: function() {
-                    cola.alert("密码已重置，新密码为：123456", {
-                        level: cola.MessageBox.level.WARNING
-                    })
-                }
-            });
-        },
-        
-		search: function () {
+        searchRole: function () {
 			var keyCode = window.event.keyCode;
 			if (keyCode == 13) {
-				model.flush("users");
+				model.flush("roles");
 			}			
-		}    
-	});
-	
-	model.set("sexs", [{
-        name: "男"
-    }, {
-        name: "女"
-    } ]);
-	
-	model.widgetConfig({
-		birthdayPicker : {
-            $type: "datePicker",
-            bind: "editItem.birthday"
+		},
+
+        searchLeftUser: function () {
+            var keyCode = window.event.keyCode;
+            if (keyCode == 13) {
+                model.flush("users");
+            }
         },
-        sexDropDown: {
-            $type: "dropdown",
-            "class": "error",
-            openMode: "drop",
-            items: "{{sex in sexs}}",
-            valueProperty: "name",
-            bind: "editItem.sex"
+
+        searchRightUser: function () {
+            var keyCode = window.event.keyCode;
+            if (keyCode == 13) {
+                model.flush("roleUsers");
+            }
         }
+
 	});
+
+    model.widgetConfig({
+        roleTable: {
+            $type: "table",
+            bind: "role in roles",
+            showHeader: true,
+            changeCurrentItem: true,
+            highlightCurrentItem: true,
+            currentPageOnly: true,
+            itemClick: function (self, arg) {
+                model.flush("users");
+                model.flush("roleUsers");
+            }
+        }
+    });
 	
 	$("[tag='contentContainer']").attr("tag","");
 	$(".ui.label.basic").transition({

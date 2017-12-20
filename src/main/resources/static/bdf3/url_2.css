@@ -50,3 +50,19 @@ html body {
 c-panel > .header > .content {
     background-color: #E0E0E0 !important;
 }
+
+/*功能按钮*/
+c-button {
+    background-color: #BEBEBE !important;
+}
+.actions > c-button {
+    color: #000 !important;
+}
+
+.ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
+    background-color: #6C6C6C !important;
+}
+
+.ui.toggle.checkbox input:focus:checked ~ .box:before, .ui.toggle.checkbox input:focus:checked ~ label:before {
+	background-color: #6C6C6C !important;
+}

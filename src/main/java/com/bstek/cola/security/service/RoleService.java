@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.bstek.bdf3.security.orm.Role;
 import com.bstek.bdf3.security.orm.Url;
+import com.bstek.bdf3.security.orm.User;
 
 /** 
 * 
@@ -29,5 +30,13 @@ public interface RoleService {
 	void modify(Role role);
 
 	boolean isExist(String name);
+
+	Page<User> loadNotAllotUser(Pageable pageable, String searchKey, String roleId);
+
+	Page<User> loadIsAllotUser(Pageable pageable, String searchKey, String roleId);
+
+	void addRoleUser(String roleId, String actorId);
+
+	void removeRoleUser(String roleId, String actorId);
 
 }

@@ -22,9 +22,9 @@
 		<box style="height: 60px; background-color: #f3f3f4; padding: 15px;">
 			<h-box>
 				<box>
-					<c-button class="violet" icon="plus" click="add">添加</c-button>
-					<c-button class="violet" icon="student" click="addManager">赋予管理员身份</c-button>
-					<c-button class="violet" icon="minus circle" click="cancelManager">取消管理员身份</c-button>
+					<c-button icon="plus" click="add">添加</c-button>
+					<c-button icon="student" click="addManager">赋予管理员身份</c-button>
+					<c-button icon="minus circle" click="cancelManager">取消管理员身份</c-button>
 				</box>
 				<flex-box>
 				</flex-box>
@@ -42,13 +42,13 @@
 			<c-table bind="users" sortMode="local" style="background-color: #f3f3f4; width: 99%; margin-left: 10px;">
 				<template name="action">
 					<div>
-						<c-button class="ui circular negative trash icon button" title="删除" c-onclick="removeTip(item)">
+						<c-button class="ui circular trash icon button" title="删除" c-onclick="removeTip(item)">
 							<i class="trash icon"></i>
 						</c-button>
-						<c-button class="ui circular violet write icon button" title="修改" c-onclick="modify(item)">
+						<c-button class="ui circular write icon button" title="修改" c-onclick="modify(item)">
 							<i class="write icon"></i>
 						</c-button>
-						<c-button class="ui circular blue privacy icon button" title="重置密码" c-onclick="resetPassword(item)">
+						<c-button class="ui circular privacy icon button" title="重置密码" c-onclick="resetPassword(item)">
 							<i class="privacy icon"></i>
 						</c-button>
 					</div>
@@ -111,8 +111,8 @@
 			</form-layout>
 		</div>
 		<div class="actions">
-			<c-button class="violet" icon="save" click="save">保存</c-button>
-			<c-button class="negative" icon="remove" click="cancel">取消</c-button>
+			<c-button icon="save" click="save">保存</c-button>
+			<c-button icon="remove" click="cancel">取消</c-button>
 		</div>
 	</div>
 
@@ -125,8 +125,8 @@
 			</div>
 		</div>
 		<div class="actions">
-			<c-button class="negative" icon="save" click="remove">删除</c-button>
-			<c-button class="violet" icon="remove" click="cancelRemove">取消</c-button>
+			<c-button icon="save" click="remove">删除</c-button>
+			<c-button icon="remove" click="cancelRemove">取消</c-button>
 		</div>
 	</div>
 		

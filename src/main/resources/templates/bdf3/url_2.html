@@ -24,15 +24,15 @@
             <c-panel caption="菜单" height="100%" collapsible="false">
                 <template name="tools">
                     <div id="toolsBtn">
-                        <c-button class="ui circular violet plus icon button" title="添加顶级菜单" click="addTop">
+                        <c-button class="ui circular plus icon button" title="添加顶级菜单" click="addTop">
                             <i class="plus icon"></i>
                         </c-button>
-                        <c-button class="ui circular blue undo icon button" title="刷新" click="refresh">
+                        <c-button class="ui circular undo icon button" title="刷新" click="refresh">
                             <i class="undo icon"></i>
                         </c-button>
                     </div>
                 </template>
-                <div class="content" style="background-color: #f3f3f4; height: 100%;">
+                <div class="content" style="background-color: #f3f3f4; height: 95%;">
                     <c-tree id="urlTree" style="background-color: #f3f3f4;">
                         <template name="node-default">
                             <div>
@@ -91,7 +91,7 @@
                             </field>
                         </fields>
                         <div class="ui segment basic" style="float: right; margin-right: 23%;">
-                            <c-button id="saveBtn" class="violet" icon="save" click="save" style="float: right;">保存</c-button>
+                            <c-button id="saveBtn" class="violet" icon="save" click="save" style="float: right; color: #000;">保存</c-button>
                         </div>
                     </form-layout>
                 </div>
@@ -111,8 +111,8 @@
             </div>
         </div>
         <div class="actions">
-            <c-button class="negative" icon="save" click="remove">删除</c-button>
-            <c-button class="violet" icon="remove" click="cancelRemove">取消</c-button>
+            <c-button icon="save" click="remove">删除</c-button>
+            <c-button icon="remove" click="cancelRemove">取消</c-button>
         </div>
     </div>
 

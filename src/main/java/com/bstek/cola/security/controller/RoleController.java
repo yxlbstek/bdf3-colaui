@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bstek.bdf3.security.orm.Role;
 import com.bstek.bdf3.security.orm.Url;
+import com.bstek.bdf3.security.orm.User;
 import com.bstek.cola.security.service.RoleService;
 
 /** 
@@ -63,6 +64,28 @@ public class RoleController {
 	@RequestMapping(path = "/role/exist", method = RequestMethod.GET)
 	public boolean validate(@RequestParam String name) {
 		return !roleService.isExist(name);
+	}
+	
+	@RequestMapping(path = "/role/loadNotAllotUser", method = RequestMethod.GET)
+	public Page<User> loadNotAllotUser(Pageable pageable, @RequestParam(name = "searchKey", required = false) String searchKey, @RequestParam(name = "roleId", required = false) String roleId) {
+		return roleService.loadNotAllotUser(pageable, searchKey, roleId);
+	}
+	
+	@RequestMapping(path = "/role/loadIsAllotUser", method = RequestMethod.GET)
+	public Page<User> loadIsAllotUser(Pageable pageable, @RequestParam(name = "searchKey", required = false) String searchKey, @RequestParam(name = "roleId", required = false) String roleId) {
+		return roleService.loadIsAllotUser(pageable, searchKey, roleId);
+	}
+	
+	@RequestMapping(path = "/role/addRoleUser", method = RequestMethod.POST)
+	@Transactional
+	public void addRoleUser(@RequestParam(name = "roleId") String roleId, @RequestParam(name = "actorId") String actorId) {
+		roleService.addRoleUser(roleId, actorId);
+	}
+	
+	@RequestMapping(path = "/role/removeRoleUser", method = RequestMethod.POST)
+	@Transactional
+	public void removeRoleUser(@RequestParam(name = "roleId") String roleId, @RequestParam(name = "actorId") String actorId) {
+		roleService.removeRoleUser(roleId, actorId);
 	}
 	
 }
