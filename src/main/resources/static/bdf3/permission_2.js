@@ -5,47 +5,24 @@ cola(function(model) {
             pageSize: 10,
             parameter: {
                 searchKey: "{{searchRoleKey}}"
-            }
-        }
-    });
-
-    model.get("roles", "sync");
-
-    model.dataType({
-        name: "Url",
-        properties: {
-            urls: {
-                dataType: "Url",
-                provider: {
-                    name: "xxx",
-                    url: "./api/url/loadSubByRoleId",
-                    parameter: {
-                        parentId: "{{@id}}",
-                        roleId: model.get("roles").current.get("id")
-                    },
-                    // beforeSend: function (self, arg) {
-                    //     var provider = model.definition("xxx");
-                    //     provider.get("parameter");
-                    //     arg.options.data.roleId = encodeURI(model.get("roles").current.get("id"));
-                    //     arg.options.data.parentId = self.parameter.parentId;
-                    // }
+            },
+            complete: function () {
+                if (!model.get("roleId")) {
+                    model.set("roleId", model.get("roles").current.get("id"));
                 }
             }
         }
     });
-    model.describe("urls", {
-        dataType: "Url",
-        provider: {
-            url: "./api/url/loadTopByRoleId",
-            parameter: {
-                roleId: model.get("roles").current.get("id")
+
+    setTimeout(function () {
+        model.describe("urls", {
+            provider: {
+                url: "./api/url/loadTreeByRoleId/{{@roleId}}"
             }
-        }
-    });
+        });
+        model.flush("urls");
+    }, 200);
 
-
-    //model.get("urls", "sync");
-	
 	model.action({
         refresh: function() {
             model.flush("urls");
@@ -86,7 +63,10 @@ cola(function(model) {
                         data: JSON.stringify(data),
                         contentType: "application/json; charset=utf-8",
                         success: function() {
-
+                            cola.NotifyTipManager.success({
+                                message: "保存成功！！！",
+                                showDuration: 1500,
+                            });
                         }
                     });
                 } else {
@@ -117,18 +97,15 @@ cola(function(model) {
             highlightCurrentItem: true,
             currentPageOnly: true,
             itemClick: function (self, arg) {
-                var provider = model.definition("xxx");
-                provider.set("parameter", {
-                    roleId: arg.item.get("id")
-                });
-                model.flush("urls");
+                if (self.get("currentItem").get("id") != model.get("roleId")) {
+                    model.set("roleId", self.get("currentItem").get("id"));
+                    model.flush("urls");
+                }
             }
         },
         urlTree: {
             $type: "tree",
-            //lazyRenderChildNodes: false,
-            //autoExpand: true,
-            //autoCollapse: true,
+            lazyRenderChildNodes: false,
             highlightCurrentItem: true,
             bind: {
                 expression: "url in urls",
@@ -138,7 +115,7 @@ cola(function(model) {
                     recursive: true,
                     textProperty: "name",
                     checkedProperty: "navigable",
-                    expression: "url in url.urls"
+                    expression: "url in url.children"
                 }
             },
             height: "100%",

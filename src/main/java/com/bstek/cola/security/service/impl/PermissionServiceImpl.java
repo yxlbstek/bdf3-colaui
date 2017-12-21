@@ -65,6 +65,7 @@ public class PermissionServiceImpl implements PermissionService {
 			permission.setRoleId(roleId);
 			permission.setResourceId(urlId);
 			permission.setResourceType("URL");
+			permission.setAttribute("ROLE_{" + roleId + "}");
 			JpaUtil.persist(permission);
 		}
 

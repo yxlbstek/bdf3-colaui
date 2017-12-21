@@ -15,10 +15,6 @@ cola(function(model) {
         provider: {
             url: "./api/role/loadNotAllotUser",
             pageSize: 10,
-            // parameter: {
-            //     searchKey: "{{searchLeftKey}}",
-            //     roleId: model.get("roles").current.get("id")
-            // }
             beforeSend: function (self, arg) {
                 var roleId = model.get("roles").current.get("id");
                 var searchKey = $("#leftSearch").val();
@@ -60,8 +56,9 @@ cola(function(model) {
                             currentUser.remove();
                             model.get("roleUsers").insert(currentUser.toJSON());
                             cola.NotifyTipManager.success({
-                                message: "添加成功！！！",
-                                showDuration: 1500,
+                                message: "消息提示",
+                                description: "保存成功!",
+                                showDuration: 3000
                             });
                         }
                     });
@@ -93,8 +90,9 @@ cola(function(model) {
                         currentRoleUser.remove();
                         model.get("users").insert(currentRoleUser.toJSON());
                         cola.NotifyTipManager.success({
-                            message: "移除成功！！！",
-                            showDuration: 1500,
+                            message: "消息提示",
+                            description: "移除成功!",
+                            showDuration: 3000
                         });
                     }
                 });

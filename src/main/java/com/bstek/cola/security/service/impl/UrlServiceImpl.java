@@ -55,29 +55,8 @@ public class UrlServiceImpl implements UrlService {
 	}
 
 	@Override
-	public List<Url> loadTopByRoleId(String roleId) {
-		List<Url> urls =JpaUtil
-				.linq(Url.class)
-				.isNull("parentId")
-				.asc("order")
-				.list();
-		List<Permission> permissions = JpaUtil
-				.linq(Permission.class)
-				.equal("resourceType", "URL")
-				.equal("roleId", roleId)
-				.list();
-		Set<String> roleUrlIds = JpaUtil.collect(permissions, "resourceId");
-		checked(urls, roleUrlIds);
-		return urls;
-	}
-
-	@Override
-	public List<Url> loadSubByRoleId(String parentId, String roleId) {
-		List<Url> urls = JpaUtil
-				.linq(Url.class)
-				.equal("parentId", parentId)
-				.asc("order")
-				.list();
+	public List<Url> loadTreeByRoleId(String roleId) {
+		List<Url> urls = loadTree();
 		List<Permission> permissions = JpaUtil
 				.linq(Permission.class)
 				.equal("resourceType", "URL")
@@ -97,11 +76,14 @@ public class UrlServiceImpl implements UrlService {
 					} else {
 						url.setNavigable(false);
 					}
+					checked(url.getChildren(), roleUrlIds);
 				} else {
 					url.setNavigable(false);
+					checked(url.getChildren(), roleUrlIds);
 				}
 			}
 		}
+		
 	}
 
 

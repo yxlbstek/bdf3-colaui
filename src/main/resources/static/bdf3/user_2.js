@@ -80,8 +80,9 @@ cola(function(model) {
                         $("#msgModal").modal('hide');
                         model.flush("users");
                         cola.NotifyTipManager.success({
-                            message: "保存成功！！！",
-                            showDuration: 1500,
+                            message: "消息提示",
+                            description: "保存成功!",
+                            showDuration: 3000
                         });
                     }
                 });
@@ -112,8 +113,9 @@ cola(function(model) {
 	                    item.remove();
 	                    //model.flush("users");
                         cola.NotifyTipManager.success({
-                            message: "删除成功！！！",
-                            showDuration: 1500,
+                            message: "消息提示",
+                            description: "删除成功!",
+                            showDuration: 3000
                         });
 	                }
 	            });
@@ -150,8 +152,9 @@ cola(function(model) {
                         url: "./api/user/modify",
                         success: function() {
                             cola.NotifyTipManager.success({
-                                message: "保存成功！！！",
-                                showDuration: 1500,
+                                message: "消息提示",
+                                description: "保存成功!",
+                                showDuration: 3000
                             });
                         }
                     });
@@ -176,8 +179,9 @@ cola(function(model) {
                         url: "./api/user/modify",
                         success: function() {
                             cola.NotifyTipManager.success({
-                                message: "保存成功！！！",
-                                showDuration: 1500,
+                                message: "消息提示",
+                                description: "保存成功!",
+                                showDuration: 3000
                             });
                         }
                     });
@@ -206,25 +210,12 @@ cola(function(model) {
 			}			
 		}    
 	});
-	
-	model.set("sexs", [{
-        name: "男"
-    }, {
-        name: "女"
-    } ]);
-	
-	model.widgetConfig({
-		birthdayPicker : {
-            $type: "datePicker",
-            bind: "editItem.birthday"
-        },
-        sexDropDown: {
-            $type: "dropdown",
-            "class": "error",
-            openMode: "drop",
-            items: "{{sex in sexs}}",
-            valueProperty: "name",
-            bind: "editItem.sex"
-        }
-	});
+
+    $("[tag='contentContainer']").attr("tag","");
+    $(".ui.label.basic").transition({
+        animation : 'jiggle',
+        duration  : 800,
+        interval  : 1000
+    });
+
 })

@@ -65,8 +65,9 @@ cola(function(model) {
                         $("#msgModal").modal('hide');
                         model.flush("roles");
                         cola.NotifyTipManager.success({
-                            message: "保存成功！！！",
-                            showDuration: 1500,
+                            message: "消息提示",
+                            description: "保存成功!",
+                            showDuration: 3000
                         });
                     }
                 });
@@ -95,10 +96,10 @@ cola(function(model) {
 	                success: function() {
 	                    $("#delModal").modal('hide');
 	                    item.remove();
-	                    //model.flush("users");
                         cola.NotifyTipManager.success({
-                            message: "删除成功！！！",
-                            showDuration: 1500,
+                            message: "消息提示",
+                            description: "删除成功!",
+                            showDuration: 3000
                         });
 	                }
 	            });
@@ -123,5 +124,12 @@ cola(function(model) {
 			}			
 		}    
 	});
+
+    $("[tag='contentContainer']").attr("tag","");
+    $(".ui.label.basic").transition({
+        animation : 'jiggle',
+        duration  : 800,
+        interval  : 1000
+    });
 
 })

@@ -28,8 +28,6 @@ public interface UrlService {
 
 	boolean isExist(String name);
 
-	List<Url> loadTopByRoleId(String roleId);
-
-	List<Url> loadSubByRoleId(String parentId, String roleId);
+	List<Url> loadTreeByRoleId(String roleId);
 
 }

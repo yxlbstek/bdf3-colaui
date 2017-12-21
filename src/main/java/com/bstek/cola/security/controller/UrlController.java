@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,14 +35,9 @@ public class UrlController {
 		return urlService.loadTree();
 	}
 	
-	@RequestMapping(path = "/url/loadTopByRoleId", method = RequestMethod.GET)
-	public List<Url> loadTopByRoleId(@RequestParam(name = "roleId", required = false) String roleId) {
-		return urlService.loadTopByRoleId(roleId);
-	}
-	
-	@RequestMapping(path = "/url/loadSubByRoleId", method = RequestMethod.GET)
-	public List<Url> loadSubByRoleId(@RequestParam(name = "parentId", required = false) String parentId, @RequestParam(name = "roleId", required = false) String roleId) {
-		return urlService.loadSubByRoleId(parentId, roleId);
+	@RequestMapping(path = "/url/loadTreeByRoleId/{roleId}", method = RequestMethod.GET)
+	public List<Url> loadTreeByRoleId(@PathVariable("roleId") String roleId) {
+		return urlService.loadTreeByRoleId(roleId);
 	}
 	
 	@RequestMapping(path = "/url/loadTop", method = RequestMethod.GET)

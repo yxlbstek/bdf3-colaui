@@ -61,10 +61,7 @@
         model.describe("urls", {
             dataType: "Url",
             provider: {
-                url: "./api/url/loadTop",
-                parameter: {
-                    searchKey: "{{searchKey}}"
-                }
+                url: "./api/url/loadTop"
             }
         });
 
@@ -111,8 +108,9 @@
                            //$("#msgModal").modal('hide');
                            model.flush("urls");
                            cola.NotifyTipManager.success({
-                               message: "保存成功！！！",
-                               showDuration: 1500,
+                               message: "消息提示",
+                               description: "保存成功!",
+                               showDuration: 3000
                            });
                        }
                    });
@@ -151,7 +149,7 @@
                    cola.NotifyTipManager.error({
                        message: "添加失败！！",
                        description: "您添加的节点未保存，请先保存再添加子节点！!",
-                       showDuration: 2000
+                       showDuration: 3000
                    });
                } else {
                    childNodes = entity.get("urls", "sync");
@@ -226,12 +224,21 @@
                        }
                    });
                    cola.NotifyTipManager.success({
-                       message: "删除成功！！！",
-                       showDuration: 1500,
+                       message: "消息提示",
+                       description: "删除成功!",
+                       showDuration: 3000
                    });
                }
            }
        });
+
+        $("[tag='contentContainer']").attr("tag","");
+        $(".ui.label.basic").transition({
+            animation : 'jiggle',
+            duration  : 800,
+            interval  : 1000
+        });
+
     });
 
 }).call(this);
