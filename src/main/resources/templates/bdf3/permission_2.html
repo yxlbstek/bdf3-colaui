@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta charset="UTF-8"/>
+    <title>菜单管理</title>
+    <link rel="stylesheet" type="text/css" href="static/nprogress/nprogress.css"/>
+    <link rel="stylesheet" type="text/css" href="static/cola-ui/semantic.css"/>
+    <link rel="stylesheet" type="text/css" href="static/cola-ui/cola.css"/>
+    <link rel="stylesheet" type="text/css" href="static/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="static/bdf3/permission_2.css"/>
+    <script src="static/nprogress/nprogress.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        //NProgress.configure({showSpinner: false, minimum: 0.3})
+        //NProgress.start();
+    </script>
+
+    <h-box style="height: 100%; background-color: #f3f3f4;">
+        <box style="width: 30%; padding: 10px; background-color: #E0E0E0;"  class="ui fragment">
+            <c-panel id="rolePanel" caption="角色" height="100%" collapsible="false">
+                <div class="content" style="height: 94%;">
+                    <box style="height: 100%;">
+                        <v-box style="height: 100%; background-color: #f3f3f4;">
+                            <flex-box>
+                                <c-panel height="100%" collapsible="false">
+                                    <template name="tools">
+                                        <div class="ui category search">
+                                            <div class="ui icon input">
+                                                <input class="prompt" type="text" placeholder="根据名称或描述搜索..." c-bind="searchRoleKey" c-onkeydown="searchRole()"/>
+                                                <i class="icon search"></i>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div class="content">
+                                        <c-table id="roleTable" bind="roles" sortMode="local">
+                                            <column property="name" caption="角色名称" sortable="true"></column>
+                                            <column property="description" caption="角色描述" sortable="true"></column>
+                                        </c-table>
+                                    </div>
+                                </c-panel>
+                            </flex-box>
+                            <box style="height: 40px;">
+                                <c-pager bind="roles"></c-pager>
+                            </box>
+                        </v-box>
+                    </box>
+                </div>
+            </c-panel>
+        </box>
+        <flex-box>
+        </flex-box>
+        <box style="width: 67%; padding: 10px; background-color: #E0E0E0;" class="ui fragment">
+            <c-panel id="allotPanel" caption="页面权限" height="100%" collapsible="false">
+                <template name="tools">
+                    <div id="toolsBtn">
+                        <c-button class="ui circular plus icon button" title="保存" click="save">
+                            <i class="save icon"></i>
+                        </c-button>
+                        <c-button class="ui circular undo icon button" title="刷新" click="refresh">
+                            <i class="undo icon"></i>
+                        </c-button>
+                    </div>
+                </template>
+                <div class="content" style="height: 94%;">
+                    <h-box style="height: 100%;">
+                        <box style="width: 100%; height: 100%; background-color: #f3f3f4;">
+                            <v-box style="height: 100%;">
+                                <flex-box>
+                                    <c-tree id="urlTree">
+                                        <template name="node-default">
+                                            <div>
+                                                <i c-classname="url.icon"></i>
+                                                <span c-bind="url.name"></span>
+                                            </div>
+                                        </template>
+                                    </c-tree>
+                                </flex-box>
+                            </v-box>
+                        </box>
+                    </h-box>
+                </div>
+            </c-panel>
+        </box>
+    </h-box>
+
+</body>
+    <script src="static/jquery/jquery-2.1.3.js"></script>
+    <script src="static/jquery/jquery.cookie.js"></script>
+    <script src="static/cola-ui/3rd.js"></script>
+    <script src="static/cola-ui/semantic.js"></script>
+    <script src="static/cola-ui/cola-core.js" charset="UTF-8"></script>
+    <script src="static/cola-ui/cola.js" charset="UTF-8"></script>
+    <script src="static/bdf3/permission_2.js"></script>
+
+</html>

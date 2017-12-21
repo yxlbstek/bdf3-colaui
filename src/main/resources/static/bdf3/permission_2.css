@@ -1,0 +1,45 @@
+
+body {
+  background-color: #f3f3f4;
+  padding: 0.8em;
+}
+
+/*搜索框*/
+.ui.category.search > div {
+  width: 180px !important;
+}
+.ui.category.search > div > input{
+  height: 30px !important;
+}
+
+/*panel背景色*/
+#rolePanel > .header > .content, #allotPanel > .header > .content {
+  background-color: #E0E0E0;
+}
+
+
+/*表格列头*/
+.ui.widget-table table thead th {
+  background-color: #E0E0E0 !important;
+}
+
+/*保存刷新按钮*/
+#toolsBtn > c-button {
+  height: 28px !important;
+  width: 28px !important;
+  background-color: #BEBEBE;
+}
+#toolsBtn > c-button > i {
+  margin-left: -2.5px;
+  margin-top: 2px;
+}
+
+
+
+
+
+
+
+
+
+
