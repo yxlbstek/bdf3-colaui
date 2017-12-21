@@ -34,6 +34,16 @@ public class UrlController {
 		return urlService.loadTree();
 	}
 	
+	@RequestMapping(path = "/url/loadTopByRoleId", method = RequestMethod.GET)
+	public List<Url> loadTopByRoleId(@RequestParam(name = "roleId", required = false) String roleId) {
+		return urlService.loadTopByRoleId(roleId);
+	}
+	
+	@RequestMapping(path = "/url/loadSubByRoleId", method = RequestMethod.GET)
+	public List<Url> loadSubByRoleId(@RequestParam(name = "parentId", required = false) String parentId, @RequestParam(name = "roleId", required = false) String roleId) {
+		return urlService.loadSubByRoleId(parentId, roleId);
+	}
+	
 	@RequestMapping(path = "/url/loadTop", method = RequestMethod.GET)
 	public List<Url> loadTop() {
 		return urlService.loadTop();

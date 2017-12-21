@@ -1,5 +1,8 @@
 package com.bstek.cola.security.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,5 +51,15 @@ public class PermissionController {
 	@Transactional
 	public void modify(@RequestBody Permission permission) {
 		permissionService.modify(permission);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path = "/permission/save", method = RequestMethod.POST)
+	@Transactional
+	public void save(@RequestBody Map<String, Object> params) {
+		String roleId = (String) params.get("roleId");
+        List<String> urlIds = (List<String>) params.get("urlIds");
+        List<String> excludeUrlIds = (List<String>) params.get("excludeUrlIds");
+		permissionService.save(roleId, urlIds, excludeUrlIds);
 	}
 }

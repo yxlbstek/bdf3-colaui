@@ -1,5 +1,7 @@
 package com.bstek.cola.security.service;
 
+import java.util.List;
+
 import com.bstek.bdf3.security.orm.Permission;
 
 /** 
@@ -17,5 +19,7 @@ public interface PermissionService {
 	String add(Permission permission);
 
 	void modify(Permission permission);
+
+	void save(String roleId, List<String> urlIds, List<String> excludeUrlIds);
 
 }
