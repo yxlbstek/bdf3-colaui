@@ -154,6 +154,16 @@ public class FrameworkController {
 		return frameworkService.getRolePage();
 	}
 	
+	@RequestMapping("/roleallot") 
+	public String roleAllot() {
+		return frameworkService.getRoleAllotPage();
+	}
+	
+	@RequestMapping("/permission") 
+	public String permission() {
+		return frameworkService.getPermissionPage();
+	}
+	
 	@RequestMapping("/url") 
 	public String url() {
 		return frameworkService.getUrlPage();

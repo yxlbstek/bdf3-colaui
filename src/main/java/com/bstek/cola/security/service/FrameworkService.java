@@ -30,6 +30,10 @@ public interface FrameworkService {
 
 	UserDetails getLoginUserInfo();
 
+	String getRoleAllotPage();
+
+	String getPermissionPage();
+
 	//Long getMessageTotal(String username);
 
 	//List<Notify> getMessages(String username);

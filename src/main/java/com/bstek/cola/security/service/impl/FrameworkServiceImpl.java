@@ -43,22 +43,34 @@ public class FrameworkServiceImpl implements FrameworkService {
 
 	@Override
 	public String getUserPage() {
-		return "bdf3/user";
+		return "bdf3/user_2";
 	}
 
 	@Override
 	public String getUrlPage() {
-		return "bdf3/url";
+		return "bdf3/url_2";
 	}
 
 	@Override
 	public String getRolePage() {
-		return "bdf3/role";
+		return "bdf3/role_2";
 	}
+	
+	@Override
+	public String getRoleAllotPage() {
+		return "bdf3/roleallot_2";
+	}
+	
+
+	@Override
+	public String getPermissionPage() {
+		return "bdf3/permission_2";
+	}
+
 
 	@Override
 	public String getComponentPage() {
-		return "bdf3/component";
+		return "bdf3/component_2";
 	}
 
 	@Override
@@ -72,6 +84,7 @@ public class FrameworkServiceImpl implements FrameworkService {
 		
 	}
 
+	
 //	@Override
 //	public Long getMessageTotal(String username) {
 //		notifyService.pullAnnounce(username);
