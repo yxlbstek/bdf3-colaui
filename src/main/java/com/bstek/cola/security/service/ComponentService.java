@@ -27,4 +27,6 @@ public interface ComponentService {
 
 	Page<Component> load(Pageable pageable, String searchKey);
 
+	String getUrlName(String urlId);
+
 }

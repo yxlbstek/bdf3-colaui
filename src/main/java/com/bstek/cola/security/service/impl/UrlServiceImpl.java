@@ -129,4 +129,12 @@ public class UrlServiceImpl implements UrlService {
 		return result;
 	}
 
+	@Override
+	public List<Url> loadAll() {
+		return JpaUtil
+			.linq(Url.class)
+			.asc("order")
+			.list();
+	}
+
 }

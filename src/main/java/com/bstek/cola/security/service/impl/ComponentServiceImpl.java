@@ -20,6 +20,7 @@ import com.bstek.bdf3.security.decision.manager.SecurityDecisionManager;
 import com.bstek.bdf3.security.orm.Component;
 import com.bstek.bdf3.security.orm.ComponentType;
 import com.bstek.bdf3.security.orm.Permission;
+import com.bstek.bdf3.security.orm.Url;
 import com.bstek.cola.security.service.ComponentService;
 
 /** 
@@ -130,6 +131,16 @@ public class ComponentServiceImpl implements ComponentService {
 		}
 		
 		return result;
+	}
+
+
+	@Override
+	public String getUrlName(String urlId) {
+		List<Url> urls = JpaUtil.linq(Url.class).equal("id", urlId).list();
+		if (urls.size() > 0) {
+			return urls.get(0).getName();
+		}
+		return null;
 	}
 
 }

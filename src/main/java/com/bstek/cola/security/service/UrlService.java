@@ -30,4 +30,6 @@ public interface UrlService {
 
 	List<Url> loadTreeByRoleId(String roleId);
 
+	List<Url> loadAll();
+
 }

@@ -35,6 +35,11 @@ public class UrlController {
 		return urlService.loadTree();
 	}
 	
+	@RequestMapping(path = "/url/loadAll", method = RequestMethod.GET)
+	public List<Url> loadAll() {
+		return urlService.loadAll();
+	}
+	
 	@RequestMapping(path = "/url/loadTreeByRoleId/{roleId}", method = RequestMethod.GET)
 	public List<Url> loadTreeByRoleId(@PathVariable("roleId") String roleId) {
 		return urlService.loadTreeByRoleId(roleId);

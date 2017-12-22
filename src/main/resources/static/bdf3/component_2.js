@@ -35,16 +35,22 @@ cola(function(model) {
                         $type: "length",
                         min: 0,
                         max: 120
+                    }]
+                },
+                urlName: {
+                    provider: {
+                        url: "./api/component/getUrlName",
+                        parameter: {
+                            urlId: "{{@urlId}}"
+                        }
                     }
-                    ]
                 },
                 description: {
                     validators: [{
-                            $type: "length",
-                            min: 0,
-                            max: 120
-                        }
-                    ]
+                        $type: "length",
+                        min: 0,
+                        max: 120
+                    }]
                 }
             }
         },
@@ -55,6 +61,10 @@ cola(function(model) {
             	searchKey: "{{searchKey}}"
             }
         }
+    });
+
+    model.describe("urls", {
+        provider : "./api/url/loadAll",
     });
 	
 	model.describe("editItem", "Component");
@@ -142,6 +152,22 @@ cola(function(model) {
 			}			
 		}    
 	});
+
+    model.widgetConfig({
+        urlDropDown: {
+            $type: "dropdown",
+            openMode: "drop",
+            items: "{{url in urls}}",
+            valueProperty: "name",
+            bind : "editItem.urlName",
+            post: function (self, arg) {
+                var currentComponent = model.get("editItem");
+                var currentUrl = self.get("currentItem");
+                currentComponent.set("urlId", currentUrl.get("id"));
+                currentComponent.set("path", currentUrl.get("path"));
+            }
+        }
+    });
 
     $("[tag='contentContainer']").attr("tag","");
     $(".ui.label.basic").transition({
