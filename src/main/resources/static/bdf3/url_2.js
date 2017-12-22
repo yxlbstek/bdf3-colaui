@@ -82,6 +82,7 @@
                      }
                  },
                  currentNodeChange: function (self, arg) {
+                     model.definition("nameAjaxValidator").set("disabled", true);
                      var current = self.get("currentNode");
                      model.set("editItem", current.get("data").toJSON());
                  },

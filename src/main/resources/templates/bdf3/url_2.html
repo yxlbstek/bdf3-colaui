@@ -24,8 +24,8 @@
             <c-panel caption="菜单" height="100%" collapsible="false">
                 <template name="tools">
                     <div id="toolsBtn">
-                        <c-button icon="plus" click="addTop">添加顶级菜单</c-button>
-                        <c-button icon="undo" click="refresh">刷新</c-button>
+                        <c-button id="addTopBtn" icon="plus" click="addTop">添加顶级菜单</c-button>
+                        <c-button id="refreshBtn" icon="undo" click="refresh">刷新</c-button>
                     </div>
                 </template>
                 <div class="content" style="background-color: #f3f3f4; height: 95%;">
@@ -35,8 +35,8 @@
                                 <i c-classname="url.icon"></i>
                                 <span c-bind="url.name"></span>
                                 <div class="node-operation">
-                                    <i c-onclick="addChild()" title="添加子级菜单" class="positive icon plus"></i>
-                                    <i c-onclick="removeShow()" title="删除当前菜单" class="positive icon trash outline"></i>
+                                    <i id="addSubBtn" c-onclick="addChild()" title="添加子级菜单" class="positive icon plus"></i>
+                                    <i id="removeBtn" c-onclick="removeShow()" title="删除当前菜单" class="positive icon trash outline"></i>
                                 </div>
                             </div>
                         </template>

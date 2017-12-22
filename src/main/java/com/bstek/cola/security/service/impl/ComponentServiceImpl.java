@@ -9,6 +9,8 @@ import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bstek.bdf3.jpa.JpaUtil;
@@ -36,7 +38,7 @@ public class ComponentServiceImpl implements ComponentService {
 	private SecurityDecisionManager securityDecisionManager;
 
 	@Override
-	public List<Component> load(String roleId, String urlId) {
+	public List<Component> loadByRoleId(String roleId, String urlId) {
 		List<Component> components = JpaUtil.linq(Component.class).equal("urlId", urlId).list();
 		if (!components.isEmpty()) {
 			Set<String> ids = JpaUtil.collectId(components);
@@ -61,6 +63,21 @@ public class ComponentServiceImpl implements ComponentService {
 			}
 		}
 		return components;
+	}
+	
+
+	@Override
+	public Page<Component> load(Pageable pageable, String searchKey) {
+		return JpaUtil
+			.linq(Component.class)
+			.addIf(searchKey)
+			.or()
+				.like("name", "%" + searchKey + "%")
+				.like("componentId", "%" + searchKey + "%")
+				.like("path", "%" + searchKey + "%")
+			.endIf()
+			.asc("path")
+			.paging(pageable);
 	}
 
 	@Override
@@ -114,4 +131,5 @@ public class ComponentServiceImpl implements ComponentService {
 		
 		return result;
 	}
+
 }

@@ -6,8 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,14 +32,19 @@ public class ComponentController {
 	@Autowired
 	private ComponentService componentService;
 		
-	@RequestMapping(path = "/component/load", method = RequestMethod.GET)
-	public List<Component> load(@RequestParam("roleId") String roleId, @RequestParam("urlId") String urlId) {
-		return componentService.load(roleId, urlId);
+	@RequestMapping(path = "/component/loadByRoleId", method = RequestMethod.GET)
+	public List<Component> loadByRoleId(@RequestParam("roleId") String roleId, @RequestParam("urlId") String urlId) {
+		return componentService.loadByRoleId(roleId, urlId);
 	}
 	
-	@RequestMapping(path = "/component/remove/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/component/load", method = RequestMethod.GET)
+	public Page<Component> load(Pageable pageable, @RequestParam(name = "searchKey", required = false) String searchKey) {
+		return componentService.load(pageable, searchKey);
+	}
+	
+	@RequestMapping(path = "/component/remove", method = RequestMethod.POST)
 	@Transactional
-	public void remove(@PathVariable String id) {
+	public void remove(@RequestParam String id) {
 		componentService.remove(id);
 	}
 	
