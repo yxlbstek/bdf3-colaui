@@ -60,6 +60,11 @@ public class ComponentController {
 		componentService.modify(component);
 	}
 	
+	@RequestMapping(path = "/component/getUrlName", method = RequestMethod.GET)
+	public String getUrlName(@RequestParam(required = false) String urlId) {
+		return componentService.getUrlName(urlId);
+	}
+	
 	@RequestMapping(path = "/component/load-by-path", method = RequestMethod.GET)
 	@Transactional
 	public List<Component> loadByPath(HttpServletRequest request) {

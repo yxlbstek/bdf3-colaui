@@ -37,7 +37,7 @@
 			</h-box>
 		</box>
 		<flex-box style="background-color: #f3f3f4;">
-			<c-table bind="components" sortMode="local" style="background-color: #f3f3f4; width: 99%; margin-left: 10px;">
+			<c-table id="componentTable" bind="components" sortMode="local" style="background-color: #f3f3f4; width: 99%; margin-left: 10px;">
 				<template name="action">
 					<div>
 						<c-button id="removeBtn" class="ui circular trash icon button" title="删除" c-onclick="removeTip(item)">
@@ -51,7 +51,7 @@
 				<column property="componentId" caption="组件ID" sortable="true"></column>
 				<column property="name" caption="组件名称" sortable="true"></column>
 				<column property="componentType" caption="组件类型" sortable="true"></column>
-				<column property="urlId" caption="所属页面" sortable="true"></column>
+				<column property="urlName" caption="所属页面" sortable="true"></column>
 				<column property="path" caption="页面URL" sortable="true"></column>
 				<column property="description" caption="组件描述" sortable="true"></column>
 				<column caption="操作" template="action"></column>
@@ -90,7 +90,7 @@
 				<fields class="cols-4">
 					<field class="cols-3">
 						<label>所属页面</label>
-						<c-input c-bind="editItem.urlId"></c-input>
+						<div id="urlDropDown"></div>
 					</field>
 				</fields>
 				<fields class="cols-4">
