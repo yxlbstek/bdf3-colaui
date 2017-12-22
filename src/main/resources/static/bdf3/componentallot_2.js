@@ -5,38 +5,47 @@ cola(function(model) {
             pageSize: 10,
             parameter: {
                 searchKey: "{{searchRoleKey}}"
+            },
+            complete: function () {
+                if (!model.get("roleId")) {
+                    model.set("roleId", model.get("roles").current.get("id"));
+                }
             }
         }
     });
 
-    model.get("roles", "sync");
-
-	model.describe("users", {
-        provider: {
-            url: "./api/role/loadNotAllotUser",
-            pageSize: 10,
-            beforeSend: function (self, arg) {
-                var roleId = model.get("roles").current.get("id");
-                var searchKey = $("#leftSearch").val();
-                // 使用encodeURI() 为了解决GET下传递中文出现的乱码
-                arg.options.data.roleId = encodeURI(roleId);
-                arg.options.data.searchKey = searchKey;
+    setTimeout(function () {
+        model.describe("urls", {
+            provider: {
+                url: "./api/url/loadTreeByRoleId/{{@roleId}}",
+                complete: function () {
+                    if (!model.get("urlId")) {
+                        model.set("urlId", model.get("urls").current.get("id"));
+                    };
+                }
             }
-        }
-    });
+        });
+        model.flush("urls");
+    }, 200);
 
-    model.describe("roleUsers", {
-        provider: {
-            url: "./api/role/loadIsAllotUser",
-            pageSize: 10,
-            beforeSend: function (self, arg) {
-                var roleId = model.get("roles").current.get("id");
-                var searchKey = $("#rightSearch").val();
-                arg.options.data.roleId = encodeURI(roleId);
-                arg.options.data.searchKey = searchKey;
-            }
-        }
-    });
+    //model.get("roles", "sync");
+    //model.get("urls", "sync");
+
+    setTimeout(function () {
+        model.describe("components", {
+            provider: {
+                url: "./api/component/loadByRoleId/{{@roleId}}/{{@urlId}}",
+            },
+            // beforeSend: function (self, arg) {
+            //     var roleId = model.get("roles").current.get("id");
+            //     var urlId = cola.widget("urlTree").get("currentNode").get("data.id");
+            //     // 使用encodeURI() 为了解决GET下传递中文出现的乱码
+            //     arg.options.data.roleId = encodeURI(roleId);
+            //     arg.options.data.urlId = encodeURI(urlId);;
+            // }
+        });
+    }, 400);
+
 	
 	model.action({
 		add: function() {
@@ -136,9 +145,37 @@ cola(function(model) {
             highlightCurrentItem: true,
             currentPageOnly: true,
             itemClick: function (self, arg) {
-                model.flush("users");
-                model.flush("roleUsers");
+                if (self.get("currentItem").get("id") != model.get("roleId")) {
+                    model.set("roleId", self.get("currentItem").get("id"));
+                    model.flush("urls");
+                }
             }
+        },
+        urlTree: {
+            $type: "tree",
+            lazyRenderChildNodes: false,
+            highlightCurrentItem: true,
+            bind: {
+                expression: "url in urls",
+                textProperty: "name",
+                checkedProperty: "navigable",
+                child: {
+                    recursive: true,
+                    textProperty: "name",
+                    checkedProperty: "navigable",
+                    expression: "url in url.children"
+                }
+            },
+            itemClick: function (self, arg) {
+                if (arg.item.get("data.id") != model.get("roleId")) {
+                    model.set("urlId", arg.item.get("data.id"));
+                    model.flush("components");
+                }
+            },
+            // currentNodeChange: function (self, arg) {
+            //     model.flush("components");
+            // },
+            height: "100%",
         }
     });
 	
