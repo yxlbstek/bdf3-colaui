@@ -174,6 +174,11 @@ public class FrameworkController {
 		return frameworkService.getComponentPage();
 	}
 	
+	@RequestMapping("/componentallot") 
+	public String componentAllot() {
+		return frameworkService.getComponentAllotPage();
+	}
+	
 	@RequestMapping("/me") 
 	public String me(Model model) {
 		return frameworkService.getMePage();

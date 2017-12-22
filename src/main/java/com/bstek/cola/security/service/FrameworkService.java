@@ -34,6 +34,8 @@ public interface FrameworkService {
 
 	String getPermissionPage();
 
+	String getComponentAllotPage();
+
 	//Long getMessageTotal(String username);
 
 	//List<Notify> getMessages(String username);

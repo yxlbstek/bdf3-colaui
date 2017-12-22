@@ -72,6 +72,11 @@ public class FrameworkServiceImpl implements FrameworkService {
 	public String getComponentPage() {
 		return "bdf3/component_2";
 	}
+	
+	@Override
+	public String getComponentAllotPage() {
+		return "bdf3/componentallot_2";
+	}
 
 	@Override
 	public String getMePage() {
@@ -83,6 +88,7 @@ public class FrameworkServiceImpl implements FrameworkService {
 		return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 	}
+
 
 	
 //	@Override
