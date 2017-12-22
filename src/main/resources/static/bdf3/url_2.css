@@ -10,17 +10,6 @@ html body {
   background-color: #f3f3f4;
 }
 
-/****************************************************************************/
-
-/*新增刷新按钮*/
-#toolsBtn > c-button {
-    height: 25px !important;
-    width: 25px !important;	
-}
-#toolsBtn > c-button > i {
-	margin-left: -3.5px;
-	margin-top: 1.5px;
-}
 
 /* 删除页面 */
 .icon.help.circle {
@@ -55,9 +44,6 @@ c-panel > .header > .content {
 /*功能按钮*/
 c-button {
     background-color: #BEBEBE !important;
-}
-.actions > c-button {
-    color: #000 !important;
 }
 
 .ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {

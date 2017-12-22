@@ -121,7 +121,7 @@
                var nodes, order, entity;
                model.definition("nameAjaxValidator").set("disabled", false);
                nodes = model.get("urls");
-               if (!nodes) {
+               if (!nodes.entityCount > 0) {
                    order = 1;
                } else {
                    order = nodes.last().get("order") + 1;

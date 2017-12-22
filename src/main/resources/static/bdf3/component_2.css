@@ -13,7 +13,7 @@ body {
 }
 
 /*panel背景色*/
-#rolePanel > .header > .content, #allotPanel > .header > .content {
+#rolePanel > .header > .content, #componentPanel > .header > .content, #urlPanel > .header > .content {
   background-color: #E0E0E0;
 }
 
@@ -27,6 +27,7 @@ body {
 c-button {
   background-color: #BEBEBE !important;
 }
+
 
 
 

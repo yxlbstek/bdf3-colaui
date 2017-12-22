@@ -5,12 +5,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <meta charset="UTF-8"/>
-    <title>菜单权限</title>
+    <title>组件权限</title>
     <link rel="stylesheet" type="text/css" href="static/nprogress/nprogress.css"/>
     <link rel="stylesheet" type="text/css" href="static/cola-ui/semantic.css"/>
     <link rel="stylesheet" type="text/css" href="static/cola-ui/cola.css"/>
     <link rel="stylesheet" type="text/css" href="static/common/common.css"/>
-    <link rel="stylesheet" type="text/css" href="static/bdf3/permission_2.css"/>
+    <link rel="stylesheet" type="text/css" href="static/bdf3/component_2.css"/>
     <script src="static/nprogress/nprogress.js"></script>
 </head>
 <body>
@@ -20,7 +20,7 @@
     </script>
 
     <h-box style="height: 100%; background-color: #f3f3f4;">
-        <box style="width: 30%; padding: 10px; background-color: #E0E0E0;"  class="ui fragment">
+        <box style="width: 25%; padding: 10px; background-color: #E0E0E0;"  class="ui fragment">
             <c-panel id="rolePanel" caption="角色" height="100%" collapsible="false">
                 <div class="content" style="height: 94%;">
                     <box style="height: 100%;">
@@ -53,33 +53,42 @@
         </box>
         <flex-box>
         </flex-box>
-        <box style="width: 67%; padding: 10px; background-color: #E0E0E0;" class="ui fragment">
-            <c-panel id="allotPanel" caption="页面权限" height="100%" collapsible="false">
-                <template name="tools">
-                    <div id="toolsBtn">
-                        <c-button icon="save" click="save">保存</c-button>
-                        <c-button icon="undo" click="refresh">刷新</c-button>
-                    </div>
-                </template>
-                <div class="content" style="height: 94%;">
-                    <h-box style="height: 100%;">
-                        <box style="width: 100%; height: 100%; background-color: #f3f3f4;">
-                            <v-box style="height: 100%;">
-                                <flex-box>
-                                    <c-tree id="urlTree">
-                                        <template name="node-default">
-                                            <div>
-                                                <i c-classname="url.icon"></i>
-                                                <span c-bind="url.name"></span>
-                                            </div>
-                                        </template>
-                                    </c-tree>
-                                </flex-box>
-                            </v-box>
-                        </box>
-                    </h-box>
-                </div>
-            </c-panel>
+        <box style="width: 73%; padding: 10px; background-color: #E0E0E0;" class="ui fragment">
+            <h-box style="height: 98.5%;">
+                <box style="height: 100%; width: 35%; background-color: #f3f3f4;">
+                    <c-panel id="urlPanel" caption="页面权限" height="100%" collapsible="false">
+                        <div class="content" style="height: 94%;">
+                            <div class="content">
+                                <c-table bind="users" sortMode="local">
+                                    <column property="username" caption="用户名" sortable="true"></column>
+                                    <column property="nickname" caption="昵称" sortable="true"></column>
+                                </c-table>
+                            </div>
+                        </div>
+                    </c-panel>
+                </box>
+                <box style="width: 2%; height: 100%;">
+                </box>
+                <box style="height: 100%; width: 63%; background-color: #f3f3f4;">
+                    <c-panel id="componentPanel" caption="组件权限" height="100%" collapsible="false">
+                        <template name="tools">
+                            <div id="toolsBtn" style="margin-top: -4px;">
+                                <c-button icon="save" click="save">保存</c-button>
+                                <c-button icon="undo" click="refresh">刷新</c-button>
+                            </div>
+                        </template>
+                        <div class="content" style="height: 94%;">
+                            <div class="content">
+                                <c-table bind="users" sortMode="local">
+                                    <column property="username" caption="用户名" sortable="true"></column>
+                                    <column property="nickname" caption="昵称" sortable="true"></column>
+                                </c-table>
+                            </div>
+                        </div>
+                    </c-panel>
+                </box>
+            </h-box>
+
         </box>
     </h-box>
 
@@ -90,6 +99,6 @@
     <script src="static/cola-ui/semantic.js"></script>
     <script src="static/cola-ui/cola-core.js" charset="UTF-8"></script>
     <script src="static/cola-ui/cola.js" charset="UTF-8"></script>
-    <script src="static/bdf3/permission_2.js"></script>
+    <script src="static/bdf3/component_2.js"></script>
 
 </html>
