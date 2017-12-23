@@ -145,7 +145,29 @@ public class ComponentServiceImpl implements ComponentService {
 
 	@Override
 	public void save(String roleId, List<String> componentIds) {
-		// TODO Auto-generated method stub
+		for (String componentId : componentIds) {
+			List<Permission> permissions = JpaUtil
+				.linq(Permission.class)
+				.equal("resourceType", Component.RESOURCE_TYPE)
+				.equal("roleId", roleId)
+				.equal("resourceId", componentId)
+				.list();
+			if (permissions.size() > 0) {
+				JpaUtil
+					.lind(Permission.class)
+					.equal("roleId", roleId)
+					.equal("resourceId", componentId)
+					.delete();
+			} else {
+				Permission permission = new Permission();
+				permission.setId(UUID.randomUUID().toString());
+				permission.setRoleId(roleId);
+				permission.setResourceId(componentId);
+				permission.setResourceType(Component.RESOURCE_TYPE);
+				permission.setAttribute("ROLE_{" + roleId + "}");
+				JpaUtil.persist(permission);
+			}
+		}
 		
 	}
 

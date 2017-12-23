@@ -64,8 +64,9 @@ cola(function(model) {
                             contentType: "application/json; charset=utf-8",
                             success: function() {
                                 cola.NotifyTipManager.success({
-                                    message: "保存成功！！！",
-                                    showDuration: 3000,
+                                    message: "消息提示",
+                                    description: "保存成功!",
+                                    showDuration: 3000
                                 });
                             }
                         });
