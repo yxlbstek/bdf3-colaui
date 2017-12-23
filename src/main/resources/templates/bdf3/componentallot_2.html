@@ -83,15 +83,15 @@
                         </template>
                         <div class="content" style="height: 94%;">
                             <div class="content">
-                                <c-table bind="components" sortMode="local">
+                                <c-table id="componentTable" sortMode="local">
                                     <template name="action">
                                         <div>
-                                            <div c-widget="checkbox; label:只读" style="padding-left: 10px;"></div>
-                                            <div c-widget="checkbox; label:可操作" style="padding-left: 15px;"></div>
+                                            <c-radio-group items="{{items}}" bind="component.componentType"></c-radio-group>
                                         </div>
                                     </template>
                                     <column property="componentId" caption="组件ID" sortable="true"></column>
                                     <column property="name" caption="组件名称" sortable="true"></column>
+                                    <column property="componentType" caption="类型" sortable="true"></column>
                                     <column caption="配置" template="action"></column>
                                 </c-table>
                             </div>

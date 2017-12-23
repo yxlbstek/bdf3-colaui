@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,9 +54,9 @@ public class ComponentServiceImpl implements ComponentService {
 				component.setComponentType(ComponentType.ReadWrite);
 				Permission permission = permissionMap.get(component.getId());
 				if (permission != null) {
-					if (StringUtils.endsWith(permission.getAttribute(), ComponentType.Read.name())) {
-						component.setComponentType(ComponentType.Read);
-					} 
+					//if (StringUtils.endsWith(permission.getAttribute(), ComponentType.Read.name())) {
+					component.setComponentType(ComponentType.Read);
+					//} 
 					component.setAuthorized(true);
 					component.setConfigAttributeId(permission.getId());
 				}

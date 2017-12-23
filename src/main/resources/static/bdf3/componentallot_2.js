@@ -27,26 +27,16 @@ cola(function(model) {
         });
         model.flush("urls");
     }, 200);
-
-    //model.get("roles", "sync");
-    //model.get("urls", "sync");
+    //model.get("roles", "sync")
 
     setTimeout(function () {
         model.describe("components", {
             provider: {
                 url: "./api/component/loadByRoleId/{{@roleId}}/{{@urlId}}",
-            },
-            // beforeSend: function (self, arg) {
-            //     var roleId = model.get("roles").current.get("id");
-            //     var urlId = cola.widget("urlTree").get("currentNode").get("data.id");
-            //     // 使用encodeURI() 为了解决GET下传递中文出现的乱码
-            //     arg.options.data.roleId = encodeURI(roleId);
-            //     arg.options.data.urlId = encodeURI(urlId);;
-            // }
+            }
         });
     }, 400);
 
-	
 	model.action({
 		add: function() {
             var currentRole = model.get("roles").current;
@@ -136,6 +126,17 @@ cola(function(model) {
 
 	});
 
+    model.set("items", [
+        {
+            key: "Read",
+            value: "只读"
+        },
+        {
+            key: "ReadWrite",
+            value: "可操作"
+        }
+    ]);
+
     model.widgetConfig({
         roleTable: {
             $type: "table",
@@ -150,6 +151,14 @@ cola(function(model) {
                     model.flush("urls");
                 }
             }
+        },
+        componentTable: {
+            $type: "table",
+            bind: "component in components",
+            showHeader: true,
+            changeCurrentItem: true,
+            highlightCurrentItem: true,
+            currentPageOnly: true,
         },
         urlTree: {
             $type: "tree",
@@ -172,9 +181,6 @@ cola(function(model) {
                     model.flush("components");
                 }
             },
-            // currentNodeChange: function (self, arg) {
-            //     model.flush("components");
-            // },
             height: "100%",
         }
     });
