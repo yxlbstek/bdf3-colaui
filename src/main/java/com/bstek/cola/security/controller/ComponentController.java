@@ -1,6 +1,7 @@
 package com.bstek.cola.security.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -72,4 +73,14 @@ public class ComponentController {
 		String path = StringUtils.substringAfter(request.getHeader("Referer"), request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/");
 		return componentService.loadComponentsByPath(path);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path = "/component/save", method = RequestMethod.POST)
+	@Transactional
+	public void save(@RequestBody Map<String, Object> params) {
+		String roleId = (String) params.get("roleId");
+        List<String> componentIds = (List<String>) params.get("componentIds");
+        componentService.save(roleId, componentIds);
+	}
+	
 }

@@ -142,4 +142,11 @@ public class ComponentServiceImpl implements ComponentService {
 		return null;
 	}
 
+
+	@Override
+	public void save(String roleId, List<String> componentIds) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
