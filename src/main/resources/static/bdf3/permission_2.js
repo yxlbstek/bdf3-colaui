@@ -65,7 +65,7 @@ cola(function(model) {
                         success: function() {
                             cola.NotifyTipManager.success({
                                 message: "保存成功！！！",
-                                showDuration: 1500,
+                                showDuration: 3000,
                             });
                         }
                     });

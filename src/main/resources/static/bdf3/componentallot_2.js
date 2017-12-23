@@ -38,31 +38,44 @@ cola(function(model) {
     }, 400);
 
 	model.action({
-		add: function() {
-            var currentRole = model.get("roles").current;
-            if (currentRole) {
-               var currentUser = model.get("users").current;
-                if (currentUser) {
-                    $.ajax({
-                        url: "./api/role/addRoleUser",
-                        data: {
-                            "roleId": currentRole.get("id"),
-                            "actorId": currentUser.get("username")
-                        },
-                        type: "POST",
-                        success: function() {
-                            //model.flush("users");
-                            currentUser.remove();
-                            model.get("roleUsers").insert(currentUser.toJSON());
-                            cola.NotifyTipManager.success({
-                                message: "消息提示",
-                                description: "保存成功!",
-                                showDuration: 3000
-                            });
-                        }
-                    });
+		save: function() {
+		    var roles = model.get("roles");
+            var urls = model.get("urls");
+            var components = model.get("components");
+            if (roles.entityCount > 0) {
+                if (urls.entityCount > 0) {
+                    if (components.entityCount > 0) {
+                        var roleId = roles.current.get("id");
+                        var modifyComponentIds = [];
+                        components.each(function(c) {
+                            if (c.state == "MODIFIED") {
+                                modifyComponentIds.push(c.get("id"));
+                            }
+                        });
+
+                        model.set("permission", {
+                            roleId: roleId,
+                            componentIds: modifyComponentIds
+                        });
+                        var data = model.get("permission").toJSON();
+                        $.ajax("./api/component/save", {
+                            type: "POST",
+                            data: JSON.stringify(data),
+                            contentType: "application/json; charset=utf-8",
+                            success: function() {
+                                cola.NotifyTipManager.success({
+                                    message: "保存成功！！！",
+                                    showDuration: 3000,
+                                });
+                            }
+                        });
+                    } else {
+                        cola.alert("该页面没有添加可分配的组件！", {
+                            level: cola.MessageBox.level.WARNING
+                        })
+                    }
                 } else {
-                    cola.alert("请先添加用户！", {
+                    cola.alert("请先添加菜单及组件！", {
                         level: cola.MessageBox.level.WARNING
                     })
                 }
@@ -73,36 +86,6 @@ cola(function(model) {
             }
         },
 
-        remove: function () {
-            var currentRoleUser = model.get("roleUsers").current;
-            if (currentRoleUser) {
-                var currentRole = model.get("roles").current;
-                $.ajax({
-                    url: "./api/role/removeRoleUser",
-                    data: {
-                        "roleId": currentRole.get("id"),
-                        "actorId": currentRoleUser.get("username")
-                    },
-                    type: "POST",
-                    success: function() {
-                        //model.flush("users");
-                        currentRoleUser.remove();
-                        model.get("users").insert(currentRoleUser.toJSON());
-                        cola.NotifyTipManager.success({
-                            message: "消息提示",
-                            description: "移除成功!",
-                            showDuration: 3000
-                        });
-                    }
-                });
-            } else {
-                cola.alert("没有需要移除的用户！", {
-                    level: cola.MessageBox.level.WARNING
-                })
-            }
-        },
-
-
         searchRole: function () {
 			var keyCode = window.event.keyCode;
 			if (keyCode == 13) {
@@ -110,18 +93,8 @@ cola(function(model) {
 			}			
 		},
 
-        searchLeftUser: function () {
-            var keyCode = window.event.keyCode;
-            if (keyCode == 13) {
-                model.flush("users");
-            }
-        },
-
-        searchRightUser: function () {
-            var keyCode = window.event.keyCode;
-            if (keyCode == 13) {
-                model.flush("roleUsers");
-            }
+        refresh: function() {
+            model.flush("components");
         }
 
 	});
@@ -149,6 +122,7 @@ cola(function(model) {
                 if (self.get("currentItem").get("id") != model.get("roleId")) {
                     model.set("roleId", self.get("currentItem").get("id"));
                     model.flush("urls");
+                    model.flush("components");
                 }
             }
         },
