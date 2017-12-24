@@ -1,6 +1,7 @@
 package com.bstek.cola.security.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,8 +34,8 @@ public class ComponentController {
 	@Autowired
 	private ComponentService componentService;
 		
-	@RequestMapping(path = "/component/loadByRoleId", method = RequestMethod.GET)
-	public List<Component> loadByRoleId(@RequestParam("roleId") String roleId, @RequestParam("urlId") String urlId) {
+	@RequestMapping(path = "/component/loadByRoleId/{roleId}/{urlId}", method = RequestMethod.GET)
+	public List<Component> loadByRoleId(@PathVariable String roleId, @PathVariable String urlId) {
 		return componentService.loadByRoleId(roleId, urlId);
 	}
 	
@@ -71,4 +73,14 @@ public class ComponentController {
 		String path = StringUtils.substringAfter(request.getHeader("Referer"), request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/");
 		return componentService.loadComponentsByPath(path);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path = "/component/save", method = RequestMethod.POST)
+	@Transactional
+	public void save(@RequestBody Map<String, Object> params) {
+		String roleId = (String) params.get("roleId");
+        List<String> componentIds = (List<String>) params.get("componentIds");
+        componentService.save(roleId, componentIds);
+	}
+	
 }

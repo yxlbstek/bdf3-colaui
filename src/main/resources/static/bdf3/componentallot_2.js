@@ -5,65 +5,78 @@ cola(function(model) {
             pageSize: 10,
             parameter: {
                 searchKey: "{{searchRoleKey}}"
+            },
+            complete: function () {
+                if (!model.get("roleId")) {
+                    model.set("roleId", model.get("roles").current.get("id"));
+                }
             }
         }
     });
 
-    model.get("roles", "sync");
-
-	model.describe("users", {
-        provider: {
-            url: "./api/role/loadNotAllotUser",
-            pageSize: 10,
-            beforeSend: function (self, arg) {
-                var roleId = model.get("roles").current.get("id");
-                var searchKey = $("#leftSearch").val();
-                // 使用encodeURI() 为了解决GET下传递中文出现的乱码
-                arg.options.data.roleId = encodeURI(roleId);
-                arg.options.data.searchKey = searchKey;
+    setTimeout(function () {
+        model.describe("urls", {
+            provider: {
+                url: "./api/url/loadTreeByRoleId/{{@roleId}}",
+                complete: function () {
+                    if (!model.get("urlId")) {
+                        model.set("urlId", model.get("urls").current.get("id"));
+                    };
+                }
             }
-        }
-    });
+        });
+        model.flush("urls");
+    }, 200);
+    //model.get("roles", "sync")
 
-    model.describe("roleUsers", {
-        provider: {
-            url: "./api/role/loadIsAllotUser",
-            pageSize: 10,
-            beforeSend: function (self, arg) {
-                var roleId = model.get("roles").current.get("id");
-                var searchKey = $("#rightSearch").val();
-                arg.options.data.roleId = encodeURI(roleId);
-                arg.options.data.searchKey = searchKey;
+    setTimeout(function () {
+        model.describe("components", {
+            provider: {
+                url: "./api/component/loadByRoleId/{{@roleId}}/{{@urlId}}",
             }
-        }
-    });
-	
+        });
+    }, 400);
+
 	model.action({
-		add: function() {
-            var currentRole = model.get("roles").current;
-            if (currentRole) {
-               var currentUser = model.get("users").current;
-                if (currentUser) {
-                    $.ajax({
-                        url: "./api/role/addRoleUser",
-                        data: {
-                            "roleId": currentRole.get("id"),
-                            "actorId": currentUser.get("username")
-                        },
-                        type: "POST",
-                        success: function() {
-                            //model.flush("users");
-                            currentUser.remove();
-                            model.get("roleUsers").insert(currentUser.toJSON());
-                            cola.NotifyTipManager.success({
-                                message: "消息提示",
-                                description: "保存成功!",
-                                showDuration: 3000
-                            });
-                        }
-                    });
+		save: function() {
+		    var roles = model.get("roles");
+            var urls = model.get("urls");
+            var components = model.get("components");
+            if (roles.entityCount > 0) {
+                if (urls.entityCount > 0) {
+                    if (components.entityCount > 0) {
+                        var roleId = roles.current.get("id");
+                        var modifyComponentIds = [];
+                        components.each(function(c) {
+                            if (c.state == "MODIFIED") {
+                                modifyComponentIds.push(c.get("id"));
+                            }
+                        });
+
+                        model.set("permission", {
+                            roleId: roleId,
+                            componentIds: modifyComponentIds
+                        });
+                        var data = model.get("permission").toJSON();
+                        $.ajax("./api/component/save", {
+                            type: "POST",
+                            data: JSON.stringify(data),
+                            contentType: "application/json; charset=utf-8",
+                            success: function() {
+                                cola.NotifyTipManager.success({
+                                    message: "消息提示",
+                                    description: "保存成功!",
+                                    showDuration: 3000
+                                });
+                            }
+                        });
+                    } else {
+                        cola.alert("该页面没有添加可分配的组件！", {
+                            level: cola.MessageBox.level.WARNING
+                        })
+                    }
                 } else {
-                    cola.alert("请先添加用户！", {
+                    cola.alert("请先添加菜单及组件！", {
                         level: cola.MessageBox.level.WARNING
                     })
                 }
@@ -74,36 +87,6 @@ cola(function(model) {
             }
         },
 
-        remove: function () {
-            var currentRoleUser = model.get("roleUsers").current;
-            if (currentRoleUser) {
-                var currentRole = model.get("roles").current;
-                $.ajax({
-                    url: "./api/role/removeRoleUser",
-                    data: {
-                        "roleId": currentRole.get("id"),
-                        "actorId": currentRoleUser.get("username")
-                    },
-                    type: "POST",
-                    success: function() {
-                        //model.flush("users");
-                        currentRoleUser.remove();
-                        model.get("users").insert(currentRoleUser.toJSON());
-                        cola.NotifyTipManager.success({
-                            message: "消息提示",
-                            description: "移除成功!",
-                            showDuration: 3000
-                        });
-                    }
-                });
-            } else {
-                cola.alert("没有需要移除的用户！", {
-                    level: cola.MessageBox.level.WARNING
-                })
-            }
-        },
-
-
         searchRole: function () {
 			var keyCode = window.event.keyCode;
 			if (keyCode == 13) {
@@ -111,21 +94,22 @@ cola(function(model) {
 			}			
 		},
 
-        searchLeftUser: function () {
-            var keyCode = window.event.keyCode;
-            if (keyCode == 13) {
-                model.flush("users");
-            }
-        },
-
-        searchRightUser: function () {
-            var keyCode = window.event.keyCode;
-            if (keyCode == 13) {
-                model.flush("roleUsers");
-            }
+        refresh: function() {
+            model.flush("components");
         }
 
 	});
+
+    model.set("items", [
+        {
+            key: "Read",
+            value: "只读"
+        },
+        {
+            key: "ReadWrite",
+            value: "可操作"
+        }
+    ]);
 
     model.widgetConfig({
         roleTable: {
@@ -136,9 +120,43 @@ cola(function(model) {
             highlightCurrentItem: true,
             currentPageOnly: true,
             itemClick: function (self, arg) {
-                model.flush("users");
-                model.flush("roleUsers");
+                if (self.get("currentItem").get("id") != model.get("roleId")) {
+                    model.set("roleId", self.get("currentItem").get("id"));
+                    model.flush("urls");
+                    model.flush("components");
+                }
             }
+        },
+        componentTable: {
+            $type: "table",
+            bind: "component in components",
+            showHeader: true,
+            changeCurrentItem: true,
+            highlightCurrentItem: true,
+            currentPageOnly: true,
+        },
+        urlTree: {
+            $type: "tree",
+            lazyRenderChildNodes: false,
+            highlightCurrentItem: true,
+            bind: {
+                expression: "url in urls",
+                textProperty: "name",
+                checkedProperty: "navigable",
+                child: {
+                    recursive: true,
+                    textProperty: "name",
+                    checkedProperty: "navigable",
+                    expression: "url in url.children"
+                }
+            },
+            itemClick: function (self, arg) {
+                if (arg.item.get("data.id") != model.get("roleId")) {
+                    model.set("urlId", arg.item.get("data.id"));
+                    model.flush("components");
+                }
+            },
+            height: "100%",
         }
     });
 	

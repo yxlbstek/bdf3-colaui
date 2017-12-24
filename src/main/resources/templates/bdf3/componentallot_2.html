@@ -59,10 +59,14 @@
                     <c-panel id="urlPanel" caption="页面权限" height="100%" collapsible="false">
                         <div class="content" style="height: 94%;">
                             <div class="content">
-                                <c-table bind="users" sortMode="local">
-                                    <column property="username" caption="用户名" sortable="true"></column>
-                                    <column property="nickname" caption="昵称" sortable="true"></column>
-                                </c-table>
+                                <c-tree id="urlTree">
+                                    <template name="node-default">
+                                        <div>
+                                            <i c-classname="url.icon"></i>
+                                            <span c-bind="url.name"></span>
+                                        </div>
+                                    </template>
+                                </c-tree>
                             </div>
                         </div>
                     </c-panel>
@@ -79,9 +83,16 @@
                         </template>
                         <div class="content" style="height: 94%;">
                             <div class="content">
-                                <c-table bind="users" sortMode="local">
-                                    <column property="username" caption="用户名" sortable="true"></column>
-                                    <column property="nickname" caption="昵称" sortable="true"></column>
+                                <c-table id="componentTable" sortMode="local">
+                                    <template name="action">
+                                        <div>
+                                            <c-radio-group items="{{items}}" bind="component.componentType"></c-radio-group>
+                                        </div>
+                                    </template>
+                                    <column property="componentId" caption="组件ID" sortable="true"></column>
+                                    <column property="name" caption="组件名称" sortable="true"></column>
+                                    <column property="componentType" caption="类型" sortable="true"></column>
+                                    <column caption="配置" template="action"></column>
                                 </c-table>
                             </div>
                         </div>

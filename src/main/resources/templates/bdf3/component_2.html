@@ -50,7 +50,6 @@
 				</template>
 				<column property="componentId" caption="组件ID" sortable="true"></column>
 				<column property="name" caption="组件名称" sortable="true"></column>
-				<column property="componentType" caption="组件类型" sortable="true"></column>
 				<column property="urlName" caption="所属页面" sortable="true"></column>
 				<column property="path" caption="页面URL" sortable="true"></column>
 				<column property="description" caption="组件描述" sortable="true"></column>
@@ -79,12 +78,6 @@
 					<field class="cols-3">
 						<label>组件名称</label>
 						<c-input c-bind="editItem.name"></c-input>
-					</field>
-				</fields>
-				<fields class="cols-4">
-					<field class="cols-3">
-						<label>组件类型</label>
-						<c-input c-bind="editItem.componentType"></c-input>
 					</field>
 				</fields>
 				<fields class="cols-4">
