@@ -14,6 +14,7 @@ import com.bstek.cola.security.service.FrameworkService;
 *
 */
 
+
 @Service("cola.frameworkService")
 public class FrameworkServiceImpl implements FrameworkService {
 
