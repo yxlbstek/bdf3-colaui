@@ -121,13 +121,13 @@
 					expression : "menu in subMenu",
 					child : {
 						recursive : true,
-						expression : "menu in menu.menus"
+						expression : "menu in menu.children"
 					}
 				},
 				itemClick : function(self, arg) {
 					var data, menus;
 					data = arg.item.get("data").toJSON();
-					menus = data.menus;
+					menus = data.children;
 					if (menus && menus.length > 0) {
 						return;
 					} else {
@@ -175,53 +175,59 @@
 				return cola.widget("userSidebar").show();
 			},
 			logout : function() {
-				return $.ajax({
-					type : "POST",
-					url : App.prop("service.logout")
-				}).success(function(result) {
-					if (result) {
-						return window.location.reload();
-					}
-				}).fail(function() {
-					alert("退出失败，请检查网络连接！");
-				});
+				window.location=App.prop("service.logout");
+//				return $.ajax({
+//					type : "POST",
+//					url : App.prop("service.logout")
+//				}).success(function(result) {
+//					if (result) {
+//						return window.location.reload();
+//					}
+//				}).fail(function() {
+//					alert("退出失败，请检查网络连接！");
+//				});
 			},
 			menuItemClickParent : function(item) {
 				var data = item.toJSON();
-				return App.open(data.path, data);
-			},
-			menuItemClickChildren : function(item) {
-				var data, i, len, menu, menus, recursive;
-				data = item.toJSON();
-				menus = data.menus;
-				recursive = function(d) {
-					var i, len, ref, results;
-					if (d.menus && d.menus.length > 0) {
-						ref = d.menus;
-						results = [];
-						for (i = 0, len = ref.length; i < len; i++) {
-							item = ref[i];
-							results.push(recursive(item));
-						}
-						return results;
-					} else {
-						d.menus = null;
-						return d.hasChild = false;
+				if (data.path && data.path != '') {
+					if (!data.children.children) {
+						cola.widget("subMenuLayer").hide();
 					}
-				};
-				if (menus && menus.length > 0) {
-					for (i = 0, len = menus.length; i < len; i++) {
-						menu = menus[i];
-						recursive(data);
-					}
-					model.set("subMenu", menus);
-					model.set("currentMenu", data);
-					return cola.widget("subMenuLayer").show();
-				} else {
-					model.set("subMenu", []);
-					cola.widget("subMenuLayer").hide();
 					return App.open(data.path, data);
 				}
+			},
+			menuItemClickChildren : function(item) {
+				 var data, i, len, menu, menus, recursive;
+				 data = item.toJSON();
+				 menus = data.children;
+				 recursive = function(d) {
+				 	var i, len, ref, results;
+				 	if (d.menus && d.menus.length > 0) {
+				 		ref = d.menus;
+				 		results = [];
+				 		for (i = 0, len = ref.length; i < len; i++) {
+				 			item = ref[i];
+				 			results.push(recursive(item));
+				 		}
+				 		return results;
+				 	} else {
+				 		d.menus = null;
+				 		return d.hasChild = false;
+				 	}
+				 };
+				 if (menus && menus.length > 0) {
+				 	for (i = 0, len = menus.length; i < len; i++) {
+				 		menu = menus[i];
+				 		recursive(data);
+				 	}
+				 	model.set("subMenu", menus);
+				 	model.set("currentMenu", data);
+				 	return cola.widget("subMenuLayer").show();
+				 } else {
+				 	model.set("subMenu", []);
+				 	cola.widget("subMenuLayer").hide();
+				 	return App.open(data.path, data);
+				 }
 			},
 			hideSubMenuLayer : function() {
 				return cola.widget("subMenuLayer").hide();
@@ -287,6 +293,7 @@
 				opacity : '0.9'
 			}, "normal");
 		};
+
 		tipLabelOut = function() {
 			$("div.just-tooltip").remove();
 		};
