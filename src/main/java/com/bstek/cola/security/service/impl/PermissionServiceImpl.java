@@ -54,13 +54,15 @@ public class PermissionServiceImpl implements PermissionService {
 	public void save(String roleId, List<String> urlIds, List<String> excludeUrlIds) {
 		Permission permission = null;
 		List<Permission> pers = null;
-		for (String urlId : urlIds) { // 选中的节点(新选中或末改变)
+		for (String urlId : urlIds) { // 选中的节点(新选中或未改变)
 			pers = JpaUtil
 				.linq(Permission.class)
 				.equal("roleId", roleId)
 				.equal("resourceId", urlId)
 				.list();
-			if (pers.size() > 0) continue;
+			if (pers.size() > 0) {
+				continue;
+			};
 			permission = new Permission();
 			permission.setId(UUID.randomUUID().toString());
 			permission.setRoleId(roleId);
@@ -70,13 +72,15 @@ public class PermissionServiceImpl implements PermissionService {
 			JpaUtil.persist(permission);
 		}
 
-		for (String excludeUrlId : excludeUrlIds) { // 末选中的节点(原选中后取消,或从未选中)
+		for (String excludeUrlId : excludeUrlIds) { // 未选中的节点(原选中后取消,或从未选中)
 			pers = JpaUtil
 				.linq(Permission.class)
 				.equal("roleId", roleId)
 				.equal("resourceId", excludeUrlId)
 				.list();
-			if (pers.size() == 0) continue;
+			if (pers.size() == 0) {
+				continue;
+			};
 			JpaUtil
 				.lind(Permission.class)
 				.equal("roleId", roleId)
