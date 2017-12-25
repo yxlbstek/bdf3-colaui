@@ -174,19 +174,6 @@
 			showUserSidebar : function() {
 				return cola.widget("userSidebar").show();
 			},
-			logout : function() {
-				window.location=App.prop("service.logout");
-//				return $.ajax({
-//					type : "POST",
-//					url : App.prop("service.logout")
-//				}).success(function(result) {
-//					if (result) {
-//						return window.location.reload();
-//					}
-//				}).fail(function() {
-//					alert("退出失败，请检查网络连接！");
-//				});
-			},
 			menuItemClickParent : function(item) {
 				var data = item.toJSON();
 				if (data.path && data.path != '') {

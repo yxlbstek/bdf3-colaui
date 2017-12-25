@@ -28,8 +28,6 @@
  //     "service.messagePull": "./service/frame/message/pull",
       "service.messagePull": "",
       "service.login": "./login",
-  //    "service.logout": "./service/frame/account/logout",
-      "service.logout": "./login",
       "service.menus": "./api/menus",
       "service.user.detail": "./service/frame/user/detail",
       "message.action": {
