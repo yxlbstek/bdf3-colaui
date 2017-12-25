@@ -7,12 +7,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.malagu.linq.JpaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.bstek.bdf3.jpa.JpaUtil;
 import com.bstek.bdf3.security.access.provider.ComponentProvider;
 import com.bstek.bdf3.security.cache.SecurityCacheEvict;
 import com.bstek.bdf3.security.decision.manager.SecurityDecisionManager;
@@ -42,6 +42,7 @@ public class ComponentServiceImpl implements ComponentService {
 		List<Component> components = JpaUtil.linq(Component.class).equal("urlId", urlId).list();
 		if (!components.isEmpty()) {
 			Set<String> ids = JpaUtil.collectId(components);
+			
 			List<Permission> permissions = JpaUtil.linq(Permission.class)
 				.equal("roleId", roleId)
 				.equal("resourceType", Component.RESOURCE_TYPE)
@@ -54,9 +55,7 @@ public class ComponentServiceImpl implements ComponentService {
 				component.setComponentType(ComponentType.ReadWrite);
 				Permission permission = permissionMap.get(component.getId());
 				if (permission != null) {
-					//if (StringUtils.endsWith(permission.getAttribute(), ComponentType.Read.name())) {
-					component.setComponentType(ComponentType.Read);
-					//} 
+					component.setComponentType(ComponentType.Read); 
 					component.setAuthorized(true);
 					component.setConfigAttributeId(permission.getId());
 				}
@@ -164,7 +163,7 @@ public class ComponentServiceImpl implements ComponentService {
 				permission.setRoleId(roleId);
 				permission.setResourceId(componentId);
 				permission.setResourceType(Component.RESOURCE_TYPE);
-				permission.setAttribute("ROLE_{" + roleId + "}");
+				permission.setAttribute("ROLE_" + roleId);
 				JpaUtil.persist(permission);
 			}
 		}

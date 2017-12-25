@@ -3,9 +3,9 @@ package com.bstek.cola.security.service.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.malagu.linq.JpaUtil;
 import org.springframework.stereotype.Service;
 
-import com.bstek.bdf3.jpa.JpaUtil;
 import com.bstek.bdf3.security.cache.SecurityCacheEvict;
 import com.bstek.bdf3.security.orm.Permission;
 import com.bstek.bdf3.security.orm.Url;
@@ -66,7 +66,7 @@ public class PermissionServiceImpl implements PermissionService {
 			permission.setRoleId(roleId);
 			permission.setResourceId(urlId);
 			permission.setResourceType(Url.RESOURCE_TYPE);
-			permission.setAttribute("ROLE_{" + roleId + "}");
+			permission.setAttribute("ROLE_" + roleId);
 			JpaUtil.persist(permission);
 		}
 

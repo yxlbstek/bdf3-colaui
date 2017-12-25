@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.malagu.linq.JpaUtil;
 import org.springframework.stereotype.Service;
 
-import com.bstek.bdf3.jpa.JpaUtil;
 import com.bstek.bdf3.security.cache.SecurityCacheEvict;
 import com.bstek.bdf3.security.orm.Permission;
 import com.bstek.bdf3.security.orm.Url;

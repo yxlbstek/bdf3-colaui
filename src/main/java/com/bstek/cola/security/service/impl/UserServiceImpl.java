@@ -2,6 +2,7 @@ package com.bstek.cola.security.service.impl;
 
 import java.util.UUID;
 
+import org.malagu.linq.JpaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bstek.bdf3.jpa.JpaUtil;
 import com.bstek.bdf3.security.cache.SecurityCacheEvict;
 import com.bstek.bdf3.security.orm.RoleGrantedAuthority;
 import com.bstek.bdf3.security.orm.User;
