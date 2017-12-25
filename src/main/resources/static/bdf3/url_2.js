@@ -235,7 +235,7 @@
            showIcon: function() {
                cola.widget("dialogIcon").show();
            },
-           
+
        });
 
         model.widgetConfig({
@@ -267,6 +267,9 @@
                             cola.widget("dialogIcon").hide();
                         });
                     }, 'json');
+                },
+                hide: function(self, arg) {
+                    $("#iconContent").find("div").remove();
                 }
             }
         });
