@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,9 +54,9 @@ public class ComponentServiceImpl implements ComponentService {
 				component.setComponentType(ComponentType.ReadWrite);
 				Permission permission = permissionMap.get(component.getId());
 				if (permission != null) {
-					if (StringUtils.endsWith(permission.getAttribute(), ComponentType.Read.name())) {
-						component.setComponentType(ComponentType.Read);
-					} 
+					//if (StringUtils.endsWith(permission.getAttribute(), ComponentType.Read.name())) {
+					component.setComponentType(ComponentType.Read);
+					//} 
 					component.setAuthorized(true);
 					component.setConfigAttributeId(permission.getId());
 				}
@@ -141,6 +140,35 @@ public class ComponentServiceImpl implements ComponentService {
 			return urls.get(0).getName();
 		}
 		return null;
+	}
+
+
+	@Override
+	public void save(String roleId, List<String> componentIds) {
+		for (String componentId : componentIds) {
+			List<Permission> permissions = JpaUtil
+				.linq(Permission.class)
+				.equal("resourceType", Component.RESOURCE_TYPE)
+				.equal("roleId", roleId)
+				.equal("resourceId", componentId)
+				.list();
+			if (permissions.size() > 0) {
+				JpaUtil
+					.lind(Permission.class)
+					.equal("roleId", roleId)
+					.equal("resourceId", componentId)
+					.delete();
+			} else {
+				Permission permission = new Permission();
+				permission.setId(UUID.randomUUID().toString());
+				permission.setRoleId(roleId);
+				permission.setResourceId(componentId);
+				permission.setResourceType(Component.RESOURCE_TYPE);
+				permission.setAttribute("ROLE_{" + roleId + "}");
+				JpaUtil.persist(permission);
+			}
+		}
+		
 	}
 
 }

@@ -59,7 +59,7 @@ public class UrlServiceImpl implements UrlService {
 		List<Url> urls = loadTree();
 		List<Permission> permissions = JpaUtil
 				.linq(Permission.class)
-				.equal("resourceType", "URL")
+				.equal("resourceType", Url.RESOURCE_TYPE)
 				.equal("roleId", roleId)
 				.list();
 		Set<String> roleUrlIds = JpaUtil.collect(permissions, "resourceId");

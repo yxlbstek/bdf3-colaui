@@ -29,4 +29,6 @@ public interface ComponentService {
 
 	String getUrlName(String urlId);
 
+	void save(String roleId, List<String> componentIds);
+
 }
