@@ -1,6 +1,6 @@
 [
   {
-    "name": "Web Content",
+    "name": "网页内容",
     "description": "Icons can represent types of content found on websites",
     "icons": [
       "alarm icon",
@@ -54,7 +54,7 @@
     ]
   },
   {
-    "name": "User Types",
+    "name": "用户类型",
     "description": "Icons can represent types of people",
     "icons": [
       "child icon",
@@ -67,7 +67,7 @@
     ]
   },
   {
-    "name": "UserType Actions",
+    "name": "用户操作",
     "description": "Icons can represent common actions a user can take",
     "icons": [
       "add to cart icon",
@@ -129,7 +129,7 @@
     ]
   },
   {
-    "name": "Message",
+    "name": "消息",
     "description": "Icons can alert users to the type of message being displayed",
     "icons": [
       "announcement icon",
@@ -164,7 +164,7 @@
     ]
   },
   {
-    "name": "Layout Adjustment",
+    "name": "布局调整",
     "description": "Icons can alert users to common ways to adjust page layouts",
     "icons": [
       "block layout icon",
@@ -179,7 +179,7 @@
     ]
   },
   {
-    "name": "Objects",
+    "name": "对象",
     "description": "Icons can be used to represent common objects",
     "icons": [
       "anchor icon",
@@ -220,7 +220,7 @@
     ]
   },
   {
-    "name": "Shapes",
+    "name": "形状",
     "description": "Icons can be used to create shapes",
     "icons": [
       "asterisk icon",
@@ -241,7 +241,7 @@
     ]
   },
   {
-    "name": "Item Selection",
+    "name": "项目选择",
     "description": "Icons can show whether an item is included in a set",
     "icons": [
       "add circle icon",
@@ -268,7 +268,7 @@
     ]
   },
   {
-    "name": "Media",
+    "name": "媒体",
     "description": "Icons can represent common media types",
     "icons": [
       "area chart icon",
@@ -283,7 +283,7 @@
     ]
   },
   {
-    "name": "Pointers",
+    "name": "指针",
     "description": "Icons can be used to indicate a direction",
     "icons": [
       "angle double down icon",
@@ -342,7 +342,7 @@
     ]
   },
   {
-    "name": "Computer",
+    "name": "电脑",
     "description": "Icons can represent computing devices, or types of content found on a computer.",
     "icons": [
       "desktop icon",
@@ -355,7 +355,7 @@
     ]
   },
   {
-    "name": "Computer and File System",
+    "name": "计算机与文件系统",
     "description": "Icons can represent elements of a computer and its file system",
     "icons": [
       "file archive outline icon",
@@ -382,7 +382,7 @@
     ]
   },
   {
-    "name": "Technologies",
+    "name": "技术",
     "description": "Icons can represent common technologies",
     "icons": [
       "barcode icon",
@@ -398,7 +398,7 @@
     ]
   },
   {
-    "name": "Rating",
+    "name": "评分",
     "description": "Icons can be used to represent users attitude towards content",
     "icons": [
       "empty heart icon",
@@ -417,7 +417,7 @@
     ]
   },
   {
-    "name": "Audio",
+    "name": "音频",
     "description": "Icons can be used to represent common ways to interact with audio",
     "icons": [
       "backward icon",
@@ -447,7 +447,7 @@
     ]
   },
   {
-    "name": "Map",
+    "name": "地图",
     "description": "Icons can be used to represent elements on a map",
     "icons": [
       "bicycle icon",
@@ -484,7 +484,7 @@
     ]
   },
   {
-    "name": "Tables",
+    "name": "表格",
     "description": "Icons can be used to represent common actions inside a table",
     "icons": [
       "columns icon",
@@ -501,7 +501,7 @@
     ]
   },
   {
-    "name": "Text Editor",
+    "name": "文本编辑器",
     "description": "Icons can represent common actions when editing text",
     "icons": [
       "align center icon",
@@ -534,7 +534,7 @@
     ]
   },
   {
-    "name": "Currency",
+    "name": "货币",
     "description": "Icons can represent units of currency",
     "icons": [
       "bitcoin icon",
@@ -572,7 +572,7 @@
     ]
   },
   {
-    "name": "Brands",
+    "name": "品牌",
     "description": "Icons can represent logos to common brands",
     "icons": [
       "adn icon",
