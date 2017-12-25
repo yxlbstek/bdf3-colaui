@@ -59,7 +59,9 @@
                         <fields class="cols-4">
                             <field class="cols-3">
                                 <label>图标</label>
-                                <c-input c-bind="editItem.icon"></c-input>
+                                <c-input id="iconInput" c-bind="editItem.icon">
+                                    <c-button id="iconBtn" class="icon" icon="list layout" title="图标选择" click="showIcon"></c-button>
+                                </c-input>
                             </field>
                         </fields>
                         <fields class="cols-4">
@@ -112,6 +114,11 @@
         </div>
     </div>
 
+    <div id="dialogIcon" c-widget="Dialog; closeable:false;" style="width: 100%; height:100%; z-index: -1;">
+        <div id="iconContent" class="content" style="height: 100%; padding: 30px; z-index: 1200;">
+
+        </div>
+    </div>
 
 </body>
     <script src="static/jquery/jquery-2.1.3.js"></script>

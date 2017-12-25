@@ -53,3 +53,15 @@ c-button {
 .ui.toggle.checkbox input:focus:checked ~ .box:before, .ui.toggle.checkbox input:focus:checked ~ label:before {
 	background-color: #6C6C6C !important;
 }
+
+#iconBtn > i {
+    margin-top: 3px;
+}
+
+/*图标选择框*/
+.ui.doubling.five.column.grid > div:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+
