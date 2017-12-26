@@ -286,18 +286,22 @@
 				 	}
 				 };
 				 if (menus && menus.length > 0) {
-				 	for (i = 0, len = menus.length; i < len; i++) {
-				 		menu = menus[i];
-				 		recursive(data);
-				 	}
-				 	model.set("subMenu", menus);
-				 	model.set("currentMenu", data);
-				 	cola.widget("subMenuLayer").show()
-				 	return App.open(data.path, data);
+				 	 for (i = 0, len = menus.length; i < len; i++) {
+				 		 menu = menus[i];
+				 		 recursive(data);
+				 	 }
+				 	 model.set("subMenu", menus);
+				 	 model.set("currentMenu", data);
+				 	 cola.widget("subMenuLayer").show()
+					 if (data.path && data.path != "") {
+						 return App.open(data.path, data);
+					 }
 				 } else {
-				 	model.set("subMenu", []);
-				 	cola.widget("subMenuLayer").hide();
-				 	return App.open(data.path, data);
+				 	 model.set("subMenu", []);
+				 	 cola.widget("subMenuLayer").hide();
+					 if (data.path && data.path != "") {
+						 return App.open(data.path, data);
+					 }
 				 }
 				 
 			},
