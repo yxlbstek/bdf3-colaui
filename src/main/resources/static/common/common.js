@@ -26,10 +26,10 @@
 			longPollingTimeout : 0,
 			longPollingInterval : 2000,
 			// "service.messagePull": "./service/frame/message/pull",
-			"service.messagePull" : "",
-			"service.login" : "./login",
+			//"service.messagePull" : "",
+			//"service.login" : "./login",
 			"service.menus" : "./api/menus",
-			"service.user.detail" : "./service/frame/user/detail",
+			"service.user.detail" : "./api/user/detail",
 			"message.action" : {
 				path : "http://cola-ui.com",
 				type : "subWindow",
@@ -238,7 +238,7 @@
 	// 			"eight", "nine", "ten", "eleven", "twelve", "thirteen",
 	// 			"fourteen", "fifteen", "sixteen" ][number - 1];
 	// });
-	
+
 	//language = $.cookie("_language") || window.navigator.language;
 	// if (language) {
 	// document.write("<script src=\"resources/cola-ui/i18n/" + language +

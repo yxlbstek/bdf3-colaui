@@ -4,6 +4,7 @@ package com.bstek.cola.security.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,6 +58,18 @@ public class UserController {
 	@RequestMapping(path = "/user/exist", method = RequestMethod.GET)
 	public boolean validate(@RequestParam String username) {
 		return !userService.isExist(username);
+	}
+	
+	@RequestMapping(path = "/user/validatePassword", method = RequestMethod.GET)
+	public boolean validatePassword(@RequestParam String oldPassword) {
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return userService.validatePassword(user.getUsername(), oldPassword);
+	}
+	
+	@RequestMapping(path = "/user/changePassword", method = RequestMethod.GET)
+	public void changePassword(@RequestParam String newPassword) {
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		userService.changePassword(user.getUsername(), newPassword);
 	}
 	
 	@RequestMapping(path = "/user/resetPassword", method = RequestMethod.PUT)

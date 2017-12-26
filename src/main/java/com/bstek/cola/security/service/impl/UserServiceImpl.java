@@ -65,13 +65,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void changePassword(String username, String newPassword) {
-
+		JpaUtil
+			.linu(User.class)
+			.equal("username", username)
+			.set("password", passwordEncoder.encode(newPassword))
+			.update();
 	}
 
 	@Override
 	public boolean validatePassword(String username, String password) {
-
-		return false;
+		 User user = JpaUtil.linq(User.class).equal("username", username).findOne();
+		 boolean result = passwordEncoder.matches(password, user.getPassword());
+		 if (result) {
+			 return true;
+		 }
+		 return true;
 	}
 
 	@Override

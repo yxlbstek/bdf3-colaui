@@ -99,15 +99,14 @@
 			</div>
 		</div>
 	</div>
-	<div id="userSidebar"
-		c-widget="Sidebar; modalOpacity:0; direction:right">
+	<div id="userSidebar" c-widget="Sidebar; modalOpacity:0; direction:right">
 		<div class="v-box">
 			<div class="box">
 				<div class="ui segment text-center basic inverted basic-info">
 					<div class="avatar">
 						<img src="static/resources/images/avatars/kevin.png" class="ui image tiny avatar centered" />
 					</div>
-					<div c-bind="user.name" class="name"></div>
+					<div c-bind="user.nickname" class="name"></div>
 				</div>
 			</div>
 			<div class="flex-box">
@@ -127,30 +126,42 @@
 				</div>
 			</div>
 			<div class="box text-center">
-				<a th:href="@{${logoutPath}}" class="ui blue basic button">安全退出</a>
+				<a class="ui blue basic button" c-onclick="changePassword()">修改密码</a>
+				<a th:href="@{${logoutPath}}" class="ui blue basic button" style="margin-top: 20px;">安全退出</a>
 			</div>
 		</div>
 	</div>
-	<div id="loginDialog">
-		<div id="containerSignIn" c-widget="segment;" class="ui segment">
-			<div id="formSignIn" c-widget="form" class="ui form">
-				<h2>用户登录</h2>
-				<div class="field">
-					<div c-widget="input; placeholder:用户名; postOnInput:true; bind:login.userName" class="large"></div>
-				</div>
-				<div class="field">
-					<div c-widget="input; placeholder:密码;inputType:password; postOnInput:true; bind:login.password" class="large"></div>
-				</div>
-				<div style="min-height: 1em;" class="field">
-					<a href="./frame/account/forgot-password" class="float-right">找回密码</a>
-				</div>
-				<div class="field">
-					<div c-widget="Button; caption:登录; click:signIn" tabindex="0" class="large fluid circular submit-btn"></div>
-				</div>
-				<div class="field">
-					<div class="ui message error"></div>
-				</div>
-			</div>
+
+	<div id="dialogPassword" c-widget="Dialog; closeable:false;" style="height: 300px; width: 560px;">
+		<div class="header">
+			<i class="unlock icon"></i>
+			密码修改
+		</div>
+		<div class="content">
+			<form-layout id="form" style="padding: 10px;">
+				<fields class="cols-4">
+					<field class="cols-4">
+						<label>旧密码</label>
+						<c-input id="oldPasswordInput" inputType="password" c-bind="pw.oldPassword"></c-input>
+					</field>
+				</fields>
+				<fields class="cols-4">
+					<field class="cols-4">
+						<label>新密码</label>
+						<c-input id="newPasswordInput" inputType="password" c-bind="pw.newPassword"></c-input>
+					</field>
+				</fields>
+				<fields class="cols-4">
+					<field class="cols-4">
+						<label>确认新密码</label>
+						<c-input id="confirmPasswordInput" inputType="password" c-bind="pw.confirmPassword"></c-input>
+					</field>
+				</fields>
+			</form-layout>
+		</div>
+		<div class="actions">
+			<c-button icon="save" caption="保存" click="savePassword" style="background-color: #BEBEBE;"></c-button>
+			<c-button icon="remove" caption="取消" click="cancelPassword" style="background-color: #BEBEBE;"></c-button>
 		</div>
 	</div>
 </body>
