@@ -2,6 +2,7 @@ package com.bstek.cola.security.service;
 
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 
 
 /** 
@@ -18,23 +19,23 @@ public interface FrameworkService {
 
 	String getMainPage();
 
-	String getUserPage();
+	String getUserPage(Model model);
 
-	String getUrlPage();
+	String getUrlPage(Model model);
 
-	String getRolePage();
+	String getRolePage(Model model);
 
-	String getComponentPage();
+	String getComponentPage(Model model);
 
 	String getMePage();
 
 	UserDetails getLoginUserInfo();
 
-	String getRoleAllotPage();
+	String getRoleAllotPage(Model model);
 
-	String getPermissionPage();
+	String getPermissionPage(Model model);
 
-	String getComponentAllotPage();
+	String getComponentAllotPage(Model model);
 
 	//Long getMessageTotal(String username);
 

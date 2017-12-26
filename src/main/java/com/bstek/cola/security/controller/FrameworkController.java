@@ -146,37 +146,37 @@ public class FrameworkController {
 	
 	@RequestMapping("/user") 
 	public String user(Model model) {
-		return frameworkService.getUserPage();
+		return frameworkService.getUserPage(model);
 	}
 	
 	@RequestMapping("/role") 
-	public String role() {
-		return frameworkService.getRolePage();
+	public String role(Model model) {
+		return frameworkService.getRolePage(model);
 	}
 	
 	@RequestMapping("/roleallot") 
-	public String roleAllot() {
-		return frameworkService.getRoleAllotPage();
+	public String roleAllot(Model model) {
+		return frameworkService.getRoleAllotPage(model);
 	}
 	
 	@RequestMapping("/permission") 
-	public String permission() {
-		return frameworkService.getPermissionPage();
+	public String permission(Model model) {
+		return frameworkService.getPermissionPage(model);
 	}
 	
 	@RequestMapping("/url") 
-	public String url() {
-		return frameworkService.getUrlPage();
+	public String url(Model model) {
+		return frameworkService.getUrlPage(model);
 	}
 	
 	@RequestMapping("/component") 
-	public String component() {
-		return frameworkService.getComponentPage();
+	public String component(Model model) {
+		return frameworkService.getComponentPage(model);
 	}
 	
 	@RequestMapping("/componentallot") 
-	public String componentAllot() {
-		return frameworkService.getComponentAllotPage();
+	public String componentAllot(Model model) {
+		return frameworkService.getComponentAllotPage(model);
 	}
 	
 	@RequestMapping("/me") 
