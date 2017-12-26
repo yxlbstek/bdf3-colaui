@@ -67,6 +67,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(path = "/user/changePassword", method = RequestMethod.GET)
+	@Transactional
 	public void changePassword(@RequestParam String newPassword) {
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		userService.changePassword(user.getUsername(), newPassword);

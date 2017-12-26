@@ -146,26 +146,22 @@
 				},
 				hide: function(self, arg) {
 					model.definition("oldAjaxValidator").set("disabled", true);
-					//model.set("pw", {});
 				}
 			},
 
-			oldPasswordInput: {
-				$type: "input",
-				post: function (self, arg) {
-
-				}
-			},
-			newPasswordInput: {
-				$type: "input",
-				post: function (self, arg) {
-
-				}
-			},
 			confirmPasswordInput: {
 				$type: "input",
 				post: function (self, arg) {
-
+					var newPassword = cola.widget("newPasswordInput").get("value");
+					var confirmPassword = cola.widget("confirmPasswordInput").get("value");
+					if (confirmPassword != newPassword) {
+						cola.alert("两次输入的密码不一致！", {
+							level: cola.MessageBox.level.WARNING
+						})
+						cola.widget("savePwBtn").set("display", false);
+					} else {
+						cola.widget("savePwBtn").set("display", true);
+					}
 				}
 			},
 
@@ -226,7 +222,7 @@
 						data: {
 							"newPassword": entity.get("newPassword")
 						},
-						type: "POST",
+						type: "GET",
 						url: "./api/user/changePassword",
 						success: function() {
 							cola.NotifyTipManager.success({
@@ -234,6 +230,7 @@
 								description: "保存成功!",
 								showDuration: 3000
 							});
+							cola.widget("dialogPassword").hide();
 						}
 					});
 				}
