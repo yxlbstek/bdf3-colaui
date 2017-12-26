@@ -64,10 +64,11 @@
 	                        data: JSON.stringify(data),
 	                        contentType: "application/json; charset=utf-8",
 	                        success: function() {
-	                            cola.NotifyTipManager.success({
-	                                message: "保存成功！！！",
-	                                showDuration: 3000,
-	                            });
+                                cola.NotifyTipManager.success({
+                                    message: "消息提示",
+                                    description: "保存成功!",
+                                    showDuration: 3000
+                                });
 	                        }
 	                    });
 	                }/* else {
@@ -107,13 +108,16 @@
 	        urlTree: {
 	            $type: "tree",
 	            lazyRenderChildNodes: false,
+                autoCheckChildren: false,
 	            highlightCurrentItem: true,
 	            bind: {
+                    autoCheckChildren: false,
 	                expression: "url in urls",
 	                textProperty: "name",
 	                checkedProperty: "navigable",
 	                child: {
 	                    recursive: true,
+                        autoCheckChildren: false,
 	                    textProperty: "name",
 	                    checkedProperty: "navigable",
 	                    expression: "url in url.children"
