@@ -167,7 +167,7 @@ public class FrameworkServiceImpl implements FrameworkService {
 				.linq(Role.class)
 				.in(Permission.class)
 					.select("roleId")
-					.equal("resourceId", urls.get(0).getIcon())
+					.equal("resourceId", urls.get(0).getId())
 					.equal("resourceType", Url.RESOURCE_TYPE)
 				.end()
 				.list();
