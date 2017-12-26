@@ -110,22 +110,22 @@ public class ComponentServiceImpl implements ComponentService {
 		Collection<Component> components = componentMap.get(path);
 		if (components != null) {
 			for (Component c : components) {
-			Component component = new Component();
-			component.setComponentId(c.getComponentId());
-			component.setPath(c.getPath());
-			component.setAttributes(c.getAttributes());
-			component.setComponentType(ComponentType.ReadWrite);
-			if (securityDecisionManager.decide(component)) {
-				component.setAuthorized(true);
-			} else {
-				component.setComponentType(ComponentType.Read);
+				Component component = new Component();
+				component.setComponentId(c.getComponentId());
+				component.setPath(c.getPath());
+				component.setAttributes(c.getAttributes());
+				component.setComponentType(ComponentType.ReadWrite);
 				if (securityDecisionManager.decide(component)) {
 					component.setAuthorized(true);
+				} else {
+					component.setComponentType(ComponentType.Read);
+					if (securityDecisionManager.decide(component)) {
+						component.setAuthorized(true);
+					}
 				}
+				component.setAttributes(null);
+				result.add(component);
 			}
-			component.setAttributes(null);
-			result.add(component);
-		}
 		}
 		
 		return result;

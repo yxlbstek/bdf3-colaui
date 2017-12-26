@@ -3,9 +3,6 @@ package com.bstek.cola.security.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -67,10 +64,9 @@ public class ComponentController {
 		return componentService.getUrlName(urlId);
 	}
 	
-	@RequestMapping(path = "/component/load-by-path", method = RequestMethod.GET)
+	@RequestMapping(path = "/component/loadByPath", method = RequestMethod.GET)
 	@Transactional
-	public List<Component> loadByPath(HttpServletRequest request) {
-		String path = StringUtils.substringAfter(request.getHeader("Referer"), request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/");
+	public List<Component> loadByPath(@RequestParam(required = false) String path) {
 		return componentService.loadComponentsByPath(path);
 	}
 	

@@ -170,6 +170,9 @@
 	        }
 	    });
 
+		var path = "./component";
+		App.resetComponentAuth(path);
+
 	    $("[tag='contentContainer']").attr("tag","");
 	    $(".ui.label.basic").transition({
 	        animation : 'jiggle',

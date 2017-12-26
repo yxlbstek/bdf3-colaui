@@ -190,28 +190,26 @@
 				}
 			}
 		},
-		resetComponentAuth : function(params) {
-			debugger;
-			$.ajax("./service/frame/component/auth", {
-				type : "POST",
-				data : JSON.stringify(params),
-				contentType : "application/json; charset=utf-8"
+		resetComponentAuth : function(path) {
+			$.ajax("./api/component/loadByPath", {
+				type : "GET",
+				data : {
+					"path": path
+				}
 			}).success(function(result) {
-				debugger;
 				if (result) {
 					for (var i = 0; i < result.length; i++) {
-						var auth = result[i];
-						if (!auth.visible) {
-							$("#" + auth.id).css('display', 'none');
+						var component = result[i];
+						if (component.authorized && component.componentType == "ReadWrite") {
 							continue;
 						}
-						var widget = cola.widget(auth.id);
+						var widget = cola.widget(component.componentId);
 						if (widget) {
 							var type = widget.constructor.CLASS_NAME;
 							if (type == 'button') {
-								widget.set('disabled', auth.disabled);
+								$("#" + component.componentId).css('display', 'none');
 							} else if (type.indexOf("input") >= 0) {
-								widget.set('readOnly', auth.disabled);
+								widget.set('readOnly', true);
 							}
 						}
 					}

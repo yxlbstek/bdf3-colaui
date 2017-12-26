@@ -142,6 +142,9 @@
 	            }
 	        }
 	    });
+
+		var path = "./roleallot";
+		App.resetComponentAuth(path);
 		
 		$("[tag='contentContainer']").attr("tag","");
 		$(".ui.label.basic").transition({

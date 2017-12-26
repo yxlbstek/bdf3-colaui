@@ -126,6 +126,9 @@
 	            height: "100%",
 	        }
 	    });
+
+		var path = "./permission";
+		App.resetComponentAuth(path);
 		
 		$("[tag='contentContainer']").attr("tag","");
 		$(".ui.label.basic").transition({

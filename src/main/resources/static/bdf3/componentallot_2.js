@@ -160,6 +160,9 @@
 	            height: "100%",
 	        }
 	    });
+
+		var path = "./componentallot";
+		App.resetComponentAuth(path);
 		
 		$("[tag='contentContainer']").attr("tag","");
 		$(".ui.label.basic").transition({
