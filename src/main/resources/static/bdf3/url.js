@@ -236,6 +236,10 @@
                cola.widget("dialogIcon").show();
            },
 
+           cancelSelect: function() {
+               cola.widget("dialogIcon").hide();
+           }
+
        });
 
         model.widgetConfig({
@@ -244,7 +248,7 @@
                 beforeShow: function (self, arg) {
                     $.get('static/resources/icons.json', function(data){
                         $.each(data, function(index, obj) {
-                            var $h3 = $("<h1 style='font-size: 25px; color: blue;'>" + obj.name + "</h1>");
+                            var $h3 = $("<h1 style='font-size: 25px; color: #000;'>" + obj.name + "</h1>");
                             var $divContent = $("<div class='ui doubling five column grid' style='margin-top: 10px;'></div>");
                             var $topDiv = $("<div style='padding: 30px;'></div>");
                             $topDiv.append($h3);
