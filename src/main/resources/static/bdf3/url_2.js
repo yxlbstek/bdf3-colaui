@@ -244,7 +244,7 @@
                 beforeShow: function (self, arg) {
                     $.get('static/resources/icons.json', function(data){
                         $.each(data, function(index, obj) {
-                            var $h3 = $("<h1 style='font-size: 30px; color: blue;'>" + obj.name + "</h1>");
+                            var $h3 = $("<h1 style='font-size: 25px; color: blue;'>" + obj.name + "</h1>");
                             var $divContent = $("<div class='ui doubling five column grid' style='margin-top: 10px;'></div>");
                             var $topDiv = $("<div style='padding: 30px;'></div>");
                             $topDiv.append($h3);
@@ -255,7 +255,7 @@
                                 var name = icons[i];
                                 var end = name.indexOf(" icon");
                                 var showName = name.substring(0, end);
-                                var $div = $("<div style='height: 140px; width: 190px; text-align: center; padding: 15px;'><i style='font-size: 28px; width: 100%; height: 50px;' class='" + name + "'></i><p style='font-size: 16px;'>" + showName + "</p></div>");
+                                var $div = $("<div class='hvr-pulse' style='height: 140px; width: 190px; text-align: center; padding: 15px;'><i style='font-size: 22px; width: 100%; height: 50px;' class='" + name + "'></i><p style='font-size: 16px;'>" + showName + "</p></div>");
                                 $divContent.append($div);
                             }
                             $topDiv.append($divContent);
