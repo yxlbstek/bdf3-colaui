@@ -184,7 +184,7 @@
 					data = arg.item.get("data").toJSON();
 					menus = data.children;
 					if (menus && menus.length > 0) {
-						return;
+						return App.open(data.path, data);
 					} else {
 						App.open(data.path, data);
 						cola.widget("subMenuLayer").hide();
@@ -267,6 +267,12 @@
 				 var data, i, len, menu, menus, recursive;
 				 data = item.toJSON();
 				 menus = data.children;
+				 
+				 //右侧栏toggle
+				 if (cola.widget("subMenuLayer").get("display")) {
+					 cola.widget("subMenuLayer").hide();
+				 }
+				 
 				 recursive = function(d) {
 				 	var i, len, ref, results;
 				 	if (d.menus && d.menus.length > 0) {
@@ -289,12 +295,14 @@
 				 	}
 				 	model.set("subMenu", menus);
 				 	model.set("currentMenu", data);
-				 	return cola.widget("subMenuLayer").show();
+				 	cola.widget("subMenuLayer").show()
+				 	return App.open(data.path, data);
 				 } else {
 				 	model.set("subMenu", []);
 				 	cola.widget("subMenuLayer").hide();
 				 	return App.open(data.path, data);
 				 }
+				 
 			},
 
 			hideSubMenuLayer : function() {
