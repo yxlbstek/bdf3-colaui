@@ -5,12 +5,12 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 	<meta charset="UTF-8"/>
-	<title>组件管理</title>
+	<title>角色管理</title>	
 	<link rel="stylesheet" type="text/css" href="static/nprogress/nprogress.css"/>
 	<link rel="stylesheet" type="text/css" href="static/cola-ui/cola.css"/>
 	<link rel="stylesheet" type="text/css" href="static/cola-ui/semantic.css"/>
 	<link rel="stylesheet" type="text/css" href="static/common/common.css"/>
-	<link rel="stylesheet" type="text/css" href="static/bdf3/component_2.css"/>
+	<link rel="stylesheet" type="text/css" href="static/bdf3/role.css"/>
 	<script src="static/nprogress/nprogress.js"></script>
 </head>
 <body>
@@ -26,7 +26,7 @@
 				<box>
 					<div id="search" class="ui category search">
 						<div class="ui icon input">
-							<input class="prompt" type="text" placeholder="根据组件名称或组件ID或Path搜索..." c-bind="searchKey" c-onkeydown="search()"/>
+							<input class="prompt" type="text" placeholder="根据名称或描述..." c-bind="searchKey" c-onkeydown="search()"/>
 							<i class="icon search"></i>
 						</div>
 					</div>
@@ -34,7 +34,7 @@
 			</h-box>
 		</box>
 		<flex-box style="background-color: #f3f3f4;">
-			<c-table id="componentTable" bind="components" sortMode="local" style="background-color: #f3f3f4; width: 99%; margin-left: 10px;">
+			<c-table bind="roles" sortMode="local" style="background-color: #f3f3f4; width: 99%; margin-left: 10px;">
 				<template name="action">
 					<div>
 						<c-button id="removeBtn" class="ui circular trash icon button" title="删除" c-onclick="removeTip(item)">
@@ -45,53 +45,32 @@
 						</c-button>
 					</div>
 				</template>
-				<column property="componentId" caption="组件ID" sortable="true"></column>
-				<column property="name" caption="组件名称" sortable="true"></column>
-				<column property="urlName" caption="所属页面" sortable="true"></column>
-				<column property="path" caption="页面URL" sortable="true"></column>
-				<column property="description" caption="组件描述" sortable="true"></column>
+				<column property="name" caption="角色名称" sortable="true"></column>
+				<column property="description" caption="角色描述" sortable="true"></column>
 				<column caption="操作" template="action"></column>
 			</c-table>
 		</flex-box>
 		<box style="height: 60px; background-color: #f3f3f4;">
-			<c-pager bind="components"></c-pager>
+			<c-pager bind="roles"></c-pager>
 		</box>
 	</v-box>
 	
-	<!--组件信息添加-->
+	<!--角色信息添加-->
 	<div id="msgModal" class="ui basic modal">
 		<div class="header">
-			<i class="icon sitemap"></i> <span class="caption">组件信息维护</span>
+			<i class="icon user"></i> <span class="caption">角色信息维护</span>
 		</div>
 		<div class="content">
 			<form-layout id="form">
 				<fields class="cols-4">
 					<field class="cols-3">
-						<label>组件ID</label>
-						<c-input c-bind="editItem.componentId"></c-input>
+						<label>角色名称</label>
+						<c-input id="username" c-bind="editItem.name"></c-input>
 					</field>
 				</fields>
 				<fields class="cols-4">
 					<field class="cols-3">
-						<label>组件名称</label>
-						<c-input c-bind="editItem.name"></c-input>
-					</field>
-				</fields>
-				<fields class="cols-4">
-					<field class="cols-3">
-						<label>所属页面</label>
-						<div id="urlDropDown"></div>
-					</field>
-				</fields>
-				<fields class="cols-4">
-					<field class="cols-3">
-						<label>页面路径</label>
-						<c-input c-bind="editItem.path"></c-input>
-					</field>
-				</fields>
-				<fields class="cols-4">
-					<field class="cols-3">
-						<label>组件描述</label>
+						<label>角色描述</label>
 						<c-input c-bind="editItem.description"></c-input>
 					</field>
 				</fields>
@@ -103,12 +82,12 @@
 		</div>
 	</div>
 
-	<!--删除组件-->
+	<!--删除角色-->
 	<div id="delModal" class="ui basic modal">
 		<i class="icon help circle"></i>
 		<div class="content">
 			<div class="description">
-				<h2>是否删除该组件及其关联信息?</h2>
+				<h2>是否删除该角色及其关联信息?</h2>
 			</div>
 		</div>
 		<div class="actions">
@@ -124,7 +103,7 @@
 	<script src="static/common/common.js"></script>
 	<script src="static/cola-ui/cola-core.js" charset="UTF-8"></script>
 	<script src="static/cola-ui/cola.js" charset="UTF-8"></script>
-	<script src="static/bdf3/component_2.js"></script>
+	<script src="static/bdf3/role.js"></script>
 </body>
 
 </html>

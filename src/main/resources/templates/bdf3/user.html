@@ -5,12 +5,12 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 	<meta charset="UTF-8"/>
-	<title>角色管理</title>	
+	<title>用户管理</title>	
 	<link rel="stylesheet" type="text/css" href="static/nprogress/nprogress.css"/>
 	<link rel="stylesheet" type="text/css" href="static/cola-ui/cola.css"/>
 	<link rel="stylesheet" type="text/css" href="static/cola-ui/semantic.css"/>
 	<link rel="stylesheet" type="text/css" href="static/common/common.css"/>
-	<link rel="stylesheet" type="text/css" href="static/bdf3/role_2.css"/>
+	<link rel="stylesheet" type="text/css" href="static/bdf3/user.css"/>
 	<script src="static/nprogress/nprogress.js"></script>
 </head>
 <body>
@@ -20,13 +20,15 @@
 			<h-box>
 				<box>
 					<c-button id="addBtn" icon="plus" click="add">添加</c-button>
+					<c-button id="addManagerBtn" icon="student" click="addManager">赋予管理员身份</c-button>
+					<c-button id="cancelManagerBtn" icon="minus circle" click="cancelManager">取消管理员身份</c-button>
 				</box>
 				<flex-box>
 				</flex-box>
 				<box>
 					<div id="search" class="ui category search">
 						<div class="ui icon input">
-							<input class="prompt" type="text" placeholder="根据名称或描述..." c-bind="searchKey" c-onkeydown="search()"/>
+							<input class="prompt" type="text" placeholder="根据用户名或昵称搜索..." c-bind="searchKey" c-onkeydown="search()"/>
 							<i class="icon search"></i>
 						</div>
 					</div>
@@ -34,7 +36,7 @@
 			</h-box>
 		</box>
 		<flex-box style="background-color: #f3f3f4;">
-			<c-table bind="roles" sortMode="local" style="background-color: #f3f3f4; width: 99%; margin-left: 10px;">
+			<c-table bind="users" sortMode="local" style="background-color: #f3f3f4; width: 99%; margin-left: 10px;">
 				<template name="action">
 					<div>
 						<c-button id="removeBtn" class="ui circular trash icon button" title="删除" c-onclick="removeTip(item)">
@@ -43,35 +45,64 @@
 						<c-button id="modifyBtn" class="ui circular write icon button" title="修改" c-onclick="modify(item)">
 							<i class="write icon"></i>
 						</c-button>
+						<c-button id="resetPasswordBtn" class="ui circular privacy icon button" title="重置密码" c-onclick="resetPassword(item)">
+							<i class="privacy icon"></i>
+						</c-button>
 					</div>
 				</template>
-				<column property="name" caption="角色名称" sortable="true"></column>
-				<column property="description" caption="角色描述" sortable="true"></column>
+				<column property="username" caption="用户名" sortable="true"></column>
+				<column property="nickname" caption="昵称" sortable="true"></column>
+				<column property="administrator" caption="是管理员" sortable="true" template="checkbox-column"></column>
+				<column property="enabled" caption="可用" sortable="true" template="checkbox-column"></column>
 				<column caption="操作" template="action"></column>
 			</c-table>
 		</flex-box>
 		<box style="height: 60px; background-color: #f3f3f4;">
-			<c-pager bind="roles"></c-pager>
+			<c-pager bind="users"></c-pager>
 		</box>
 	</v-box>
 	
-	<!--角色信息添加-->
+	<!--用户信息添加-->
 	<div id="msgModal" class="ui basic modal">
 		<div class="header">
-			<i class="icon user"></i> <span class="caption">角色信息维护</span>
+			<i class="icon user"></i> <span class="caption">用户信息维护</span>
 		</div>
 		<div class="content">
 			<form-layout id="form">
 				<fields class="cols-4">
 					<field class="cols-3">
-						<label>角色名称</label>
-						<c-input id="username" c-bind="editItem.name"></c-input>
+						<label>用户名</label>
+						<c-input id="username" c-bind="editItem.username"></c-input>
 					</field>
 				</fields>
 				<fields class="cols-4">
 					<field class="cols-3">
-						<label>角色描述</label>
-						<c-input c-bind="editItem.description"></c-input>
+						<label>昵称</label>
+						<c-input c-bind="editItem.nickname"></c-input>
+					</field>
+				</fields>
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>密码</label>
+						<c-input id="password" inputType="password" c-bind="editItem.password"></c-input>
+					</field>
+				</fields>
+				<fields class="cols-5">
+					<field class="cols-1">
+						<label>账户未过期</label>
+						<input type="checkbox" c-bind="editItem.accountNonExpired"/>
+					</field>
+					<field class="cols-1">
+						<label>账户未锁定</label>
+						<input type="checkbox" c-bind="editItem.accountNonLocked"/>
+					</field>
+					<field class="cols-1">
+						<label>证书未过期</label>
+						<input type="checkbox" c-bind="editItem.credentialsNonExpired"/>
+					</field>
+					<field class="cols-1">
+						<label id="enabled">可用</label>
+						<input type="checkbox" c-bind="editItem.enabled"/>
 					</field>
 				</fields>
 			</form-layout>
@@ -82,12 +113,12 @@
 		</div>
 	</div>
 
-	<!--删除角色-->
+	<!--删除用户-->
 	<div id="delModal" class="ui basic modal">
 		<i class="icon help circle"></i>
 		<div class="content">
 			<div class="description">
-				<h2>是否删除该角色及其关联信息?</h2>
+				<h2>是否删除该用户及其关联信息?</h2>
 			</div>
 		</div>
 		<div class="actions">
@@ -103,7 +134,7 @@
 	<script src="static/common/common.js"></script>
 	<script src="static/cola-ui/cola-core.js" charset="UTF-8"></script>
 	<script src="static/cola-ui/cola.js" charset="UTF-8"></script>
-	<script src="static/bdf3/role_2.js"></script>
+	<script src="static/bdf3/user.js"></script>
 </body>
 
 </html>

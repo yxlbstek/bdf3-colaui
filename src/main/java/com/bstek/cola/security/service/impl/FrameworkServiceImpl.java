@@ -1,10 +1,18 @@
 package com.bstek.cola.security.service.impl;
 
+import java.util.List;
+
+import org.malagu.linq.JpaUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.bstek.bdf3.security.decision.manager.SecurityDecisionManager;
+import com.bstek.bdf3.security.orm.Url;
+import com.bstek.bdf3.security.orm.User;
+import com.bstek.bdf3.security.service.UserService;
 import com.bstek.cola.security.service.FrameworkService;
 
 /** 
@@ -20,6 +28,12 @@ public class FrameworkServiceImpl implements FrameworkService {
 
 	//@Autowired
 	//private NotifyService notifyService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private SecurityDecisionManager securityDecisionManager;
 	
 	@Value("${bdf3.security.loginSuccessPath:main}")
 	private String loginSuccessPath;
@@ -45,39 +59,43 @@ public class FrameworkServiceImpl implements FrameworkService {
 
 	@Override
 	public String getUserPage() {
-		return "bdf3/user_2";
+		return "bdf3/user";
 	}
 
 	@Override
 	public String getUrlPage() {
-		return "bdf3/url_2";
+		return "bdf3/url";
 	}
 
 	@Override
 	public String getRolePage() {
-		return "bdf3/role_2";
+		boolean auth = decide("./role");
+		if (auth) {
+			return "bdf3/role";
+		}
+		return "页面权限不足！";
 	}
 	
 	@Override
 	public String getRoleAllotPage() {
-		return "bdf3/roleallot_2";
+		return "bdf3/roleallot";
 	}
 	
 
 	@Override
 	public String getPermissionPage() {
-		return "bdf3/permission_2";
+		return "bdf3/permission";
 	}
 
 
 	@Override
 	public String getComponentPage() {
-		return "bdf3/component_2";
+		return "bdf3/component";
 	}
 	
 	@Override
 	public String getComponentAllotPage() {
-		return "bdf3/componentallot_2";
+		return "bdf3/componentallot";
 	}
 
 	@Override
@@ -88,7 +106,6 @@ public class FrameworkServiceImpl implements FrameworkService {
 	@Override
 	public UserDetails getLoginUserInfo() {
 		return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
 	}
 
 
@@ -106,4 +123,16 @@ public class FrameworkServiceImpl implements FrameworkService {
 //		notifyService.pullRemind(username);
 //		return notifyService.getUserNotify(username);
 //	}
+	
+	private boolean decide(String path) {
+		User user = (User)getLoginUserInfo();
+		List<Url> urls = JpaUtil.linq(Url.class).equal("path", path).list();
+		boolean administrator = userService.isAdministrator(user.getUsername());
+		if (administrator || securityDecisionManager.decide(user.getUsername(), urls.get(0))) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 }
