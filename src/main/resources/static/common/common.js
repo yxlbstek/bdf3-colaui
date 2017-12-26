@@ -104,59 +104,11 @@
 				}
 			}
 		},
+
 		close : function(path) {
 			return delete App._tabs[path];
 		},
-		getContextPath : function() {
-			var pathName = document.location.pathname;
-			var index = pathName.substr(1).indexOf("/");
-			var result = pathName.substr(0, index + 1);
-			return result;
-		},
-		getBasePath : function() {
-			var host = window.location.host;
-			var protocol = window.location.protocol;
-			var contextPath = App.getContextPath();
-			var basePath = protocol + "\//" + host + contextPath;
-			return basePath;
-		},
-		goLogin : function(callback) {
-			if (rootApp) {
-				return rootApp.goLogin(callback);
-			} else {
-				return login(callback);
-			}
-		},
-		setTitle : function(title) {
-			if (rootApp) {
-				return rootApp.setTitle(path);
-			} else {
-				return document.title = title;
-			}
-		},
-		setFavicon : function(path) {
-			var i, icon, len, ref, rel, results;
-			if (rootApp) {
-				return rootApp.setFavicon(path, config);
-			} else {
-				ref = [ "icon", "shortcut icon" ];
-				results = [];
-				for (i = 0, len = ref.length; i < len; i++) {
-					rel = ref[i];
-					icon = $("link[rel='" + rel + "']");
-					if (icon.length > 0) {
-						results.push(icon.attr("href", path));
-					} else {
-						results.push(document.head.appendChild($.xCreate({
-							tagName : "link",
-							rel : "icon",
-							href : path
-						})));
-					}
-				}
-				return results;
-			}
-		},
+
 		refreshMessage : function() {
 			if (rootApp) {
 				return rootApp.refreshMessage();
@@ -165,6 +117,7 @@
 						: void 0;
 			}
 		},
+
 		prop : function(key, value) {
 			var i, len, p, results;
 			if (rootApp) {
@@ -190,6 +143,7 @@
 				}
 			}
 		},
+
 		resetComponentAuth : function(path) {
 			$.ajax("./api/component/loadByPath", {
 				type : "GET",
@@ -215,7 +169,58 @@
 					}
 				}
 			});
-		}
+		},
+
+		// getContextPath : function() {
+		// 	var pathName = document.location.pathname;
+		// 	var index = pathName.substr(1).indexOf("/");
+		// 	var result = pathName.substr(0, index + 1);
+		// 	return result;
+		// },
+		// getBasePath : function() {
+		// 	var host = window.location.host;
+		// 	var protocol = window.location.protocol;
+		// 	var contextPath = App.getContextPath();
+		// 	var basePath = protocol + "\//" + host + contextPath;
+		// 	return basePath;
+		// },
+		// goLogin : function(callback) {
+		// 	if (rootApp) {
+		// 		return rootApp.goLogin(callback);
+		// 	} else {
+		// 		return login(callback);
+		// 	}
+		// },
+		// setTitle : function(title) {
+		// 	if (rootApp) {
+		// 		return rootApp.setTitle(path);
+		// 	} else {
+		// 		return document.title = title;
+		// 	}
+		// },
+		// setFavicon : function(path) {
+		// 	var i, icon, len, ref, rel, results;
+		// 	if (rootApp) {
+		// 		return rootApp.setFavicon(path, config);
+		// 	} else {
+		// 		ref = [ "icon", "shortcut icon" ];
+		// 		results = [];
+		// 		for (i = 0, len = ref.length; i < len; i++) {
+		// 			rel = ref[i];
+		// 			icon = $("link[rel='" + rel + "']");
+		// 			if (icon.length > 0) {
+		// 				results.push(icon.attr("href", path));
+		// 			} else {
+		// 				results.push(document.head.appendChild($.xCreate({
+		// 					tagName : "link",
+		// 					rel : "icon",
+		// 					href : path
+		// 				})));
+		// 			}
+		// 		}
+		// 		return results;
+		// 	}
+		// },
 	};
 
 	// title = App.prop("title");
@@ -233,6 +238,14 @@
 	// 			"eight", "nine", "ten", "eleven", "twelve", "thirteen",
 	// 			"fourteen", "fifteen", "sixteen" ][number - 1];
 	// });
+	
+	//language = $.cookie("_language") || window.navigator.language;
+	// if (language) {
+	// document.write("<script src=\"resources/cola-ui/i18n/" + language +
+	// "/cola.js\"></script>");
+	// // document.write("<script src=\"resources/i18n/" + language +
+	// "/common.js\"></script>");
+	// }
 
 	$(document).ajaxError(function(event, jqXHR) {
 		var message;
@@ -246,15 +259,6 @@
 			}
 		}
 	});
-
-	language = $.cookie("_language") || window.navigator.language;
-
-	// if (language) {
-	// document.write("<script src=\"resources/cola-ui/i18n/" + language +
-	// "/cola.js\"></script>");
-	// // document.write("<script src=\"resources/i18n/" + language +
-	// "/common.js\"></script>");
-	// }
 
 	$(NProgress.done);
 
