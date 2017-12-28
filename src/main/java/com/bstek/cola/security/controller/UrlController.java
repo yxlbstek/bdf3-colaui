@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bstek.bdf3.security.orm.Url;
+import com.bstek.cola.log.annotation.Log;
 import com.bstek.cola.security.service.UrlService;
 
 
@@ -64,18 +65,21 @@ public class UrlController {
 	}
 	
 	@RequestMapping(path = "/url/remove", method = RequestMethod.POST)
+	@Log(module = "菜单管理", category = "系统日志", operation = "删除菜单", source = "/url")
 	@Transactional
 	public void remove(@RequestParam String id) {
 		urlService.remove(id);
 	}
 	
 	@RequestMapping(path = "/url/add", method = RequestMethod.POST)
+	@Log(module = "菜单管理", category = "系统日志", operation = "新增菜单", source = "/url")
 	@Transactional
 	public String add(@RequestBody Url url) {
 		return urlService.add(url);
 	}
 
 	@RequestMapping(path = "/url/modify", method = RequestMethod.PUT)
+	@Log(module = "菜单管理", category = "系统日志", operation = "修改菜单", source = "/url")
 	@Transactional
 	public void modify(@RequestBody Url url) {
 		urlService.modify(url);

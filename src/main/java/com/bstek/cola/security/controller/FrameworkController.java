@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bstek.bdf3.security.orm.Url;
 import com.bstek.bdf3.security.service.UrlService;
+import com.bstek.cola.log.annotation.Log;
 import com.bstek.cola.security.service.FrameworkService;
 
 
@@ -132,6 +133,7 @@ public class FrameworkController {
 	}
 	
 	@RequestMapping("/login") 
+	@Log(module = "系统登录", category = "系统日志", operation = "登录系统", source = "/login")
 	public String login(HttpSession session, Model model) {
 		Exception e = (Exception) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 		model.addAttribute("applicationTitle", applicationTitle);
@@ -178,12 +180,7 @@ public class FrameworkController {
 	public String componentAllot(Model model) {
 		return frameworkService.getComponentAllotPage(model);
 	}
-	
-	@RequestMapping("/me") 
-	public String me(Model model) {
-		return frameworkService.getMePage();
-	}
-	
+
 	@RequestMapping("/api/menus")
 	@ResponseBody
 	@Transactional(readOnly = true)

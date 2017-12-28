@@ -131,11 +131,6 @@ public class FrameworkServiceImpl implements FrameworkService {
 	}
 
 	@Override
-	public String getMePage() {
-		return "bdf3/me";
-	}
-
-	@Override
 	public UserDetails getLoginUserInfo() {
 		return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}

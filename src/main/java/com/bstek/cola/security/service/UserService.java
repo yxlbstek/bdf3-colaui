@@ -4,7 +4,6 @@ package com.bstek.cola.security.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.bstek.bdf3.security.orm.RoleGrantedAuthority;
 import com.bstek.bdf3.security.orm.User;
 
 /** 
@@ -28,10 +27,6 @@ public interface UserService {
 	boolean validatePassword(String username, String password);
 
 	boolean isExist(String username);
-
-	String addRoleGrantedAuthority(RoleGrantedAuthority roleGrantedAuthority);
-
-	void removeRoleGrantedAuthority(String id);
 
 	void modifyNickname(String username, String nickname);
 

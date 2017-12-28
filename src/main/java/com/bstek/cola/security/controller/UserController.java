@@ -6,15 +6,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bstek.bdf3.security.orm.RoleGrantedAuthority;
 import com.bstek.bdf3.security.orm.User;
+import com.bstek.cola.log.annotation.Log;
 import com.bstek.cola.security.service.UserService;
 
 /** 
@@ -38,18 +37,21 @@ public class UserController {
 	}
 	
 	@RequestMapping(path = "/user/remove", method = RequestMethod.POST)
+	@Log(module = "用户管理", category = "系统日志", operation = "删除用户", source = "/user")
 	@Transactional
 	public void remove(@RequestParam String username) {
 		userService.remove(username);
 	}
 	
 	@RequestMapping(path = "/user/add", method = RequestMethod.POST)
+	@Log(module = "用户管理", category = "系统日志", operation = "新增用户", source = "/user")
 	@Transactional
 	public void add(@RequestBody User user) throws Exception {
 		userService.add(user);
 	}
 
 	@RequestMapping(path = "/user/modify", method = RequestMethod.PUT)
+	@Log(module = "用户管理", category = "系统日志", operation = "修改用户", source = "/user")
 	@Transactional
 	public void modify(@RequestBody User user) throws Exception {
 		userService.modify(user);
@@ -67,6 +69,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(path = "/user/changePassword", method = RequestMethod.GET)
+	@Log(module = "用户管理", category = "系统日志", operation = "修改密码", source = "/user")
 	@Transactional
 	public void changePassword(@RequestParam String newPassword) {
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -78,17 +81,5 @@ public class UserController {
 	public void resetPassword(@RequestBody User user) {
 		userService.resetPassword(user);
 	}
-	
-	@RequestMapping(path = "/authority/add", method = RequestMethod.POST)
-	@Transactional
-	public String addRoleGrantedAuthority(@RequestBody RoleGrantedAuthority roleGrantedAuthority) {
-		return userService.addRoleGrantedAuthority(roleGrantedAuthority);
-		
-	}
-	
-	@RequestMapping(path = "/authority/remove/{id}", method = RequestMethod.DELETE)
-	@Transactional
-	public void removeRoleGrantedAuthority(@PathVariable String id) {
-		userService.removeRoleGrantedAuthority(id);
-	}
+
 }

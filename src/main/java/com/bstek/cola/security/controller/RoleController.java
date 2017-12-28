@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bstek.bdf3.security.orm.Role;
 import com.bstek.bdf3.security.orm.Url;
 import com.bstek.bdf3.security.orm.User;
+import com.bstek.cola.log.annotation.Log;
 import com.bstek.cola.security.service.RoleService;
 
 /** 
@@ -44,18 +45,21 @@ public class RoleController {
 	}
 	
 	@RequestMapping(path = "/role/remove", method = RequestMethod.POST)
+	@Log(module = "角色管理", category = "系统日志", operation = "删除角色", source = "/role")
 	@Transactional
 	public void remove(@RequestParam String id) {
 		roleService.remove(id);
 	}
 	
 	@RequestMapping(path = "/role/add", method = RequestMethod.POST)
+	@Log(module = "角色管理", category = "系统日志", operation = "新增角色", source = "/role")
 	@Transactional
 	public String add(@RequestBody Role role) {
 		return roleService.add(role);
 	}
 
 	@RequestMapping(path = "/role/modify", method = RequestMethod.PUT)
+	@Log(module = "角色管理", category = "系统日志", operation = "修改角色", source = "/role")
 	@Transactional
 	public void modify(@RequestBody Role role) {
 		roleService.modify(role);
@@ -77,12 +81,14 @@ public class RoleController {
 	}
 	
 	@RequestMapping(path = "/role/addRoleUser", method = RequestMethod.POST)
+	@Log(module = "角色分配", category = "系统日志", operation = "分配用户", source = "/roleallot")
 	@Transactional
 	public void addRoleUser(@RequestParam(name = "roleId") String roleId, @RequestParam(name = "actorId") String actorId) {
 		roleService.addRoleUser(roleId, actorId);
 	}
 	
 	@RequestMapping(path = "/role/removeRoleUser", method = RequestMethod.POST)
+	@Log(module = "角色分配", category = "系统日志", operation = "移除用户", source = "/roleallot")
 	@Transactional
 	public void removeRoleUser(@RequestParam(name = "roleId") String roleId, @RequestParam(name = "actorId") String actorId) {
 		roleService.removeRoleUser(roleId, actorId);

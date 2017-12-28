@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bstek.bdf3.security.orm.Component;
+import com.bstek.cola.log.annotation.Log;
 import com.bstek.cola.security.service.ComponentService;
 
 /** 
@@ -42,18 +43,21 @@ public class ComponentController {
 	}
 	
 	@RequestMapping(path = "/component/remove", method = RequestMethod.POST)
+	@Log(module = "组件管理", category = "系统日志", operation = "删除组件", source = "/component")
 	@Transactional
 	public void remove(@RequestParam String id) {
 		componentService.remove(id);
 	}
 	
 	@RequestMapping(path = "/component/add", method = RequestMethod.POST)
+	@Log(module = "组件管理", category = "系统日志", operation = "新增组件", source = "/component")
 	@Transactional
 	public String add(@RequestBody Component component) {
 		return componentService.add(component);
 	}
 
 	@RequestMapping(path = "/component/modify", method = RequestMethod.PUT)
+	@Log(module = "组件管理", category = "系统日志", operation = "修改组件", source = "/component")
 	@Transactional
 	public void modify(@RequestBody Component component) {
 		componentService.modify(component);
@@ -72,6 +76,7 @@ public class ComponentController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/component/save", method = RequestMethod.POST)
+	@Log(module = "组件权限", category = "系统日志", operation = "组件权限分配", source = "/componentallot")
 	@Transactional
 	public void save(@RequestBody Map<String, Object> params) {
 		String roleId = (String) params.get("roleId");

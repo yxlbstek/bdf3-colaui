@@ -27,8 +27,6 @@ public interface FrameworkService {
 
 	String getComponentPage(Model model);
 
-	String getMePage();
-
 	UserDetails getLoginUserInfo();
 
 	String getRoleAllotPage(Model model);

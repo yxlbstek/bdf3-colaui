@@ -1,6 +1,5 @@
 package com.bstek.cola.security.service.impl;
 
-import java.util.UUID;
 
 import org.malagu.linq.JpaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bstek.bdf3.security.cache.SecurityCacheEvict;
-import com.bstek.bdf3.security.orm.RoleGrantedAuthority;
 import com.bstek.bdf3.security.orm.User;
 import com.bstek.cola.security.service.UserService;
 
@@ -87,22 +84,6 @@ public class UserServiceImpl implements UserService {
 	public boolean isExist(String username) {
 		boolean result = JpaUtil.linq(User.class).equal("username", username).exists();
 		return result;
-	}
-
-	@Override
-	@SecurityCacheEvict
-	public String addRoleGrantedAuthority(RoleGrantedAuthority roleGrantedAuthority) {
-		roleGrantedAuthority.setId(UUID.randomUUID().toString());
-		JpaUtil.persist(roleGrantedAuthority);
-		return roleGrantedAuthority.getId();
-		
-	}
-
-	@Override
-	@SecurityCacheEvict
-	public void removeRoleGrantedAuthority(String id) {
-		RoleGrantedAuthority roleGrantedAuthority = JpaUtil.getOne(RoleGrantedAuthority.class, id);
-		JpaUtil.remove(roleGrantedAuthority);
 	}
 
 	@Override
