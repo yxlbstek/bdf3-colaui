@@ -17,13 +17,13 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.malagu.linq.JpaUtil;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.bstek.bdf3.security.ContextUtils;
 import com.bstek.bdf3.security.orm.User;
 import com.bstek.cola.log.annotation.Log;
 import com.bstek.cola.orm.LogInfo;
@@ -38,7 +38,6 @@ import com.bstek.cola.orm.LogInfo;
 
 @Aspect
 @Component
-@Transactional(readOnly = true)
 public class LogAspect {
 
 	@Pointcut("@annotation(com.bstek.cola.log.annotation.Log)")
@@ -55,7 +54,7 @@ public class LogAspect {
 	
 	@Transactional
 	private void saveLog(ProceedingJoinPoint joinPoint) {
-		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = ContextUtils.getLoginUser();
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
 		LogInfo logInfo = new LogInfo();
@@ -68,7 +67,7 @@ public class LogAspect {
 			logInfo.setSource(getPrefix() + log.source());
 		}
 		logInfo.setId(UUID.randomUUID().toString());
-		logInfo.setIP(getIp());
+		logInfo.setIp(getIp());
 		logInfo.setOperationUser(user.getUsername());
 		logInfo.setOperationUserNickname(user.getNickname());
 		logInfo.setOperationDate(new Date());

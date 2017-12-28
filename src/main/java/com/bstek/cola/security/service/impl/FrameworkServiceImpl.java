@@ -97,7 +97,6 @@ public class FrameworkServiceImpl implements FrameworkService {
 		model.addAttribute("status", status);
 		return "frame/error";
 	}
-	
 
 	@Override
 	public String getPermissionPage(Model model) {
@@ -109,6 +108,15 @@ public class FrameworkServiceImpl implements FrameworkService {
 		return "frame/error";
 	}
 
+	@Override
+	public String getLogInfoPage(Model model) {
+		int status = decide("./loginfo");
+		if (status == 200) {
+			return "bdf3/loginfo";
+		}
+		model.addAttribute("status", status);
+		return "frame/error";
+	}
 
 	@Override
 	public String getComponentPage(Model model) {
@@ -182,6 +190,6 @@ public class FrameworkServiceImpl implements FrameworkService {
 		}
 		return 404;
 	}
-	
+
 	
 }

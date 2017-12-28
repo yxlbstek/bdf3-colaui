@@ -49,7 +49,7 @@ public class LogInfo implements Serializable {
 	private String category;
 	
 	@Column(name = "IP_", length = 20)
-	private String IP;
+	private String ip;
 	
 	@Column(name = "SOURCE_", length = 255)
 	private String source;
@@ -118,12 +118,12 @@ public class LogInfo implements Serializable {
 		this.category = category;
 	}
 
-	public String getIP() {
-		return IP;
+	public String getIp() {
+		return ip;
 	}
 
-	public void setIP(String iP) {
-		IP = iP;
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
 	public String getSource() {

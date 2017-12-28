@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta charset="UTF-8"/>
+	<title>角色管理</title>	
+	<link rel="stylesheet" type="text/css" href="static/nprogress/nprogress.css"/>
+	<link rel="stylesheet" type="text/css" href="static/cola-ui/cola.css"/>
+	<link rel="stylesheet" type="text/css" href="static/cola-ui/semantic.css"/>
+	<link rel="stylesheet" type="text/css" href="static/common/common.css"/>
+	<link rel="stylesheet" type="text/css" href="static/bdf3/loginfo.css"/>
+	<script src="static/nprogress/nprogress.js"></script>
+</head>
+<body>
+	
+	<v-box style="width:100%; background-color: #f3f3f4;" class="ui fragment">
+		<box style="height: 60px; background-color: #f3f3f4; padding: 10px;">
+			<h-box>
+				<flex-box>
+				</flex-box>
+				<box>
+					<div id="search" class="ui category search">
+						<div class="ui icon input">
+							<input class="prompt" type="text" placeholder="根据模块或操作人搜索..." c-bind="searchKey" c-onkeydown="search()"/>
+							<i class="icon search"></i>
+						</div>
+					</div>
+				</box>
+			</h-box>
+		</box>
+		<flex-box style="background-color: #f3f3f4;">
+			<div id="logInfoTable"></div>
+		</flex-box>
+		<box style="height: 60px; background-color: #f3f3f4;">
+			<c-pager bind="logInfos"></c-pager>
+		</box>
+	</v-box>
+		
+	<script src="static/jquery/jquery-2.1.3.js"></script>
+	<script src="static/jquery/jquery.cookie.js"></script>
+	<script src="static/cola-ui/3rd.js"></script>
+	<script src="static/cola-ui/semantic.js"></script>
+	<script src="static/common/common.js"></script>
+	<script src="static/cola-ui/cola-core.js" charset="UTF-8"></script>
+	<script src="static/cola-ui/cola.js" charset="UTF-8"></script>
+	<script src="static/bdf3/loginfo.js"></script>
+</body>
+
+</html>

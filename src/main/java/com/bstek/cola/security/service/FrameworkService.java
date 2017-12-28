@@ -35,6 +35,8 @@ public interface FrameworkService {
 
 	String getComponentAllotPage(Model model);
 
+	String getLogInfoPage(Model model);
+
 	//Long getMessageTotal(String username);
 
 	//List<Notify> getMessages(String username);

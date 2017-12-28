@@ -99,7 +99,9 @@ public class FrameworkController {
     @Autowired
     private FrameworkService frameworkService;
 	
-	@RequestMapping("/") 
+	@RequestMapping("/")
+	@Transactional
+	@Log(module = "系统登录", category = "系统日志", operation = "登录系统", source = "/login")
 	public String home() {
 		return frameworkService.getHomePage();
 	}
@@ -133,7 +135,6 @@ public class FrameworkController {
 	}
 	
 	@RequestMapping("/login") 
-	@Log(module = "系统登录", category = "系统日志", operation = "登录系统", source = "/login")
 	public String login(HttpSession session, Model model) {
 		Exception e = (Exception) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 		model.addAttribute("applicationTitle", applicationTitle);
@@ -179,6 +180,11 @@ public class FrameworkController {
 	@RequestMapping("/componentallot") 
 	public String componentAllot(Model model) {
 		return frameworkService.getComponentAllotPage(model);
+	}
+	
+	@RequestMapping("/loginfo") 
+	public String logInfo(Model model) {
+		return frameworkService.getLogInfoPage(model);
 	}
 
 	@RequestMapping("/api/menus")
