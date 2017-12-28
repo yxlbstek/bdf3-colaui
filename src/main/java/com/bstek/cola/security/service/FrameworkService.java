@@ -37,6 +37,8 @@ public interface FrameworkService {
 
 	String getLogInfoPage(Model model);
 
+	String getDictionaryPage(Model model);
+
 	//Long getMessageTotal(String username);
 
 	//List<Notify> getMessages(String username);

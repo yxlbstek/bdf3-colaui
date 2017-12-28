@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,8 +65,8 @@ public class DictionaryController {
 	}
 	
 	/*字典项*/
-	@RequestMapping(path = "/dictionaryItem/load", method = RequestMethod.GET)
-	public Page<DictionaryItem> loadDictionaryItems(Pageable pageable, @RequestParam(name = "searchKey", required = false) String searchKey, @RequestParam(name = "dictionaryId") String dictionaryId) {
+	@RequestMapping(path = "/dictionaryItem/load/{dictionaryId}", method = RequestMethod.GET)
+	public Page<DictionaryItem> loadDictionaryItems(Pageable pageable, @RequestParam(name = "searchKey", required = false) String searchKey, @PathVariable("dictionaryId") String dictionaryId) {
 		return dictionaryService.loadDictionaryItems(pageable, dictionaryId, searchKey);
 	}
 	

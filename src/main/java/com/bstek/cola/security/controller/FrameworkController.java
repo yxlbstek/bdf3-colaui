@@ -186,6 +186,11 @@ public class FrameworkController {
 	public String logInfo(Model model) {
 		return frameworkService.getLogInfoPage(model);
 	}
+	
+	@RequestMapping("/dictionary") 
+	public String dictionary(Model model) {
+		return frameworkService.getDictionaryPage(model);
+	}
 
 	@RequestMapping("/api/menus")
 	@ResponseBody

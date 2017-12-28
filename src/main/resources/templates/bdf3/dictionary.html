@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta charset="UTF-8"/>
+    <title>字典管理</title>
+    <link rel="stylesheet" type="text/css" href="static/nprogress/nprogress.css"/>
+    <link rel="stylesheet" type="text/css" href="static/cola-ui/semantic.css"/>
+    <link rel="stylesheet" type="text/css" href="static/cola-ui/cola.css"/>
+    <link rel="stylesheet" type="text/css" href="static/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="static/bdf3/dictionary.css"/>
+    <script src="static/nprogress/nprogress.js"></script>
+</head>
+<body>
+
+    <h-box style="height: 100%; background-color: #f3f3f4;">
+        <box style="width: 46%; padding: 10px; background-color: #E0E0E0;"  class="ui fragment">
+            <c-panel id="dictionaryPanel" caption="字典目录" height="100%" collapsible="false">
+                <div class="content" style="height: 94%;">
+                    <v-box style="height: 100%; background-color: #f3f3f4; padding: 8px;">
+                        <box style="height: 40px;">
+                            <h-box>
+                                <box style="width: 130px;">
+                                    <c-button id="addDictionaryBtn" icon="plus" caption="新增字典目录" click="addDictionary"></c-button>
+                                </box>
+                                <flex-box></flex-box>
+                                <box style="width: 200px;">
+                                    <div class="ui category search">
+                                        <div class="ui icon input">
+                                            <input class="prompt" type="text" placeholder="根据编码或名称搜索..." c-bind="searchKey" c-onkeydown="search()"/>
+                                            <i class="icon search"></i>
+                                        </div>
+                                    </div>
+                                </box>
+                            </h-box>
+                        </box>
+                        <flex-box>
+                            <c-table id="dictionaryTable" bind="dictionaries" sortMode="local">
+                                <template name="action">
+                                    <div>
+                                        <c-button id="removeDictionaryBtn" class="ui circular trash icon button" title="删除" c-onclick="removeDictionaryTip(item)">
+                                            <i class="trash icon"></i>
+                                        </c-button>
+                                        <c-button id="modifyDictionaryBtn" class="ui circular write icon button" title="修改" c-onclick="modifyDictionary(item)">
+                                            <i class="write icon"></i>
+                                        </c-button>
+                                    </div>
+                                </template>
+                                <column property="code" caption="编码" sortable="true"></column>
+                                <column property="name" caption="名称" sortable="true"></column>
+                            </c-table>
+                        </flex-box>
+                        <box style="height: 40px;">
+                            <c-pager bind="dictionaries"></c-pager>
+                        </box>
+                    </v-box>
+                </div>
+            </c-panel>
+        </box>
+        <flex-box>
+        </flex-box>
+        <box style="width: 52%; padding: 10px; background-color: #E0E0E0;" class="ui fragment">
+            <c-panel id="dictionaryItemPanel" caption="字典项" height="100%" collapsible="false">
+                <div class="content" style="height: 94%;">
+                    <v-box style="height: 100%; background-color: #f3f3f4; padding: 8px;">
+                        <box style="height: 40px;">
+                            <h-box>
+                                <box style="width: 120px;">
+                                    <c-button id="addDictionaryItemBtn" icon="plus" caption="新增字典项" click="addItem"></c-button>
+                                </box>
+                                <flex-box></flex-box>
+                                <box style="width: 200px;">
+                                    <div class="ui category search">
+                                        <div class="ui icon input">
+                                            <input class="prompt" type="text" placeholder="根据Key或Value搜索..." c-bind="searchItemKey" c-onkeydown="searchItem()"/>
+                                            <i class="icon search"></i>
+                                        </div>
+                                    </div>
+                                </box>
+                            </h-box>
+                        </box>
+                        <flex-box>
+                            <template name="action">
+                                <div>
+                                    <c-button id="removeItemBtn" class="ui circular trash icon button" title="删除" c-onclick="removeItemTip(item)">
+                                        <i class="trash icon"></i>
+                                    </c-button>
+                                    <c-button id="modifyItemBtn" class="ui circular write icon button" title="修改" c-onclick="modifyItem(item)">
+                                        <i class="write icon"></i>
+                                    </c-button>
+                                </div>
+                            </template>
+                            <c-table id="dictionaryItemTable" bind="dictionaryItems" sortMode="local">
+                                <column property="key" caption="字典项（Key）" sortable="true"></column>
+                                <column property="value" caption="字典项（Value）" sortable="true"></column>
+                                <column property="enabled" caption="可用" sortable="true"></column>
+                            </c-table>
+                        </flex-box>
+                        <box style="height: 40px;">
+                            <c-pager bind="dictionaryItems"></c-pager>
+                        </box>
+                    </v-box>
+                </div>
+            </c-panel>
+        </box>
+    </h-box>
+
+    <!--字典目录信息添加-->
+    <div id="dictionaryModal" class="ui basic modal">
+        <div class="header">
+            <i class="icon book"></i> <span class="caption">字典目录信息维护</span>
+        </div>
+        <div class="content">
+            <form-layout id="form">
+                <fields class="cols-4">
+                    <field class="cols-3">
+                        <label>编码</label>
+                        <c-input c-bind="editItemDictionary.code"></c-input>
+                    </field>
+                </fields>
+                <fields class="cols-4">
+                    <field class="cols-3">
+                        <label>名称</label>
+                        <c-input c-bind="editItemDictionary.name"></c-input>
+                    </field>
+                </fields>
+                <fields class="cols-4">
+                    <field class="cols-3">
+                        <label>序号</label>
+                        <c-input c-bind="editItemDictionary.order"></c-input>
+                    </field>
+                </fields>
+            </form-layout>
+        </div>
+        <div class="actions">
+            <c-button icon="save" click="saveDictionary">保存</c-button>
+            <c-button icon="remove" click="cancelDictionary">取消</c-button>
+        </div>
+    </div>
+
+    <!--删除字典目录-->
+    <div id="delDictionaryModal" class="ui basic modal">
+        <i class="icon help circle"></i>
+        <div class="content">
+            <div class="description">
+                <h2>是否删除该字典目录及其关联信息?</h2>
+            </div>
+        </div>
+        <div class="actions">
+            <c-button icon="save" click="removeDictionary">删除</c-button>
+            <c-button icon="remove" click="cancelRemoveDictionary">取消</c-button>
+        </div>
+    </div>
+
+
+    <!--字典项信息添加-->
+    <div id="dictionaryItemModal" class="ui basic modal">
+        <div class="header">
+            <i class="icon list layout"></i> <span class="caption">字典项信息维护</span>
+        </div>
+        <div class="content">
+            <form-layout id="form">
+                <fields class="cols-4">
+                    <field class="cols-3">
+                        <label>字典项（Key）</label>
+                        <c-input c-bind="editItemDictionaryItem.key"></c-input>
+                    </field>
+                </fields>
+                <fields class="cols-4">
+                    <field class="cols-3">
+                        <label>字典项（Value）</label>
+                        <c-input c-bind="editItemDictionaryItem.value"></c-input>
+                    </field>
+                </fields>
+                <fields class="cols-4">
+                    <field class="cols-3">
+                        <label>可用</label>
+                        <c-input c-bind="editItemDictionaryItem.enabled"></c-input>
+                    </field>
+                </fields>
+                <fields class="cols-4">
+                    <field class="cols-3">
+                        <label>序号</label>
+                        <c-input c-bind="editItemDictionaryItem.order"></c-input>
+                    </field>
+                </fields>
+            </form-layout>
+        </div>
+        <div class="actions">
+            <c-button icon="saveItem" click="saveItem">保存</c-button>
+            <c-button icon="removeItem" click="cancelItem">取消</c-button>
+        </div>
+    </div>
+
+    <!--删除字典项-->
+    <div id="delDictionaryItemModal" class="ui basic modal">
+        <i class="icon help circle"></i>
+        <div class="content">
+            <div class="description">
+                <h2>是否删除该字典项及其关联信息?</h2>
+            </div>
+        </div>
+        <div class="actions">
+            <c-button icon="saveItem" click="removeItem">删除</c-button>
+            <c-button icon="removeItem" click="cancelRemoveItem">取消</c-button>
+        </div>
+    </div>
+</body>
+    <script src="static/jquery/jquery-2.1.3.js"></script>
+    <script src="static/jquery/jquery.cookie.js"></script>
+    <script src="static/cola-ui/3rd.js"></script>
+    <script src="static/cola-ui/semantic.js"></script>
+    <script src="static/common/common.js"></script>
+    <script src="static/cola-ui/cola-core.js" charset="UTF-8"></script>
+    <script src="static/cola-ui/cola.js" charset="UTF-8"></script>
+    <script src="static/bdf3/dictionary.js"></script>
+
+</html>

@@ -117,6 +117,17 @@ public class FrameworkServiceImpl implements FrameworkService {
 		model.addAttribute("status", status);
 		return "frame/error";
 	}
+	
+
+	@Override
+	public String getDictionaryPage(Model model) {
+		int status = decide("./dictionary");
+		if (status == 200) {
+			return "bdf3/dictionary";
+		}
+		model.addAttribute("status", status);
+		return "frame/error";
+	}
 
 	@Override
 	public String getComponentPage(Model model) {
@@ -190,6 +201,7 @@ public class FrameworkServiceImpl implements FrameworkService {
 		}
 		return 404;
 	}
+
 
 	
 }
