@@ -35,17 +35,11 @@
 			properties: {
 				key: {
 					validators: [
-						"required",
-						new cola.AjaxValidator({
-							method: "GET",
-							name: "keyAjaxValidator",
-							message: "该Key已存在！",
-							disabled: true,
-							data: {
-								key: ":data"
-							},
-							url: "./api/dictionaryItem/exist"
-						})
+						"required", {
+							$type: "length",
+							min: 0,
+							max: 64
+						}
 					]
 				},
 				value: {
@@ -193,7 +187,6 @@
 			//字典项
 			addItem: function () {
 				var order, dictionary, dictItems;
-				model.definition("keyAjaxValidator").set("disabled", false);
 				dictItems = model.get("dictionaryItems");
 				if (!dictItems.entityCount > 0) {
 					order = 1;
@@ -229,7 +222,6 @@
 						contentType : "application/json",
 						url: path,
 						success: function() {
-							model.definition("keyAjaxValidator").set("disabled", true);
 							model.get("dictionaryItems").insert(data);
 							$("#dictionaryItemModal").modal('hide');
 							model.flush("dictionaryItems");
@@ -281,7 +273,6 @@
 			},
 
 			modifyItem: function(item) {
-				model.definition("keyAjaxValidator").set("disabled", true);
 				model.set("editItemDictionaryItem", item.toJSON());
 				$("#dictionaryItemModal").modal('show');
 			},
