@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.bstek.bdf3.security.ContextUtils;
 import com.bstek.bdf3.security.orm.Permission;
 import com.bstek.bdf3.security.orm.Role;
 import com.bstek.bdf3.security.orm.RoleGrantedAuthority;
@@ -60,92 +61,92 @@ public class FrameworkServiceImpl implements FrameworkService {
 
 	@Override
 	public String getUserPage(Model model) {
-		int status = decide("./user");
-		if (status == 200) {
+		boolean result = decide("./user");
+		if (result) {
 			return "bdf3/user";
 		}
-		model.addAttribute("status", status);
+		model.addAttribute("status", 403);
 		return "frame/error";
 	}
 
 	@Override
 	public String getUrlPage(Model model) {
-		int status = decide("./url");
-		if (status == 200) {
+		boolean result = decide("./url");
+		if (result) {
 			return "bdf3/url";
 		}
-		model.addAttribute("status", status);
+		model.addAttribute("status", 403);
 		return "frame/error";	
 	}
 
 	@Override
 	public String getRolePage(Model model) {
-		int status = decide("./role");
-		if (status == 200) {
+		boolean result = decide("./role");
+		if (result) {
 			return "bdf3/role";
 		}
-		model.addAttribute("status", status);
+		model.addAttribute("status", 403);
 		return "frame/error";
 	}
 	
 	@Override
 	public String getRoleAllotPage(Model model) {
-		int status = decide("./roleallot");
-		if (status == 200) {
+		boolean result = decide("./roleallot");
+		if (result) {
 			return "bdf3/roleallot";
 		}
-		model.addAttribute("status", status);
+		model.addAttribute("status", 403);
 		return "frame/error";
 	}
 
 	@Override
 	public String getPermissionPage(Model model) {
-		int status = decide("./permission");
-		if (status == 200) {
+		boolean result = decide("./permission");
+		if (result) {
 			return "bdf3/permission";
 		}
-		model.addAttribute("status", status);
+		model.addAttribute("status", 403);
 		return "frame/error";
 	}
 
 	@Override
 	public String getLogInfoPage(Model model) {
-		int status = decide("./loginfo");
-		if (status == 200) {
+		boolean result = decide("./loginfo");
+		if (result) {
 			return "bdf3/loginfo";
 		}
-		model.addAttribute("status", status);
+		model.addAttribute("status", 403);
 		return "frame/error";
 	}
 	
 
 	@Override
 	public String getDictionaryPage(Model model) {
-		int status = decide("./dictionary");
-		if (status == 200) {
+		boolean result = decide("./dictionary");
+		if (result) {
 			return "bdf3/dictionary";
 		}
-		model.addAttribute("status", status);
+		model.addAttribute("status", 403);
 		return "frame/error";
 	}
 
 	@Override
 	public String getComponentPage(Model model) {
-		int status = decide("./component");
-		if (status == 200) {
+		boolean result = decide("./component");
+		if (result) {
 			return "bdf3/component";
 		}
-		model.addAttribute("status", status);
+		model.addAttribute("status", 403);
 		return "frame/error";
 	}
 	
 	@Override
 	public String getComponentAllotPage(Model model) {
-		int status = decide("./componentallot");
-		if (status == 200) {
+		boolean result = decide("./componentallot");
+		if (result) {
 			return "bdf3/componentallot";
 		}
-		model.addAttribute("status", status);
+		model.addAttribute("status", 403);
 		return "frame/error";
 	}
 
@@ -170,36 +171,33 @@ public class FrameworkServiceImpl implements FrameworkService {
 //		return notifyService.getUserNotify(username);
 //	}
 	
-	public int decide(String path) {
-		User user = (User)getLoginUserInfo();
+	public boolean decide(String path) {
+		User user = ContextUtils.getLoginUser();
 		List<Url> urls = JpaUtil.linq(Url.class).equal("path", path).list();
-		if (urls.size() > 0) {
-			if (userService.isAdministrator(user.getUsername())) {
-				return 200;
-			}
-			List<Role> roles = JpaUtil
-				.linq(Role.class)
-				.in(Permission.class)
-					.select("roleId")
-					.equal("resourceId", urls.get(0).getId())
-					.equal("resourceType", Url.RESOURCE_TYPE)
-				.end()
-				.list();
-			if (roles.size() > 0) {
-				Set<String> roleIds = JpaUtil.collectId(roles);
-				List<RoleGrantedAuthority> authorities = JpaUtil
-					.linq(RoleGrantedAuthority.class)
-					.equal("actorId", user.getUsername())
-					.in("roleId", roleIds)
-					.list();
-				if (authorities.size() > 0) {
-					return 200;
-				}
-				return 403;
-			}
-			return 403;
+		if (userService.isAdministrator(user.getUsername())) {
+			return true;
 		}
-		return 404;
+		List<Role> roles = JpaUtil
+			.linq(Role.class)
+			.in(Permission.class)
+				.select("roleId")
+				.equal("resourceId", urls.get(0).getId())
+				.equal("resourceType", Url.RESOURCE_TYPE)
+			.end()
+			.list();
+		if (roles.size() > 0) {
+			Set<String> roleIds = JpaUtil.collectId(roles);
+			List<RoleGrantedAuthority> authorities = JpaUtil
+				.linq(RoleGrantedAuthority.class)
+				.equal("actorId", user.getUsername())
+				.in("roleId", roleIds)
+				.list();
+			if (authorities.size() > 0) {
+				return true;
+			}
+			return false;
+		}
+		return false;
 	}
 
 
