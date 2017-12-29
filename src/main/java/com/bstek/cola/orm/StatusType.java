@@ -6,5 +6,5 @@ package com.bstek.cola.orm;
 *
 */
 public enum StatusType {
-	Sent, draft
+	Sent, Draft
 }
