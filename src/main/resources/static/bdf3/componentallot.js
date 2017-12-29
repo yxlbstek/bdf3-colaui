@@ -9,7 +9,10 @@
 	            },
 	            complete: function () {
 	                if (!model.get("roleId")) {
-	                    model.set("roleId", model.get("roles").current.get("id"));
+						var role = model.get("roles").current;
+						if (role) {
+							model.set("roleId", role.get("id"));
+						}
 	                }
 	            }
 	        }
@@ -21,7 +24,10 @@
 	                url: "./api/url/loadTreeByRoleId/{{@roleId}}",
 	                complete: function () {
 	                    if (!model.get("urlId")) {
-	                        model.set("urlId", model.get("urls").current.get("id"));
+							var url = model.get("urls").current;
+							if (url) {
+								model.set("urlId", url.get("id"));
+							}
 	                    };
 	                }
 	            }

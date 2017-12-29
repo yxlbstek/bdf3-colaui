@@ -66,7 +66,7 @@ public class DictionaryController {
 	
 	/*字典项*/
 	@RequestMapping(path = "/dictionaryItem/load/{dictionaryId}", method = RequestMethod.GET)
-	public Page<DictionaryItem> loadDictionaryItems(Pageable pageable, @RequestParam(name = "searchKey", required = false) String searchKey, @PathVariable("dictionaryId") String dictionaryId) {
+	public Page<DictionaryItem> loadDictionaryItems(Pageable pageable, @RequestParam(name = "searchKey", required = false) String searchKey, @PathVariable(name = "dictionaryId", required = false) String dictionaryId) {
 		return dictionaryService.loadDictionaryItems(pageable, dictionaryId, searchKey);
 	}
 	

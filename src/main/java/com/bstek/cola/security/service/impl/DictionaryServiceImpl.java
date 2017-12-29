@@ -33,7 +33,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 					.like("name", "%" + searchKey + "%")
 				.end()
 			.endIf()
-			.desc("order")
+			.asc("order")
 			.paging(pageable);
 	}
 
@@ -68,11 +68,11 @@ public class DictionaryServiceImpl implements DictionaryService {
 				.equal("dictionaryId", dictionaryId)
 				.addIf(searchKey)
 					.or()
-						.like("code", "%" + searchKey + "%")
-						.like("name", "%" + searchKey + "%")
+						.like("key", "%" + searchKey + "%")
+						.like("value", "%" + searchKey + "%")
 					.end()
 				.endIf()
-				.desc("order")
+				.asc("order")
 				.paging(pageable);
 	}
 
@@ -83,7 +83,8 @@ public class DictionaryServiceImpl implements DictionaryService {
 
 	@Override
 	public void addDictionaryItem(DictionaryItem dictionaryItem) {
-		dictionaryItem.setId(UUID.randomUUID().toString());		
+		dictionaryItem.setId(UUID.randomUUID().toString());
+		JpaUtil.persist(dictionaryItem);
 	}
 
 	@Override

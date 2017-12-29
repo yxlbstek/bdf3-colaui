@@ -1,80 +1,87 @@
 (function () {
 	cola(function(model) {
-	    model.describe("dictionaries", {
-			dataType: {
-				name: "Dictionary",
-				properties: {
-					code: {
-						validators: [
-							"required",
-							new cola.AjaxValidator({
-								method: "GET",
-								name: "codeAjaxValidator",
-								message: "该编码已存在！",
-								disabled: true,
-								data: {
-									code: ":data"
-								},
-								url: "./api/dictionary/exist"
-							})
-						]
-					},
-					name: {
-						validators: [
-							"required", {
-								$type: "length",
-								min: 0,
-								max: 64
-							}
-						]
-					}
+		model.dataType({
+			name: "Dictionary",
+			properties: {
+				code: {
+					validators: [
+						"required",
+						new cola.AjaxValidator({
+							method: "GET",
+							name: "codeAjaxValidator",
+							message: "该编码已存在！",
+							disabled: true,
+							data: {
+								code: ":data"
+							},
+							url: "./api/dictionary/exist"
+						})
+					]
+				},
+				name: {
+					validators: [
+						"required", {
+							$type: "length",
+							min: 0,
+							max: 64
+						}
+					]
 				}
-			},
-	        provider: {
-	            url: "./api/dictionary/load",
-	            pageSize: 10,
-	            parameter: {
-	                searchKey: "{{searchKey}}"
-	            },
-	            complete: function () {
-	                if (!model.get("dictionaryId")) {
-	                    model.set("dictionaryId", model.get("dictionaries").current.get("id"));
-	                }
-	            }
-	        }
-	    });
+			}
+		});
 
-	    setTimeout(function () {
-	        model.describe("dictionaryItems", {
-				dataType: {
-					name: "DictionaryItem",
-					properties: {
-						key: {
-							validators: [
-								"required",
-								new cola.AjaxValidator({
-									method: "GET",
-									name: "keyAjaxValidator",
-									message: "该Key已存在！",
-									disabled: true,
-									data: {
-										key: ":data"
-									},
-									url: "./api/dictionaryItem/exist"
-								})
-							]
-						},
-						value: {
-							validators: [
-								"required", {
-									$type: "length",
-									min: 0,
-									max: 64
-								}
-							]
+		model.dataType({
+			name: "DictionaryItem",
+			properties: {
+				key: {
+					validators: [
+						"required",
+						new cola.AjaxValidator({
+							method: "GET",
+							name: "keyAjaxValidator",
+							message: "该Key已存在！",
+							disabled: true,
+							data: {
+								key: ":data"
+							},
+							url: "./api/dictionaryItem/exist"
+						})
+					]
+				},
+				value: {
+					validators: [
+						"required", {
+							$type: "length",
+							min: 0,
+							max: 64
+						}
+					]
+				}
+			}
+		});
+
+		model.describe("dictionaries", {
+			provider: {
+				url: "./api/dictionary/load",
+				pageSize: 10,
+				parameter: {
+					searchKey: "{{searchKey}}"
+				},
+				complete: function () {
+					if (!model.get("dictionaryId")) {
+						var dictionary = model.get("dictionaries").current;
+						if (dictionary) {
+							model.set("dictionaryId", dictionary.get("id"));
 						}
 					}
-				},
+				}
+			}
+		});
+		model.flush("dictionaries");
+
+		
+	    setTimeout(function () {
+	        model.describe("dictionaryItems", {
 	            provider: {
 	                url: "./api/dictionaryItem/load/{{@dictionaryId}}",
 					pageSize: 10,
@@ -91,9 +98,17 @@
 
 		model.action({
 			addDictionary: function () {
+				var order, dicts;
 				model.definition("codeAjaxValidator").set("disabled", false);
+				dicts = model.get("dictionaries");
+				if (!dicts.entityCount > 0) {
+					order = 1;
+				} else {
+					order = dicts.last().get("order") + 1;
+				}
 				model.set("editItemDictionary", {
-					editType: "新增"
+					editType: "新增",
+					order: order
 				});
 				$("#dictionaryModal").modal('show');
 			},
@@ -111,6 +126,7 @@
 						contentType : "application/json",
 						url: path,
 						success: function() {
+							model.definition("codeAjaxValidator").set("disabled", true);
 							model.get("dictionaries").insert(data);
 							$("#dictionaryModal").modal('hide');
 							model.flush("dictionaries");
@@ -162,7 +178,7 @@
 			},
 
 			modifyDictionary: function(item) {
-				model.definition("codeAjaxValidator").set("disabled", false);
+				model.definition("codeAjaxValidator").set("disabled", true);
 				model.set("editItemDictionary", item.toJSON());
 				$("#dictionaryModal").modal('show');
 			},
@@ -176,11 +192,28 @@
 
 			//字典项
 			addItem: function () {
+				var order, dictionary, dictItems;
 				model.definition("keyAjaxValidator").set("disabled", false);
-				model.set("editItemDictionaryItem", {
-					editType: "新增"
-				});
-				$("#dictionaryItemModal").modal('show');
+				dictItems = model.get("dictionaryItems");
+				if (!dictItems.entityCount > 0) {
+					order = 1;
+				} else {
+					order = dictItems.last().get("order") + 1;
+				}
+				dictionary = model.get("dictionaries").current;
+				if (dictionary) {
+					model.set("editItemDictionaryItem", {
+						editType: "新增",
+						enabled: true,
+						order: order,
+						dictionaryId: dictionary.get("id")
+					});
+					$("#dictionaryItemModal").modal('show');
+				} else {
+					cola.alert("请先添加字典目录！", {
+						level: cola.MessageBox.level.WARNING
+					})
+				}
 			},
 
 			saveItem: function() {
@@ -196,6 +229,7 @@
 						contentType : "application/json",
 						url: path,
 						success: function() {
+							model.definition("keyAjaxValidator").set("disabled", true);
 							model.get("dictionaryItems").insert(data);
 							$("#dictionaryItemModal").modal('hide');
 							model.flush("dictionaryItems");

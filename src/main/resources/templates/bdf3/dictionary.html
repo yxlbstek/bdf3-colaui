@@ -50,6 +50,7 @@
                                 </template>
                                 <column property="code" caption="编码" sortable="true"></column>
                                 <column property="name" caption="名称" sortable="true"></column>
+                                <column caption="操作" template="action"></column>
                             </c-table>
                         </flex-box>
                         <box style="height: 40px;">
@@ -82,20 +83,21 @@
                             </h-box>
                         </box>
                         <flex-box>
-                            <template name="action">
-                                <div>
-                                    <c-button id="removeItemBtn" class="ui circular trash icon button" title="删除" c-onclick="removeItemTip(item)">
-                                        <i class="trash icon"></i>
-                                    </c-button>
-                                    <c-button id="modifyItemBtn" class="ui circular write icon button" title="修改" c-onclick="modifyItem(item)">
-                                        <i class="write icon"></i>
-                                    </c-button>
-                                </div>
-                            </template>
                             <c-table id="dictionaryItemTable" bind="dictionaryItems" sortMode="local">
+                                <template name="action">
+                                    <div>
+                                        <c-button id="removeItemBtn" class="ui circular trash icon button" title="删除" c-onclick="removeItemTip(item)">
+                                            <i class="trash icon"></i>
+                                        </c-button>
+                                        <c-button id="modifyItemBtn" class="ui circular write icon button" title="修改" c-onclick="modifyItem(item)">
+                                            <i class="write icon"></i>
+                                        </c-button>
+                                    </div>
+                                </template>
                                 <column property="key" caption="字典项（Key）" sortable="true"></column>
                                 <column property="value" caption="字典项（Value）" sortable="true"></column>
-                                <column property="enabled" caption="可用" sortable="true"></column>
+                                <column property="enabled" caption="可用" sortable="true" template="checkbox-column"></column>
+                                <column caption="操作" template="action"></column>
                             </c-table>
                         </flex-box>
                         <box style="height: 40px;">
@@ -176,21 +178,21 @@
                 </fields>
                 <fields class="cols-4">
                     <field class="cols-3">
-                        <label>可用</label>
-                        <c-input c-bind="editItemDictionaryItem.enabled"></c-input>
+                        <label>序号</label>
+                        <c-input c-bind="editItemDictionaryItem.order"></c-input>
                     </field>
                 </fields>
                 <fields class="cols-4">
-                    <field class="cols-3">
-                        <label>序号</label>
-                        <c-input c-bind="editItemDictionaryItem.order"></c-input>
+                    <field class="cols-3" id="enabled">
+                        <label>可用</label>
+                        <input type="checkbox" c-bind="editItemDictionaryItem.enabled"/>
                     </field>
                 </fields>
             </form-layout>
         </div>
         <div class="actions">
-            <c-button icon="saveItem" click="saveItem">保存</c-button>
-            <c-button icon="removeItem" click="cancelItem">取消</c-button>
+            <c-button icon="save" click="saveItem">保存</c-button>
+            <c-button icon="remove" click="cancelItem">取消</c-button>
         </div>
     </div>
 
@@ -203,8 +205,8 @@
             </div>
         </div>
         <div class="actions">
-            <c-button icon="saveItem" click="removeItem">删除</c-button>
-            <c-button icon="removeItem" click="cancelRemoveItem">取消</c-button>
+            <c-button icon="save" click="removeItem">删除</c-button>
+            <c-button icon="remove" click="cancelRemoveItem">取消</c-button>
         </div>
     </div>
 </body>
