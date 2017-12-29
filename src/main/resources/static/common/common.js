@@ -30,16 +30,16 @@
 			"service.menus": "./api/menus",
 			"service.user.detail": "./api/user/detail",
 			"message.action": {
-				path: "http://cola-ui.com",
+				path: "./message",
 				type: "subWindow",
-				label: "我的消息",
+				name: "我的消息",
 				closeable: true,
 				icon: "icon mail"
 			},
 			"task.action": {
-				path: "http://cola-ui.com/docs",
+				path: "./task",
 				type: "subWindow",
-				label: "我的任务",
+				name: "我的任务",
 				closeable: true,
 				icon: "icon alarm"
 			},
