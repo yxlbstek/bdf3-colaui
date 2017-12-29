@@ -24,8 +24,11 @@ public class UserMessage implements Serializable {
 	@Column(name = "ID_", length = 64)
 	private String id;
 	
-	@Column(name = "USERNAME_", length = 64)
-	private String username;
+	@Column(name = "SENDER_ID_", length = 64)
+	private String senderId;
+	
+	@Column(name = "RECEIVER_ID_", length = 64)
+	private String receiverId;
 	
 	@Column(name = "MESSAGE_ID_", length = 64)
 	private String messageId;
@@ -38,12 +41,20 @@ public class UserMessage implements Serializable {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getSenderId() {
+		return senderId;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setSenderId(String senderId) {
+		this.senderId = senderId;
+	}
+
+	public String getReceiverId() {
+		return receiverId;
+	}
+
+	public void setReceiverId(String receiverId) {
+		this.receiverId = receiverId;
 	}
 
 	public String getMessageId() {
