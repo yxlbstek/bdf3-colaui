@@ -1,6 +1,8 @@
 package com.bstek.cola.security.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +33,11 @@ public class DictionaryController {
 
 	@Autowired
 	private DictionaryService dictionaryService;
+	
+	@RequestMapping(path = "/dictionary/loadItemsByCode", method = RequestMethod.GET)
+	public List<DictionaryItem> loadItemsByCode(@RequestParam(name = "code", required = false) String code) {
+		return dictionaryService.loadItemsByCode(code);
+	}
 	
 	/*字典目录*/
 	@RequestMapping(path = "/dictionary/load", method = RequestMethod.GET)

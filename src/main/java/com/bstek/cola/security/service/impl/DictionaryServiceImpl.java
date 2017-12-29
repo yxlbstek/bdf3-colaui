@@ -1,6 +1,7 @@
 package com.bstek.cola.security.service.impl;
 
 
+import java.util.List;
 import java.util.UUID;
 
 import org.malagu.linq.JpaUtil;
@@ -22,6 +23,21 @@ import com.bstek.cola.security.service.DictionaryService;
 @Service("cola.dictionaryService")
 public class DictionaryServiceImpl implements DictionaryService {
 
+	@Override
+	public List<DictionaryItem> loadItemsByCode(String code) {
+		List<Dictionary> dicts = JpaUtil
+				.linq(Dictionary.class)
+				.equal("code", code)
+				.list();
+		if (dicts.size() > 0) {
+			return JpaUtil
+					.linq(DictionaryItem.class)
+					.equal("dictionaryId", dicts.get(0).getId())
+					.list();
+		}		
+		return null;
+	}
+	
 	/*字典目录*/
 	@Override
 	public Page<Dictionary> loadDictionaries(Pageable pageable, String searchKey) {
@@ -97,5 +113,6 @@ public class DictionaryServiceImpl implements DictionaryService {
 		boolean result = JpaUtil.linq(DictionaryItem.class).equal("key", key).exists();
 		return result;
 	}
+
 
 }

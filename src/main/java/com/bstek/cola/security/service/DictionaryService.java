@@ -1,5 +1,7 @@
 package com.bstek.cola.security.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -33,6 +35,8 @@ public interface DictionaryService {
 	void modifyDictionaryItem(DictionaryItem dictionaryItem);
 
 	boolean isExistKey(String key);
+
+	List<DictionaryItem> loadItemsByCode(String code);
 
 
 }
