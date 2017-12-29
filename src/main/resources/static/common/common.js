@@ -21,51 +21,50 @@
 
 	if (!rootApp) {
 		properties = {
-			mainView : "./main",
-			loginPath : "./login",
-			longPollingTimeout : 0,
-			longPollingInterval : 2000,
-			// "service.messagePull": "./service/frame/message/pull",
-			//"service.messagePull" : "",
-			//"service.login" : "./login",
-			"service.menus" : "./api/menus",
-			"service.user.detail" : "./api/user/detail",
-			"message.action" : {
-				path : "http://cola-ui.com",
-				type : "subWindow",
-				label : "我的消息",
-				closeable : true,
-				icon : "icon mail"
+			mainView: "./main",
+			loginPath: "./login",
+			longPollingTimeout: 0,
+			longPollingInterval: 2000,
+			//"service.messagePull": "./api/message/load",
+			//"service.login": "./login",
+			"service.menus": "./api/menus",
+			"service.user.detail": "./api/user/detail",
+			"message.action": {
+				path: "http://cola-ui.com",
+				type: "subWindow",
+				label: "我的消息",
+				closeable: true,
+				icon: "icon mail"
 			},
-			"task.action" : {
-				path : "http://cola-ui.com/docs",
-				type : "subWindow",
-				label : "我的任务",
-				closeable : true,
-				icon : "icon alarm"
+			"task.action": {
+				path: "http://cola-ui.com/docs",
+				type: "subWindow",
+				label: "我的任务",
+				closeable: true,
+				icon: "icon alarm"
 			},
-			// "workbench" : {
+			// "workbench": {
 			// 	// path: "roleresource.html",
-			// 	path : "",
-			// 	type : "subWindow",
-			// 	name : "我的工作台",
-			// 	closeable : false,
-			// 	icon : "icon dashboard"
+			// 	path: "",
+			// 	type: "subWindow",
+			// 	name: "我的工作台",
+			// 	closeable: false,
+			// 	icon: "icon dashboard"
 			// },
-			// title : "Bstek BDF3 Frame"
+			// title: "Bstek BDF3 Frame"
 		};
 	}
 
 	App = window.App = {
-		_tabs : {},
-		getRootWindow : function() {
+		_tabs: {},
+		getRootWindow: function() {
 			if (rootApp) {
 				return rootWindow;
 			} else {
 				return window;
 			}
 		},
-		open : function(path, config) {
+		open: function(path, config) {
 			var tab, viewTab;
 			if (rootApp) {
 				rootApp.open.apply(path, config);
@@ -82,17 +81,17 @@
 							// return App.close(self.get("name"));
 							// };
 							// })(this),
-							destroy : function(self, arg) {
+							destroy: function(self, arg) {
 								return App.close(self.get("name"));
 							},
-							content : {
-								$type : "iFrame",
-								path : config.path
+							content: {
+								$type: "iFrame",
+								path: config.path
 							},
-							icon : config.icon,
-							name : path,
-							closeable : true,
-							caption : config.name
+							icon: config.icon,
+							name: path,
+							closeable: true,
+							caption: config.name
 						});
 						viewTab = cola.widget("viewTab");
 						App._tabs[path] = tab;
@@ -105,11 +104,11 @@
 			}
 		},
 
-		close : function(path) {
+		close: function(path) {
 			return delete App._tabs[path];
 		},
 
-		refreshMessage : function() {
+		refreshMessage: function() {
 			if (rootApp) {
 				return rootApp.refreshMessage();
 			} else {
@@ -118,7 +117,7 @@
 			}
 		},
 
-		prop : function(key, value) {
+		prop: function(key, value) {
 			var i, len, p, results;
 			if (rootApp) {
 				return rootApp.prop(key, value);
@@ -144,7 +143,7 @@
 			}
 		},
 
-		resetComponentAuth : function(path) {
+		resetComponentAuth: function(path) {
 			$.ajax("./api/component/loadByPath", {
 				type : "GET",
 				data : {

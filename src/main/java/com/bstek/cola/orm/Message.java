@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
@@ -41,7 +43,12 @@ public class Message implements Serializable {
 	@Lob
 	private String content;
 	
+	@Column(name = "STATUS_")
+	@Enumerated(EnumType.STRING)
+	private StatusType status;
+	
 	@Column(name = "TYPE_")
+	@Enumerated(EnumType.STRING)
 	private NotifyType type;
 	
 	@Column(name = "READ_")
@@ -134,6 +141,14 @@ public class Message implements Serializable {
 
 	public void setTaskCount(Integer taskCount) {
 		this.taskCount = taskCount;
+	}
+
+	public StatusType getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusType status) {
+		this.status = status;
 	}
 	
 	
