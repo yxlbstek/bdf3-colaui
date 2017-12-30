@@ -54,9 +54,6 @@
             }
         });
 
-		var path = "./loginfo";
-		App.resetComponentAuth(path);
-
 	    $("[tag='contentContainer']").attr("tag","");
 	    $(".ui.label.basic").transition({
 	        animation : 'jiggle',
