@@ -26,18 +26,17 @@
 			longPollingTimeout: 0,
 			longPollingInterval: 2000,
 			//"service.messagePull": "./api/message/load",
-			//"service.login": "./login",
 			"service.menus": "./api/menus",
 			"service.user.detail": "./api/user/detail",
-			"message.action": {
-				path: "./message",
-				type: "subWindow",
-				name: "我的消息",
-				closeable: true,
-				icon: "icon mail"
-			},
+			// "message.action": {
+			// 	path: "./message",
+			// 	type: "subWindow",
+			// 	name: "我的消息",
+			// 	closeable: true,
+			// 	icon: "icon mail"
+			// },
 			"task.action": {
-				path: "./task",
+				path: "",
 				type: "subWindow",
 				name: "我的任务",
 				closeable: true,
