@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bstek.bdf3.security.ContextUtils;
 import com.bstek.bdf3.security.orm.Url;
 import com.bstek.bdf3.security.service.UrlService;
 import com.bstek.cola.log.annotation.Log;
@@ -131,6 +132,7 @@ public class FrameworkController {
 		model.addAttribute("longPollingInterval", longPollingInterval);
 		model.addAttribute("messagePullPath", messagePullPath);
 		model.addAttribute("messageTotalPullPath", messageTotalPullPath);
+		model.addAttribute("loginUsername", ContextUtils.getLoginUsername());
 		return frameworkService.getMainPage();
 	}
 	
@@ -147,6 +149,21 @@ public class FrameworkController {
 		return frameworkService.getLoginPage();
 	}
 	
+	@RequestMapping("/message") 
+	public String message() {
+		return frameworkService.getMessagePage();
+	}
+	
+	@RequestMapping("/task") 
+	public String task() {
+		return frameworkService.getTaskPage();
+	}
+	
+	@RequestMapping("/workbench") 
+	public String workbench() {
+		return frameworkService.getWorkbenchPage();
+	}
+
 	@RequestMapping("/user") 
 	public String user(Model model) {
 		return frameworkService.getUserPage(model);

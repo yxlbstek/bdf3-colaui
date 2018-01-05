@@ -1,0 +1,80 @@
+
+body {
+  background-color: #f3f3f4;
+  padding: 0.8em;
+}
+
+/*搜索框*/
+#searchSent > div, #searchReceiver > div, #searchDraft > div {
+  width: 260px !important;
+}
+#searchSent > div > input, #searchReceiver > div > input, #searchDraft > div > input {
+  height: 38px !important;
+}
+
+/* 添加页面 */
+#form {
+  font-size : 18px;
+  color : #000;
+  padding : 10px;
+}
+.cols-1.ui.field > input {
+  height: 18px;
+  width: 18px;
+  margin-top: 5px;
+}
+
+/* 删除页面 */
+.icon.help.circle {
+  margin-left: 400px;
+  font-size: 80px;
+}
+.ui.modal > .content > .description {
+  margin-left: 285px;
+
+}
+
+/*表格列头*/
+.ui.widget-table table thead th {
+  background-color: #E0E0E0 !important;
+}
+
+/*功能按钮*/
+c-button {
+  background-color: #BEBEBE !important;
+}
+
+.actions > c-button {
+  color: #000 !important;
+}
+
+/*选择接收人按钮*/
+#addUser {
+  width: 50px;
+  height: 48px;
+}
+#addUser > i{
+  font-size: 20px;
+  margin-top: 8px;
+}
+
+#chooseUserPanel > .header > .content > .caption {
+  color: blue;
+}
+
+#userPanel > .header > .content > .caption {
+  color: green;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

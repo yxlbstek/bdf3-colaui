@@ -432,3 +432,17 @@ html body {
     _border-color:#000000 #000000 #000000 #1B1E24;
     _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
 }
+
+/*选择接收人按钮*/
+#addUser {
+    width: 38px;
+    height: 40px;
+}
+#addUser > i{
+    font-size: 18px;
+    margin-top: 6px;
+}
+
+.item.msg.icon.mail {
+    width: 43px;
+}

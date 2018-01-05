@@ -25,31 +25,30 @@
 			loginPath: "./login",
 			longPollingTimeout: 0,
 			longPollingInterval: 2000,
-			//"service.messagePull": "./api/message/load",
+			"service.messagePull": "./api/message/loadCount",
 			"service.menus": "./api/menus",
 			"service.user.detail": "./api/user/detail",
-			// "message.action": {
-			// 	path: "./message",
-			// 	type: "subWindow",
-			// 	name: "我的消息",
-			// 	closeable: true,
-			// 	icon: "icon mail"
-			// },
+			"message.action": {
+				path: "./message",
+				type: "subWindow",
+				name: "我的消息",
+				closeable: true,
+				icon: "icon mail"
+			},
 			"task.action": {
-				path: "",
+				path: "./task",
 				type: "subWindow",
 				name: "我的任务",
 				closeable: true,
 				icon: "icon alarm"
 			},
-			// "workbench": {
-			// 	// path: "roleresource.html",
-			// 	path: "",
-			// 	type: "subWindow",
-			// 	name: "我的工作台",
-			// 	closeable: false,
-			// 	icon: "icon dashboard"
-			// },
+			"workbench": {
+				path: "./workbench",
+				type: "subWindow",
+				name: "我的工作台",
+				closeable: false,
+				icon: "icon dashboard"
+			},
 			// title: "Bstek BDF3 Frame"
 		};
 	}

@@ -12,6 +12,14 @@
 			}
 		});
 
+		model.describe("users", {
+			provider: {
+				url: "./api/message/loadUsers"
+			}
+		});
+
+		model.describe("editItemSent", {});
+
 		model.dataType({
 			name : "Password",
 			properties : {
@@ -67,75 +75,39 @@
 				options.timeout = App.prop("longPollingTimeout");
 			}
 			return $.ajax(App.prop("service.messagePull"), options).done(
-					function(messages) {
-						var i, len, message;
-						if (messages) {
-							errorCount = 0;
-							for (i = 0, len = messages.length; i < len; i++) {
-								message = messages[i];
-								model.set("messages." + message.type,
-										message.content);
-							}
+				function(messages) {
+					var i, len, message;
+					if (messages) {
+						errorCount = 0;
+						for (i = 0, len = messages.length; i < len; i++) {
+							message = messages[i];
+							model.set("messages", message.messageCount);
 						}
-						if (App.prop("liveMessage")) {
+					}
+					if (App.prop("liveMessage")) {
+						return longPollingTimeOut = setTimeout(
+							refreshMessage, App
+								.prop("longPollingInterval"));
+					}
+				}).error(
+				function(xhr, status, ex) {
+					if (App.prop("liveMessage")) {
+						if (status === "timeout") {
 							return longPollingTimeOut = setTimeout(
-									refreshMessage, App
-											.prop("longPollingInterval"));
+								refreshMessage, App
+									.prop("longPollingInterval"));
+						} else {
+							errorCount++;
+							return longPollingTimeOut = setTimeout(
+								refreshMessage, 5000 * Math.pow(2, Math
+									.min(6, errorCount - 1)));
 						}
-					}).error(
-					function(xhr, status, ex) {
-						if (App.prop("liveMessage")) {
-							if (status === "timeout") {
-								return longPollingTimeOut = setTimeout(
-										refreshMessage, App
-												.prop("longPollingInterval"));
-							} else {
-								errorCount++;
-								return longPollingTimeOut = setTimeout(
-										refreshMessage, 5000 * Math.pow(2, Math
-												.min(6, errorCount - 1)));
-							}
-						}
-					});
+					}
+				});
 		};
 
-		//longPollingTimeOut = setTimeout(refreshMessage, 1000);
-		//refreshMessage();
-		//loginCallback = null;
-
-		// window.login = function(callback) {
-		// 	cola.widget("loginDialog").show();
-		// 	if (callback && typeof callback === "function") {
-		// 		return loginCallback = callback;
-		// 	}
-		// };
-
-		// login = function() {
-		// 	var data;
-		// 	data = model.get("login");
-		// 	cola.widget("containerSignIn").addClass("loading");
-		// 	return $.ajax({
-		// 		type : "POST",
-		// 		url : App.prop("service.login"),
-		// 		data : JSON.stringify(data.toJSON()),
-		// 		contentType : "application/json"
-		// 	}).done(function(result) {
-		// 		var callback;
-		// 		cola.widget("containerSignIn").removeClass("loading");
-		// 		if (!result.type) {
-		// 			showMessage(result.message);
-		// 			return;
-		// 		}
-		// 		cola.widget("loginDialog").hide();
-		// 		if (loginCallback) {
-		// 			callback = loginCallback;
-		// 			loginCallback = null;
-		// 			return callback();
-		// 		}
-		// 	}).fail(function() {
-		// 		cola.widget("containerSignIn").removeClass("loading");
-		// 	});
-		// };
+		longPollingTimeOut = setTimeout(refreshMessage, 1000);
+		refreshMessage();
 
 		model.widgetConfig({
 			dialogPassword: {
@@ -197,13 +169,6 @@
 				}
 			}
 		});
-
-		// showLoginMessage = function(content) {
-		// 	return cola.widget("formSignIn").setMessages([ {
-		// 		type : "error",
-		// 		text : content
-		// 	} ]);
-		// };
 
 		model.action({
 			changePassword: function() {
@@ -316,6 +281,7 @@
 				$dom = $("#frameworkSidebarBox");
 				return $dom.toggleClass(className, !$dom.hasClass(className));
 			},
+
 			messageBtnClick : function() {
 				var action;
 				action = App.prop("message.action");

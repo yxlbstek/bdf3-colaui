@@ -43,6 +43,11 @@ public class FrameworkServiceImpl implements FrameworkService {
 	@Value("${bdf3.security.loginPath:frame/login}")
 	protected String loginPath;
 	
+	@Value("${bdf3.security.taskPath:bdf3/task}")
+	protected String taskPath;
+	
+	@Value("${bdf3.security.workbenchPath:bdf3/workbench}")
+	protected String workbenchPath;
 
 	@Override
 	public String getHomePage() {
@@ -57,6 +62,22 @@ public class FrameworkServiceImpl implements FrameworkService {
 	@Override
 	public String getMainPage() {
 		return "frame/main";
+	}
+	
+
+	@Override
+	public String getTaskPage() {
+		return taskPath;
+	}
+
+	@Override
+	public String getWorkbenchPage() {
+		return workbenchPath;
+	}
+	
+	@Override
+	public String getMessagePage() {
+		return "bdf3/message";
 	}
 
 	@Override
@@ -199,6 +220,7 @@ public class FrameworkServiceImpl implements FrameworkService {
 		}
 		return false;
 	}
+
 
 
 	

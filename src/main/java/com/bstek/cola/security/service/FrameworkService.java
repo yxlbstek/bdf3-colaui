@@ -39,6 +39,13 @@ public interface FrameworkService {
 
 	String getDictionaryPage(Model model);
 
+	String getMessagePage();
+
+	String getTaskPage();
+
+	String getWorkbenchPage();
+
+
 	//Long getMessageTotal(String username);
 
 	//List<Notify> getMessages(String username);
