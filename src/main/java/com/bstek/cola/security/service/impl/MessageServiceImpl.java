@@ -1,7 +1,6 @@
 package com.bstek.cola.security.service.impl;
 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -137,30 +136,16 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public List<Message> loadCount() {
+	public Long loadCount() {
 		String username = ContextUtils.getLoginUsername();
-		List<Message> ms = new ArrayList<>();
-		List<Message> messages = JpaUtil
+		return JpaUtil
 				.linq(Message.class)
 				.in(UserMessage.class)
 					.select("messageId")
 					.equal("receiverId", username)
 					.equal("read", false)
 				.end()
-				.desc("createdAt")
-				.list();
-		if (messages.size() > 0) {
-			for (Message message : messages) {
-				message.setMessageCount(messages.size());
-			}
-			return messages;
-		} else {
-			Message message = new Message();
-			message.setMessageCount(null);
-			ms.add(message);
-			return ms;
-		}
-		
+				.count();		
 	}
 
 	@Override

@@ -29,7 +29,7 @@ public interface MessageService {
 
 	void removeReceiver(String id);
 
-	List<Message> loadCount();
+	Long loadCount();
 
 	void isRead(String id);
 

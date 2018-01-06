@@ -39,7 +39,7 @@ public class MessageController {
 	}	
 	
 	@RequestMapping(path = "/message/loadCount", method = RequestMethod.GET)
-	public List<Message> loadCount() {
+	public Long loadCount() {
 		return messageService.loadCount();
 	}
 

@@ -62,6 +62,7 @@
 
 		model.describe("pw", "Password");
 		model.set("messages", {});
+		model.set("tasks", {});
 		errorCount = 0;
 		longPollingTimeOut = null;
 
@@ -74,23 +75,17 @@
 			if (App.prop("longPollingTimeout")) {
 				options.timeout = App.prop("longPollingTimeout");
 			}
-			return $.ajax(App.prop("service.messagePull"), options).done(
-				function(messages) {
-					var i, len, message;
-					if (messages) {
-						errorCount = 0;
-						for (i = 0, len = messages.length; i < len; i++) {
-							message = messages[i];
-							model.set("messages", message.messageCount);
-						}
+			$.ajax(App.prop("service.messagePull"), options)
+				.done(function(messageCount) {
+					if (messageCount) {
+						model.set("messages", messageCount);
 					}
 					if (App.prop("liveMessage")) {
 						return longPollingTimeOut = setTimeout(
 							refreshMessage, App
 								.prop("longPollingInterval"));
 					}
-				}).error(
-				function(xhr, status, ex) {
+				}).error(function(xhr, status, ex) {
 					if (App.prop("liveMessage")) {
 						if (status === "timeout") {
 							return longPollingTimeOut = setTimeout(
