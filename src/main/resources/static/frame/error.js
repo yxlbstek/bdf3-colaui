@@ -11,5 +11,7 @@
     		$("#notAuth").attr("style", "display: none !important");
     	}
     });
+	/*解决页面刚渲染时页面结构错乱*/
+	$("[tag='contentContainer']").attr("tag","");
 
 }).call(this);

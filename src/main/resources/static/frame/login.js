@@ -27,6 +27,9 @@
         if (loginError) {
             $(".ui.form").form("add errors", [loginError]);
         }
+
+        /*解决页面刚渲染时页面结构错乱*/
+        $("[tag='contentContainer']").attr("tag","");
     });
 
 }).call(this);

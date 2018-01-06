@@ -281,12 +281,8 @@
         var path = "./url";
         App.resetComponentAuth(path);
 
+        /*解决页面刚渲染时页面结构错乱*/
         $("[tag='contentContainer']").attr("tag","");
-        $(".ui.label.basic").transition({
-            animation : 'jiggle',
-            duration  : 800,
-            interval  : 1000
-        });
 
     });
 
