@@ -61,8 +61,9 @@
 		});
 
 		model.describe("pw", "Password");
-		model.set("messages", {});
-		model.set("tasks", {});
+		model.set("messages", "");
+		window.msgCount = 0;
+		model.set("tasks", "");
 		errorCount = 0;
 		longPollingTimeOut = null;
 
