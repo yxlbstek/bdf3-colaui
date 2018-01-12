@@ -34,10 +34,10 @@ public class FrameworkController {
 	@Autowired
 	private UrlService urlService;
 	
-	@Value("${bdf3.application.title:BDF}")
+	@Value("${bdf3.application.title:BDF3-COLA}")
 	private String applicationTitle;
 	
-	@Value("${bdf3.application.name:BDF}")
+	@Value("${bdf3.application.name:BDF3-COLA}")
 	private String applicationName;
 	
 	@Value("${bdf3.main.topBarBackground:#09C}")
