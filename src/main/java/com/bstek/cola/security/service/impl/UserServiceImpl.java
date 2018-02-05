@@ -73,10 +73,7 @@ public class UserServiceImpl implements UserService {
 	public boolean validatePassword(String username, String password) {
 		 User user = JpaUtil.linq(User.class).equal("username", username).findOne();
 		 boolean result = passwordEncoder.matches(password, user.getPassword());
-		 if (result) {
-			 return true;
-		 }
-		 return true;
+		 return result;
 	}
 
 	@Override
