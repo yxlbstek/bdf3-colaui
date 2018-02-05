@@ -723,3 +723,7 @@ html body small {
 .ui.iframe {
     height: 100%;
 }
+
+c-button:hover {
+  color: #000 !important;
+}
