@@ -201,7 +201,7 @@ html body {
 }
 
 .main-menu.ui.segment.inverted #frameworkSidebar > .item > .title {
-    background-color: #b03f4a
+    background-color: #d93e50
 }
 
 .main-menu.ui.segment.inverted #frameworkSidebar > .item > .content {
@@ -213,7 +213,7 @@ html body {
 }
 
 .main-menu.ui.segment.inverted #frameworkSidebar > .item > .content .menu-item:hover, .main-menu.ui.segment.inverted #frameworkSidebar > .item > .content .menu-item.current-item {
-    background-color: #314253
+    background-color: #7676769e
 }
 
 .main-menu.ui.segment.inverted #frameworkSidebar > .item > .title, .main-menu.ui.segment.inverted #frameworkSidebar > .item .menu-item {
@@ -404,8 +404,8 @@ html body {
     margin-left: 1.8em !important
 }
 
-#subMenuLayer .tree.item {
-    background-color: #fbfbfb
+#subMenuLayer .tree.item.current {
+    background-color: rgba(0, 181, 173, 0.03)
 }
 
 #subMenuLayer .tree.node > .expand-button {

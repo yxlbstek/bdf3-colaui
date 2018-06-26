@@ -45,11 +45,11 @@
                             <c-table id="dictionaryTable" bind="dictionaries" sortMode="local">
                                 <template name="action">
                                     <div>
+                                    	<c-button id="modifyDictionaryBtn" class="ui circular write icon button" title="修改" c-onclick="modifyDictionary(item)">
+                                            <i class="write icon"></i>
+                                        </c-button>
                                         <c-button id="removeDictionaryBtn" class="ui circular trash icon button" title="删除" c-onclick="removeDictionaryTip(item)">
                                             <i class="trash icon"></i>
-                                        </c-button>
-                                        <c-button id="modifyDictionaryBtn" class="ui circular write icon button" title="修改" c-onclick="modifyDictionary(item)">
-                                            <i class="write icon"></i>
                                         </c-button>
                                     </div>
                                 </template>
@@ -91,11 +91,11 @@
                             <c-table id="dictionaryItemTable" bind="dictionaryItems" sortMode="local">
                                 <template name="action">
                                     <div>
+                                    	<c-button id="modifyItemBtn" class="ui circular write icon button" title="修改" c-onclick="modifyItem(item)">
+                                            <i class="write icon"></i>
+                                        </c-button>
                                         <c-button id="removeItemBtn" class="ui circular trash icon button" title="删除" c-onclick="removeItemTip(item)">
                                             <i class="trash icon"></i>
-                                        </c-button>
-                                        <c-button id="modifyItemBtn" class="ui circular write icon button" title="修改" c-onclick="modifyItem(item)">
-                                            <i class="write icon"></i>
                                         </c-button>
                                     </div>
                                 </template>

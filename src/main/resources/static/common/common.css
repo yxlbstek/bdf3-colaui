@@ -724,7 +724,46 @@ html body small {
     height: 100%;
 }
 
+/*功能按钮*/
+c-button {
+  background-color: #2f886ead !important;
+  color: #FFF !important;
+}
+
+.actions > c-button {
+  color: #FFF !important;
+}
+
 c-button:hover {
   color: #000 !important;
-  background-color: #8E8E8E !important;
+  background-color: #0e8562 !important;
+}
+
+/*修改按钮*/
+.ui.circular.write.icon.button {
+  background-color: #21ba45a6 !important;
+}
+
+.ui.circular.write.icon.button:hover {
+  color: #000 !important;
+  background-color: #21ba45 !important;
+}
+
+/*删除按钮*/
+.ui.circular.trash.icon.button {
+  background-color: #f0475b !important;
+}
+
+.ui.circular.trash.icon.button:hover {
+  color: #000 !important;
+  background-color: #d74556 !important;
+}
+
+.ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
+  background-color: #2f886ead !important;
+}
+
+/*表格列头*/
+.ui.widget-table table thead th {
+  background-color: #E0E0E0 !important;
 }

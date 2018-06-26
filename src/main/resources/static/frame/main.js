@@ -147,6 +147,10 @@
 					var data, menus;
 					data = arg.item.get("data").toJSON();
 					menus = data.children;
+
+					$("#subMenuTree").find(".tree.item.current").removeClass("current");
+					$fly(this).addClass("current");
+
 					if (menus && menus.length > 0) {
 						return App.open(data.path, data);
 					} else {

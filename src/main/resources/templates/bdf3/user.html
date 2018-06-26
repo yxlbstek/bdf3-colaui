@@ -44,21 +44,21 @@
 			<c-table bind="users" sortMode="local" style="background-color: #f3f3f4; width: 99%; margin-left: 10px;">
 				<template name="action">
 					<div>
-						<c-button id="removeBtn" class="ui circular trash icon button" title="删除" c-onclick="removeTip(item)">
-							<i class="trash icon"></i>
+						<c-button id="resetPasswordBtn" class="ui circular privacy icon button" title="重置密码" c-onclick="resetPassword(item)">
+							<i class="privacy icon"></i>
 						</c-button>
 						<c-button id="modifyBtn" class="ui circular write icon button" title="修改" c-onclick="modify(item)">
 							<i class="write icon"></i>
 						</c-button>
-						<c-button id="resetPasswordBtn" class="ui circular privacy icon button" title="重置密码" c-onclick="resetPassword(item)">
-							<i class="privacy icon"></i>
+						<c-button id="removeBtn" class="ui circular trash icon button" title="删除" c-onclick="removeTip(item)">
+							<i class="trash icon"></i>
 						</c-button>
 					</div>
 				</template>
 				<column property="username" caption="用户名" sortable="true"></column>
 				<column property="nickname" caption="昵称" sortable="true"></column>
 				<column property="administrator" caption="是管理员" sortable="true" template="checkbox-column"></column>
-				<column property="enabled" caption="可用" sortable="true" template="checkbox-column"></column>
+				<column property="enabled" caption="可用" sortable="true" template="toggle-column"></column>
 				<column caption="操作" template="action"></column>
 			</c-table>
 		</flex-box>

@@ -42,16 +42,12 @@ c-panel > .header > .content {
 }
 
 /*功能按钮*/
-c-button {
-    background-color: #BEBEBE !important;
+#addSubBtn:hover {
+    color: green;
 }
 
-.ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
-    background-color: #6C6C6C !important;
-}
-
-.ui.toggle.checkbox input:focus:checked ~ .box:before, .ui.toggle.checkbox input:focus:checked ~ label:before {
-	background-color: #6C6C6C !important;
+#removeBtn:hover {
+    color: red;
 }
 
 #iconBtn > i {
@@ -60,7 +56,7 @@ c-button {
 
 /*图标选择框*/
 .ui.doubling.five.column.grid > div:hover {
-    color: blue;
+    color: #0e8562;
     cursor: pointer;
 }
 

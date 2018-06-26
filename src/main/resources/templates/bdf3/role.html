@@ -42,11 +42,11 @@
 			<c-table bind="roles" sortMode="local" style="background-color: #f3f3f4; width: 99%; margin-left: 10px;">
 				<template name="action">
 					<div>
-						<c-button id="removeBtn" class="ui circular trash icon button" title="删除" c-onclick="removeTip(item)">
-							<i class="trash icon"></i>
-						</c-button>
 						<c-button id="modifyBtn" class="ui circular write icon button" title="修改" c-onclick="modify(item)">
 							<i class="write icon"></i>
+						</c-button>
+						<c-button id="removeBtn" class="ui circular trash icon button" title="删除" c-onclick="removeTip(item)">
+							<i class="trash icon"></i>
 						</c-button>
 					</div>
 				</template>
