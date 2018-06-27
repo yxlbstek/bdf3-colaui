@@ -34,10 +34,10 @@ public class FrameworkController {
 	@Autowired
 	private UrlService urlService;
 	
-	@Value("${bdf3.application.title:BDF3-COLA}")
+	@Value("${bdf3.application.title:BSTEK BDF3 FRAME}")
 	private String applicationTitle;
 	
-	@Value("${bdf3.application.name:BDF3-COLA}")
+	@Value("${bdf3.application.name:BSTEK BDF3 FRAME}")
 	private String applicationName;
 	
 	@Value("${bdf3.main.topBarBackground:#09C}")
@@ -79,8 +79,11 @@ public class FrameworkController {
 	@Value("${bdf3.security.logoutPath:/logout}")
 	private String logoutPath;
 	
-	@Value("${bdf3.message.disabled:false}")
+	@Value("${bdf3.message.disabled:true}")
 	private boolean messageDisabled;
+	
+	@Value("${bdf3.task.disabled:true}")
+	private boolean taskDisabled;
 	
 	@Value("${bdf3.message.longPollingTimeout:0}")
     private int longPollingTimeout;
@@ -127,6 +130,7 @@ public class FrameworkController {
 		
 		model.addAttribute("logoutPath", logoutPath.substring(1));
 		model.addAttribute("messageDisabled", messageDisabled);
+		model.addAttribute("taskDisabled", taskDisabled);
 		model.addAttribute("longPollingTimeout", longPollingTimeout);
 		model.addAttribute("liveMessage", liveMessage);
 		model.addAttribute("longPollingInterval", longPollingInterval);
@@ -140,6 +144,7 @@ public class FrameworkController {
 	public String login(HttpSession session, Model model) {
 		Exception e = (Exception) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 		model.addAttribute("applicationTitle", applicationTitle);
+		model.addAttribute("applicationName", applicationName);
 		if (e != null) {
 			model.addAttribute("error", e.getLocalizedMessage());
 		} else {
