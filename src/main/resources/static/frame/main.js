@@ -61,9 +61,9 @@
 		});
 
 		model.describe("pw", "Password");
-		model.set("messages", "");
+		model.set("messages", "0");
 		window.msgCount = 0;
-		model.set("tasks", "");
+		model.set("tasks", "0");
 		errorCount = 0;
 		longPollingTimeOut = null;
 
@@ -349,13 +349,31 @@
 	});
 
 	cola.ready(function() {
+		if (messageDisabled) {
+			$("#messageTip").css("display", "flex");
+			$("#messageCountLable").css("display", "flex");
+		} else {
+			$("#messageTip").css("display", "none");
+			$("#messageCountLable").css("display", "none");
+		}
+			
+		if (taskDisabled) {
+			$("#taskTip").css("display", "flex");
+			$("#taskCountLable").css("display", "flex");
+			
+		} else {
+			$("#taskTip").css("display", "none");
+			$("#taskCountLable").css("display", "none");
+		}
+		
 		var workbench;
 		workbench = App.prop("workbench");
 		if (workbench) {
 			return App.open(workbench.path, workbench);
 		}
 	});
-
+	
+	
 	/*解决页面刚渲染时页面结构错乱*/
 	$("[tag='contentContainer']").attr("tag","");
 
