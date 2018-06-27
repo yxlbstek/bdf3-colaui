@@ -4,9 +4,13 @@
     color: #D4D4D5 !important;
 }
 
-.remember {
-    min-width: 300px;
-    text-align: left;
+#rememberDiv {
+    width: 340px !important;
+    text-align: left !important;
+}
+
+#submitBtn {
+	width: 340px !important;
 }
 
 .ui.form {
@@ -50,5 +54,12 @@
 .ui.error.message > ul > li {
 	width: 140px !important;
     color: red !important;
+}
+
+i {
+	font-size: 1.8em !important;
+	margin-top: 5px !important;
+    margin-left: -15px !important;
+    color: #1c67a2 !important;
 }
 

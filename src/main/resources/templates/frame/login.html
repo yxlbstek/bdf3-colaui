@@ -23,19 +23,21 @@
 					<h2 class="ui icon header" th:text="${applicationName}"></h2>
 					<div>
 						<form class="ui huge form" action="login" method="post">
-							<div class="field">
+							<div class="ui left icon input field">
 								<input type="text" name="username"></input>
+								<i class="user icon"></i>
 							</div>
-							<div class="field">
+							<div class="ui left icon input field">
 								<input type="password" name="password"></input>
+								<i class="lock icon"></i>
 							</div>
-							<div class="remember field">
+							<div id="rememberDiv" class="remember field">
 								<div class="ui checkbox">
 									<input type="checkbox" name="remember-me"></input>
 									<label class="checkbox-label">保持我的登录状态</label>
 								</div>
 							</div>
-							<button class="ui blue huge circular fluid button" type="submit">登 录</button>
+							<button id="submitBtn" class="ui blue huge circular fluid button" type="submit">登 录</button>
 							<div class="ui error message"></div>
 						</form>
 					</div>
