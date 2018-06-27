@@ -13,28 +13,38 @@
     display: inline-block;
 }
 
-.ui.header {
-    color: #F0F0F0;
+.ui.icon.header {
+    color: #FFF !important;
+    margin-top: 50px !important;
 }
 
 .ui.page{
     /*background-color: #082b4f;*/
-    background-image: url("../../static/resources/images/bg3.jpg");
+    background-image: url("../../static/resources/images/blue-bg.jpg");
     background-size: 100% 100%;
 }
 
+#loginContent {
+    height: 380px;
+    width: 440px;
+    border: 2px solid #020106;
+    background-color: #071323;
+    opacity: 0.65;
+}
+
 .ui.huge.form > .field {
-    margin-top: 20px;
+    margin-top: 30px;
     height: 30px;
     
 }
 
 .ui.huge.form > .field > input{
     height: 40px;
-    width: 360px;
-    color: #000000;
+    width: 340px;
+    color: #FFF;
     font-size: 18px;
-    border-radius: 7px;
+    border: 2px solid #020106;
+    background-color: #071323;
 }
 
 .ui.error.message > ul > li {
