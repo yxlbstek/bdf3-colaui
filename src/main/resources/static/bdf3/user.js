@@ -141,9 +141,11 @@
 	            if (entity) {
 	                var isManager = entity.get("administrator");
 	                if (isManager) {
-	                    cola.alert("该用户已是管理员！", {
-	                        level: cola.MessageBox.level.WARNING
-	                    })
+	                    cola.NotifyTipManager.warning({
+                            message: "消息提示",
+                            description: "该用户已是管理员！",
+                            showDuration: 3000
+                        });
 	                } else {
 	                    entity.set("administrator", true);
 	                    $.ajax({
@@ -168,9 +170,11 @@
 	            if (entity) {
 	                var isManager = entity.get("administrator");
 	                if (!isManager) {
-	                    cola.alert("该用户不是管理员，无需取消！", {
-	                        level: cola.MessageBox.level.WARNING
-	                    })
+	                    cola.NotifyTipManager.warning({
+                            message: "消息提示",
+                            description: "该用户不是管理员，无需取消！",
+                            showDuration: 3000
+                        });
 	                } else {
 	                    entity.set("administrator", false);
 	                    $.ajax({
@@ -190,18 +194,30 @@
 	            }
 	        },
 
-	        resetPassword: function(item) {
-	            $.ajax({
-	                data: JSON.stringify(item.toJSON()),
+	        resetPassword: function() {
+	        	$("#resetPasswordModal").modal('show');
+	        },
+	        
+	        confirmResetPassword: function() {
+	        	var entity = model.get("users").current;
+	        	$.ajax({
+	                data: JSON.stringify(entity.toJSON()),
 	                type: "PUT",
 	                contentType : "application/json",
 	                url: "./api/user/resetPassword",
 	                success: function() {
-	                    cola.alert("密码已重置，新密码为：123456", {
-	                        level: cola.MessageBox.level.WARNING
-	                    })
+	                	$("#resetPasswordModal").modal('hide');
+	                    cola.NotifyTipManager.success({
+                            message: "消息提示",
+                            description: "用户 【" + entity.get("nickname") + "】密码已重置，新密码为：123456",
+                            showDuration: 5000
+                        });
 	                }
 	            });
+	        },
+	        
+	        cancelresetPassword: function() {
+	        	$("#resetPasswordModal").modal('hide');
 	        },
 	        
 			search: function () {

@@ -44,7 +44,7 @@
 			<c-table bind="users" sortMode="local" style="background-color: #f3f3f4; width: 99%; margin-left: 10px;">
 				<template name="action">
 					<div>
-						<c-button id="resetPasswordBtn" class="ui circular privacy icon button" title="重置密码" c-onclick="resetPassword(item)">
+						<c-button id="resetPasswordBtn" class="ui circular privacy icon button" title="重置密码" c-onclick="resetPassword()">
 							<i class="privacy icon"></i>
 						</c-button>
 						<c-button id="modifyBtn" class="ui circular write icon button" title="修改" c-onclick="modify(item)">
@@ -129,6 +129,20 @@
 		<div class="actions">
 			<c-button icon="save" click="remove">删除</c-button>
 			<c-button icon="remove" click="cancelRemove">取消</c-button>
+		</div>
+	</div>
+	
+	<!--重置密码-->
+	<div id="resetPasswordModal" class="ui basic modal">
+		<i class="icon help circle"></i>
+		<div class="content">
+			<div class="description">
+				<h2>是否重置该用户的密码?</h2>
+			</div>
+		</div>
+		<div class="actions">
+			<c-button icon="save" click="confirmResetPassword">重置</c-button>
+			<c-button icon="remove" click="cancelresetPassword">取消</c-button>
 		</div>
 	</div>
 		
