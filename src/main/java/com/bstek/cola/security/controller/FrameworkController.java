@@ -179,6 +179,11 @@ public class FrameworkController {
 		return frameworkService.getRolePage(model);
 	}
 	
+	@RequestMapping("/fileinfo") 
+	public String fileinfo(Model model) {
+		return frameworkService.getFileinfoPage(model);
+	}
+	
 	@RequestMapping("/roleallot") 
 	public String roleAllot(Model model) {
 		return frameworkService.getRoleAllotPage(model);
@@ -212,6 +217,11 @@ public class FrameworkController {
 	@RequestMapping("/dictionary") 
 	public String dictionary(Model model) {
 		return frameworkService.getDictionaryPage(model);
+	}
+	
+	@RequestMapping("/exists") 
+	public String exists() {
+		return frameworkService.getExistsPage();
 	}
 
 	@RequestMapping("/api/menus")

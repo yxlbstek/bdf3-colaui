@@ -10,7 +10,7 @@
 	                        new cola.AjaxValidator({
 	                            method: "GET",
 	                            name: "nameAjaxValidator",
-	                            message: "用户名已存在",
+	                            message: "角色已存在",
 	                            disabled: true,
 	                            data: {
 	                                name: ":data"

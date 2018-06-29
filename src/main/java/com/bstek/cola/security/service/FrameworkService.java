@@ -45,6 +45,10 @@ public interface FrameworkService {
 
 	String getWorkbenchPage();
 
+	String getFileinfoPage(Model model);
+
+	String getExistsPage();
+
 
 	//Long getMessageTotal(String username);
 

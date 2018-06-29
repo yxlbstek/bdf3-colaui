@@ -109,6 +109,17 @@ public class FrameworkServiceImpl implements FrameworkService {
 		model.addAttribute("status", 403);
 		return "frame/error";
 	}
+
+	@Override
+	public String getFileinfoPage(Model model) {
+		boolean result = decide("./fileinfo");
+		if (result) {
+			return "bdf3/fileinfo";
+		}
+		model.addAttribute("status", 403);
+		return "frame/error";
+	}
+
 	
 	@Override
 	public String getRoleAllotPage(Model model) {
@@ -170,6 +181,13 @@ public class FrameworkServiceImpl implements FrameworkService {
 		model.addAttribute("status", 403);
 		return "frame/error";
 	}
+	
+
+	@Override
+	public String getExistsPage() {
+		return "frame/exists";
+	}
+
 
 	@Override
 	public UserDetails getLoginUserInfo() {
@@ -221,7 +239,4 @@ public class FrameworkServiceImpl implements FrameworkService {
 		return false;
 	}
 
-
-
-	
 }
