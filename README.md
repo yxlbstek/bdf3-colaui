@@ -5,7 +5,7 @@ BDF3 Cola UI
     
 BDF3 Dorado 版本
 ------------
-        [https://github.com/muxiangqiu/bdf3](https://github.com/muxiangqiu/bdf3)
+        [BDF3](https://github.com/muxiangqiu/bdf3)
 
 部分页面截图
 -------------
