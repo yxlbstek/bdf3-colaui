@@ -1,9 +1,9 @@
-BDF3 Cola UI
+BDF3 Cola UI 版
 ----------
         bdf3基于spring-boot研发的开发框架、前端采用的是colaui。目前包含用户、角色、菜单、组件、字典、日志、文件上传下载、
     权限（组件及菜单）等功能模块。部分新模块开发中。企业管理系统后台通用性框架，基于bdf3快速开发企业管理系统。
     
-BDF3 Dorado
+BDF3 Dorado 版
 ------------
         [BDF3](https://github.com/muxiangqiu/bdf3)
 
