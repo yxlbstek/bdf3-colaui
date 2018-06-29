@@ -44,7 +44,8 @@ public class UploadService {
     @RequestMapping("/upload")
     @ResponseBody
     @Transactional
-    public void fileUpload(@RequestParam(value = "files") MultipartFile[] files, HttpServletRequest request) throws Exception {
+    public String fileUpload(@RequestParam(value = "files") MultipartFile[] files, HttpServletRequest request) throws Exception {    	
+    	String result = "";
     	User user = ContextUtils.getLoginUser();
 		String suffix = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
 		String realPath = fileStoreDir + File.separator + suffix;
@@ -65,11 +66,22 @@ public class UploadService {
     			fileInfo.setPath(dest.getAbsolutePath());
     			JpaUtil.persist(fileInfo);
                 file.transferTo(dest);
+                if (isImage(getType(file.getOriginalFilename()))) {
+                	result = "path/" + suffix + "/" + fileInfo.getId() + "@" + fileInfo.getName();
+                }
     		}
     	}
+    	return result;
     }
     
-    @RequestMapping("/download")
+    private boolean isImage(String type) {
+		if (type.equals("jpg") || type.equals("gif") || type.equals("jpeg") || type.equals("png") || type.equals("bmp")) {
+			return true;
+		}
+		return false;
+	}
+
+	@RequestMapping("/download")
     public void download(String fileId, HttpServletRequest request, HttpServletResponse response) throws Exception { 	
     	FileInfo fileInfo = JpaUtil
     		.linq(FileInfo.class)
@@ -88,7 +100,7 @@ public class UploadService {
     		response.sendRedirect("http://localhost:8080/bdf3-colaui/exists");
     	}
     }
-    
+ 
     private String getType(String originalFilename) {
     	int index = originalFilename.indexOf(".");
     	if (index != -1) {
