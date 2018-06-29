@@ -6,4 +6,4 @@ BDF3 COLA UI
 部分页面截图
 -------------
 
-![](https://github.com/yxlbstek/bdf3-colaui/Logo/foryou.gif)
+![](https://github.com/yxlbstek/bdf3-colaui/src/main/resources/static/resources/images/1.jpg)
