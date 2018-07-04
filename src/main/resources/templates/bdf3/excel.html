@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta charset="UTF-8"/>
+    <title>导入管理</title>
+    <link rel="stylesheet" type="text/css" href="static/nprogress/nprogress.css"/>
+    <link rel="stylesheet" type="text/css" href="static/cola-ui/semantic.css"/>
+    <link rel="stylesheet" type="text/css" href="static/cola-ui/cola.css"/>
+    <link rel="stylesheet" type="text/css" href="static/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="static/bdf3/excel.css"/>
+    <script src="static/nprogress/nprogress.js"></script>
+    <style>
+        [tag="contentContainer"]{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+
+    <h-box style="height: 100%; background-color: #f3f3f4;">
+        <box style="width: 59%; padding: 10px; background-color: #E0E0E0;"  class="ui fragment">
+            <h-box style="height: 98.5%;">
+                <box style="height: 100%; background-color: #f3f3f4;">
+                    <c-panel id="importerSolutionPanel" caption="Excel导入方案" height="100%" collapsible="false">
+                        <div class="content">
+                        	<v-box>
+                        		<box style="height: 60px; background-color: #f3f3f4; padding: 10px;">
+									<h-box>
+										<box>
+											<c-button id="addImporterSolutionBtn" icon="plus" click="addImporterSolution">添加</c-button>
+											<c-button id="createMappingRuleBtn" icon="configure" click="autoCreateMappingRules">生成映射规则</c-button>
+											<!-- <c-button id="singleBtn" icon="upload" click="uploadTip">文件上传</c-button> -->
+										</box>
+										<flex-box>
+										</flex-box>
+										<box>
+											<div id="search" class="ui category search">
+												<div class="ui icon input">
+													<input class="prompt" type="text" placeholder="根据编号或名称搜索..." c-bind="searchKey" c-onkeydown="search()"/>
+													<i class="icon search"></i>
+												</div>
+											</div>
+										</box>
+									</h-box>
+								</box>
+								<c-table id="importerSolutionTable" bind="importerSolutions" sortMode="local">
+									<template name="action">
+										<div>
+											<c-button id="modifyImporterSolutionBtn" class="ui circular write icon button" title="修改" c-onclick="modifyImporterSolution(item)">
+												<i class="write icon"></i>
+											</c-button>
+											<c-button id="removeImporterSolutionBtn" class="ui circular trash icon button" title="删除" c-onclick="removeImporterSolutionTip(item)">
+												<i class="trash icon"></i>
+											</c-button>
+										</div>
+									</template>
+									<column property="id" caption="方案编号" sortable="true"></column>
+	                                <column property="name" caption="方案名称" sortable="true"></column>
+	                                <column property="entityManagerFactoryName" caption="实体管理工厂" sortable="true"></column>
+	                                <column property="entityClassName" caption="实体类" sortable="true"></column>
+	                                <column property="excelSheetName" caption="Sheet页名称" sortable="true"></column>
+	                                <column caption="操作" template="action"></column>
+	                            </c-table>
+                        	</v-box>
+                        </div>
+                    </c-panel>
+                </box>
+            </h-box>
+        </box>
+        <flex-box>
+        </flex-box>
+        <box style="width: 40%; padding: 10px; background-color: #E0E0E0;" class="ui fragment">
+            <h-box style="height: 98.5%;">
+                <box style="height: 100%; background-color: #f3f3f4;">
+                    <c-panel id="mappingRulePanel" caption="映射规则" height="100%" collapsible="false">
+                        <div class="content">
+                        	<v-box>
+                        		<box style="height: 60px; background-color: #f3f3f4; padding: 10px;">
+									<c-button id="addMappingRuleBtn" icon="plus" click="addMappingRule">添加</c-button>
+								</box>
+								<c-table id="mappingRuleTable" bind="mappingRules" sortMode="local">
+									<template name="action">
+										<div>
+											<c-button id="modifyMappingRuleBtn" class="ui circular write icon button" title="修改" c-onclick="modifyMappingRule(item)">
+												<i class="write icon"></i>
+											</c-button>
+											<c-button id="removeMappingRuleBtn" class="ui circular trash icon button" title="删除" c-onclick="removeMappingRuleTip(item)">
+												<i class="trash icon"></i>
+											</c-button>
+										</div>
+									</template>
+	                                <column property="name" caption="名称" sortable="true"></column>
+	                                <column property="excelColumn" caption="Excel列号" sortable="true"></column>
+	                                <column property="propertyName" caption="实体属性" sortable="true"></column>
+	                                <column caption="操作" template="action"></column>
+	                            </c-table>
+                        	</v-box>
+                        </div>
+                    </c-panel>
+                </box>
+            </h-box>
+        </box>
+    </h-box>
+    
+    <!--文件上传-->
+	<div id="dialogUpload" c-widget="Dialog; closeable:false;" style="height: 200px; width: 380px;">
+		<div class="header">
+			<i class="upload icon"></i>
+			文件上传
+		</div>
+		<div class="content">
+			<form action="api/excel/importExcel" method="post" enctype="multipart/form-data" style="text-align: center;">
+		        <input id="file" type="file" name="fileName"/>
+		        <div style="text-align: center; margin-top: 35px;">
+		        	<c-button icon="upload" click="upload">上传</c-button>
+		        	<c-button icon="remove" click="cancelUpload">取消</c-button>
+		        </div>
+		    </form>
+		</div>
+	</div>
+    
+    <!--方案信息添加-->
+	<div id="msgImporterSolutionModal" class="ui basic modal">
+		<div class="header">
+			<i class="icon file text outline"></i> <span class="caption">方案信息维护</span>
+		</div>
+		<div class="content">
+			<form-layout id="form">
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>方案编号</label>
+						<c-input c-bind="editItem.id"></c-input>
+					</field>
+				</fields>
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>方案名称</label>
+						<c-input c-bind="editItem.name"></c-input>
+					</field>
+				</fields>
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>实体管理工厂</label>
+						<div id="managerFactoryNameDropDown"></div>
+					</field>
+				</fields>
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>实体类</label>
+						<div id="entityClassNameDropDown"></div>
+					</field>
+				</fields>
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>Sheet页名称</label>
+						<c-input c-bind="editItem.excelSheetName"></c-input>
+					</field>
+				</fields>
+			</form-layout>
+		</div>
+		<div class="actions">
+			<c-button icon="save" click="saveImporterSolution">保存</c-button>
+			<c-button icon="remove" click="cancelImporterSolution">取消</c-button>
+		</div>
+	</div>
+	
+	<!--删除方案-->
+	<div id="delImporterSolutionModal" class="ui basic modal">
+		<i class="icon help circle"></i>
+		<div class="content">
+			<div class="description">
+				<h2>是否删除该方案及其关联信息?</h2>
+			</div>
+		</div>
+		<div class="actions">
+			<c-button icon="save" click="removeImporterSolution">删除</c-button>
+			<c-button icon="remove" click="cancelRemoveImporterSolution">取消</c-button>
+		</div>
+	</div>
+	
+	<!--映射关系添加-->
+	<div id="msgMappingRuleModal" class="ui basic modal">
+		<div class="header">
+			<i class="icon file text outline"></i> <span class="caption">映射信息维护</span>
+		</div>
+		<div class="content">
+			<form-layout id="form">
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>名称</label>
+						<c-input c-bind="editItemMappingRule.name"></c-input>
+					</field>
+				</fields>
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>Excel列号</label>
+						<c-input c-bind="editItemMappingRule.excelColumn"></c-input>
+					</field>
+				</fields>
+				<fields class="cols-4">
+					<field class="cols-3">
+						<label>实体属性</label>
+						<c-input c-bind="editItemMappingRule.propertyName"></c-input>
+					</field>
+				</fields>
+			</form-layout>
+		</div>
+		<div class="actions">
+			<c-button icon="save" click="saveMappingRule">保存</c-button>
+			<c-button icon="remove" click="cancelMappingRule">取消</c-button>
+		</div>
+	</div>
+	
+	<!--删除映射信息-->
+	<div id="delMappingRuleModal" class="ui basic modal">
+		<i class="icon help circle"></i>
+		<div class="content">
+			<div class="description">
+				<h2>是否删除该映射信息及其关联信息?</h2>
+			</div>
+		</div>
+		<div class="actions">
+			<c-button icon="save" click="removeMappingRule">删除</c-button>
+			<c-button icon="remove" click="cancelRemoveMappingRule">取消</c-button>
+		</div>
+	</div>
+	
+	
+
+</body>
+    <script src="static/jquery/jquery-2.1.3.js"></script>
+    <script src="static/jquery/jquery.cookie.js"></script>
+    <script src="static/cola-ui/3rd.js"></script>
+    <script src="static/cola-ui/semantic.js"></script>
+    <script src="static/common/common.js"></script>
+    <script src="static/cola-ui/cola-core.js" charset="UTF-8"></script>
+    <script src="static/cola-ui/cola.js" charset="UTF-8"></script>
+    <script src="static/bdf3/excel.js"></script>
+
+</html>

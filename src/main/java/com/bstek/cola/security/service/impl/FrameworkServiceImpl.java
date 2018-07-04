@@ -173,6 +173,16 @@ public class FrameworkServiceImpl implements FrameworkService {
 	}
 	
 	@Override
+	public String getExcelPage(Model model) {
+		boolean result = decide("./excel");
+		if (result) {
+			return "bdf3/excel";
+		}
+		model.addAttribute("status", 403);
+		return "frame/error";
+	}
+	
+	@Override
 	public String getComponentAllotPage(Model model) {
 		boolean result = decide("./componentallot");
 		if (result) {
@@ -238,5 +248,6 @@ public class FrameworkServiceImpl implements FrameworkService {
 		}
 		return false;
 	}
+
 
 }

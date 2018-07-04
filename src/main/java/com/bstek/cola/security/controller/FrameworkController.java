@@ -219,6 +219,11 @@ public class FrameworkController {
 		return frameworkService.getDictionaryPage(model);
 	}
 	
+	@RequestMapping("/excel") 
+	public String excel(Model model) {
+		return frameworkService.getExcelPage(model);
+	}
+	
 	@RequestMapping("/exists") 
 	public String exists() {
 		return frameworkService.getExistsPage();

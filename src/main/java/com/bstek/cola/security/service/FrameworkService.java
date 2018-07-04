@@ -49,6 +49,8 @@ public interface FrameworkService {
 
 	String getExistsPage();
 
+	String getExcelPage(Model model);
+
 
 	//Long getMessageTotal(String username);
 

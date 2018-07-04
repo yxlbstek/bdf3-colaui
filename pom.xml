@@ -30,8 +30,6 @@
 			<groupId>org.malagu.multientitymanagerfactory</groupId>
 			<artifactId>spring-boot-multientitymanagerfactory</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>com.bstek.bdf3</groupId> <artifactId>bdf3-message</artifactId> 
-			<version>0.0.1-SNAPSHOT</version> </dependency> -->
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
