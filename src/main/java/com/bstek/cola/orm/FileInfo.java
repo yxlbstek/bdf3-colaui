@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.bstek.cola.importer.annotation.ColumnDesc;
+
 /** 
 * 
 * @author bob.yang
@@ -23,27 +25,35 @@ public class FileInfo implements Serializable {
 
 	@Id	
 	@Column(name = "ID_", length = 60)
+	@ColumnDesc(label = "ID")
 	private String id;
 		
 	@Column(name = "NAME_", length = 512)
+	@ColumnDesc(label = "文件名称")
 	private String name;
 	
 	@Column(name = "TYPE_", length = 512)
+	@ColumnDesc(label = "文件类型")
 	private String type;
 		
 	@Column(name = "SIZE_")
+	@ColumnDesc(label = "文件大小")
 	private long size;
 		
 	@Column(name = "PATH_", length = 512)
+	@ColumnDesc(label = "文件路径")
 	private String path;
 	
 	@Column(name = "CREATE_TIME_")
+	@ColumnDesc(label = "上传时间")
 	private Date createDate;
 		
 	@Column(name = "CREATOR_", length = 60)
+	@ColumnDesc(label = "上传人")
 	private String creator;
 	
 	@Column(name = "DESC_", length = 1024)
+	@ColumnDesc(label = "描述")
 	private String desc;
 
 	public String getId() {

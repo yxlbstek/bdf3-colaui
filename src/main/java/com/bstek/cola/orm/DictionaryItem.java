@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.bstek.cola.importer.annotation.ColumnDesc;
+
 /** 
 * 
 * @author bob.yang
@@ -22,21 +24,27 @@ public class DictionaryItem implements Serializable {
 
 	@Id
 	@Column(name = "ID_", length = 64)
+	@ColumnDesc(label = "ID")
 	private String id;
 	
 	@Column(name = "KEY_", length = 64)
+	@ColumnDesc(label = "字典项(key)")
 	private String key;
 	
 	@Column(name = "VALUE_")
+	@ColumnDesc(label = "字典项(value)")
 	private String value;
 	
 	@Column(name = "ENABLED_")
+	@ColumnDesc(label = "可用")
 	private boolean enabled;
 	
 	@Column(name = "ORDER_", length = 64)
+	@ColumnDesc(label = "排序号")
 	private Integer order;
 	
 	@Column(name = "DICTIONARY_ID_", length = 64)
+	@ColumnDesc(label = "字典目录ID")
 	private String dictionaryId;
 
 	public String getId() {

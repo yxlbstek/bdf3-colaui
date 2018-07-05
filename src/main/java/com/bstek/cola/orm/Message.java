@@ -10,6 +10,8 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.bstek.cola.importer.annotation.ColumnDesc;
+
 
 /** 
 * 
@@ -26,31 +28,40 @@ public class Message implements Serializable {
 
 	@Id
 	@Column(name = "ID_", length = 64)
+	@ColumnDesc(label = "ID")
 	private String id;
 	
 	@Column(name = "TITLE_", length = 128)
+	@ColumnDesc(label = "消息名称")
 	private String title;
 	
 	@Column(name = "SENDER_", length = 64)
+	@ColumnDesc(label = "发送人")
 	private String sender;
 	
 	@Column(name = "RECEIVER_", length = 1024)
+	@ColumnDesc(label = "接收人")
 	private String  receiver;
 	
 	@Column(name = "CONTENT_")
 	@Lob
+	@ColumnDesc(label = "消息内容")
 	private String content;
 	
 	@Column(name = "PATH_", length = 1024)
+	@ColumnDesc(label = "路径")
 	private String path;
 	
 	@Column(name = "TYPE_", length = 64)
+	@ColumnDesc(label = "消息类型")
 	private String type;
 	
 	@Column(name = "READ_")
+	@ColumnDesc(label = "是否已读")
 	private boolean read;
 
 	@Column(name = "CREATED_AT_")
+	@ColumnDesc(label = "发送时间")
 	private Date createdAt;
 	
 	@Transient

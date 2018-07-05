@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import com.bstek.cola.importer.annotation.ColumnDesc;
+
 /** 
 * 
 * @author bob.yang
@@ -24,34 +26,44 @@ public class LogInfo implements Serializable {
 
 	@Id
 	@Column(name = "ID_", length = 36)
+	@ColumnDesc(label = "ID")
 	private String id;
 	
 	@Column(name = "MODULE_", length = 255)
+	@ColumnDesc(label = "所属模块")
 	private String module;
 	
 	@Lob
 	@Column(name = "DESC_")
+	@ColumnDesc(label = "描述")
 	private String desc;
 	
 	@Column(name = "OPERATION_", length = 100)
+	@ColumnDesc(label = "操作")
 	private String operation;
 	
 	@Column(name = "OPERATION_USER_", length = 30)
+	@ColumnDesc(label = "操作人")
 	private String operationUser;
 	
 	@Column(name = "OPERATION_USER_NICKNAME_", length = 30)
+	@ColumnDesc(label = "操作人昵称")
 	private String operationUserNickname;
 	
 	@Column(name = "OPERATION_DATE_")
+	@ColumnDesc(label = "操作时间")
 	private Date operationDate;
 	
 	@Column(name = "CATEGORY_", length = 100)
+	@ColumnDesc(label = "日志类型")
 	private String category;
 	
 	@Column(name = "IP_", length = 20)
+	@ColumnDesc(label = "IP地址")
 	private String ip;
 	
 	@Column(name = "SOURCE_", length = 255)
+	@ColumnDesc(label = "来源")
 	private String source;
 
 	public String getId() {

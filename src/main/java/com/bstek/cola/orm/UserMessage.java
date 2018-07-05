@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.bstek.cola.importer.annotation.ColumnDesc;
+
 /** 
 * 
 * @author bob.yang
@@ -22,18 +24,23 @@ public class UserMessage implements Serializable {
 
 	@Id
 	@Column(name = "ID_", length = 64)
+	@ColumnDesc(label = "ID")
 	private String id;
 	
 	@Column(name = "SENDER_ID_", length = 64)
+	@ColumnDesc(label = "发送人ID")
 	private String senderId;
 	
 	@Column(name = "RECEIVER_ID_", length = 64)
+	@ColumnDesc(label = "接收人ID")
 	private String receiverId;
 	
 	@Column(name = "MESSAGE_ID_", length = 64)
+	@ColumnDesc(label = "消息ID")
 	private String messageId;
 	
 	@Column(name = "READ_")
+	@ColumnDesc(label = "是否已读")
 	private boolean read;
 
 	public String getId() {

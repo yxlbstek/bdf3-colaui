@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bstek.cola.importer.annotation.ColumnDesc;
 import com.bstek.cola.importer.filter.EntityManagerFactoryFilter;
 import com.bstek.cola.importer.filter.EntityTypeFilter;
 import com.bstek.cola.importer.model.Entry;
@@ -172,15 +173,20 @@ public class ExcelController implements ApplicationContextAware {
 			for (Field field : fields) {
 				Transient t = field.getAnnotation(Transient.class);
 				String propertyName = field.getName();
+				String name = field.getName();
 				if (t != null 
 						|| BeanUtils.getPropertyDescriptor(entityClass, propertyName) == null
 						|| contains(propertyNames, propertyName)) {
 					continue;
 				}
+				ColumnDesc c = field.getAnnotation(ColumnDesc.class);
+				if (c != null) {
+					name = c.label();
+				}
 				MappingRule mappingRule = new MappingRule();
 				mappingRule.setId(UUID.randomUUID().toString());
 				mappingRule.setImporterSolutionId(importerSolution.getId());
-				mappingRule.setName(propertyName);
+				mappingRule.setName(name);
 				mappingRule.setPropertyName(propertyName);
 				mappingRule.setExcelColumn(col);
 				mappingRule.setIgnoreErrorFormatData(false);

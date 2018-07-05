@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.bstek.cola.importer.annotation.ColumnDesc;
+
 
 /** 
 * 
@@ -25,15 +27,19 @@ public class Dictionary implements Serializable {
 
 	@Id
 	@Column(name = "ID_", length = 64)
+	@ColumnDesc(label = "ID")
 	private String id;
 	
 	@Column(name = "CODE_", length = 64)
+	@ColumnDesc(label = "编码")
 	private String code;
 	
 	@Column(name = "NAME_", length = 64)
+	@ColumnDesc(label = "名称")
 	private String name;
 	
 	@Column(name = "ORDER_", length = 64)
+	@ColumnDesc(label = "排序号")
 	private Integer order;
 	
 	@Transient
