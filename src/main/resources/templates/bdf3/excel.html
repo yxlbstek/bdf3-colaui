@@ -32,7 +32,7 @@
 										<box>
 											<c-button id="addImporterSolutionBtn" icon="plus" click="addImporterSolution">添加</c-button>
 											<c-button id="createMappingRuleBtn" icon="configure" click="autoCreateMappingRules">生成映射规则</c-button>
-											<!-- <c-button id="singleBtn" icon="upload" click="uploadTip">文件上传</c-button> -->
+											<!-- <c-button id="singleBtn" icon="upload" click="importTip">Excel导入</c-button> -->
 										</box>
 										<flex-box>
 										</flex-box>
@@ -106,17 +106,17 @@
     </h-box>
     
     <!--文件上传-->
-	<div id="dialogUpload" c-widget="Dialog; closeable:false;" style="height: 200px; width: 380px;">
+	<div id="dialogImport" c-widget="Dialog; closeable:false;" style="height: 200px; width: 380px;">
 		<div class="header">
 			<i class="upload icon"></i>
-			文件上传
+			Excel导入
 		</div>
 		<div class="content">
 			<form action="api/excel/importExcel" method="post" enctype="multipart/form-data" style="text-align: center;">
 		        <input id="file" type="file" name="fileName"/>
 		        <div style="text-align: center; margin-top: 35px;">
-		        	<c-button icon="upload" click="upload">上传</c-button>
-		        	<c-button icon="remove" click="cancelUpload">取消</c-button>
+		        	<c-button icon="upload" click="Import">上传</c-button>
+		        	<c-button icon="remove" click="cancelImport">取消</c-button>
 		        </div>
 		    </form>
 		</div>

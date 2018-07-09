@@ -84,23 +84,23 @@
     	model.describe("editItemMappingRule", "");
 
 		model.action({
-			//测试方法---------------
-			uploadTip: function() {
-				cola.widget("dialogUpload").show();
+			//测试Excel导入方法---------------
+			
+			importTip: function() {
+				cola.widget("dialogImport").show();
 			},
 			
-			cancelUpload: function() {
-				cola.widget("dialogUpload").hide();
+			cancelImport: function() {
+				cola.widget("dialogImport").hide();
 			},
 			
-			upload: function() {
+			Import: function() {
 				var formData = new FormData();
 				var files = $('#file')[0].files;
 				for (var i = 0; i < files.length; i++) {
 					formData.append("file", files[i]);
 				}
-				formData.append("importerSolutionId", "text2");
-				formData.append("startRow", "1");
+				formData.append("importerSolutionId", "text1");
 				$.ajax({
 					data: formData,
                     type: "POST",
@@ -109,12 +109,11 @@
                     cache: false,
                     contentType: false,
                     processData: false,
-                    success: function() {
-                    	//model.flush("fileInfos");
-                    	cola.widget("dialogUpload").hide();
-                        cola.NotifyTipManager.success({
+                    success: function(result) {
+                    	cola.widget("dialogImport").hide();
+                        cola.NotifyTipManager.warning({
                             message: "消息提示",
-                            description: "上传成功!",
+                            description: result,
                             showDuration: 3000
                         });
                         
@@ -128,7 +127,7 @@
                     }
                 });
 			},
-			//测试方法---------------
+			//测试Excel导入方法---------------
 			
 			
 			addImporterSolution: function () {
