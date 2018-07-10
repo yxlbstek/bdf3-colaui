@@ -1,11 +1,10 @@
-package com.bstek.cola.importer.filter.impl;
+package com.bstek.cola.excel.filter.impl;
 
 import java.util.List;
 
 import javax.persistence.metamodel.EntityType;
 
-
-import com.bstek.cola.importer.filter.EntityTypeFilter;
+import com.bstek.cola.excel.filter.EntityTypeFilter;
 
 /** 
 * 

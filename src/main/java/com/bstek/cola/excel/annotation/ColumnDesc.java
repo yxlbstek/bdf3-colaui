@@ -1,4 +1,4 @@
-package com.bstek.cola.importer.annotation;
+package com.bstek.cola.excel.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

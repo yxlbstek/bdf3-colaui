@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-import com.bstek.cola.importer.annotation.ColumnDesc;
+import com.bstek.cola.excel.annotation.ColumnDesc;
 
 /** 
 * 

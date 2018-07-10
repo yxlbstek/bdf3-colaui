@@ -1,4 +1,4 @@
-package com.bstek.cola.importer.controller;
+package com.bstek.cola.excel.controller;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -30,12 +30,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bstek.cola.importer.annotation.ColumnDesc;
-import com.bstek.cola.importer.filter.EntityManagerFactoryFilter;
-import com.bstek.cola.importer.filter.EntityTypeFilter;
-import com.bstek.cola.importer.model.Entry;
-import com.bstek.cola.importer.model.ImporterSolution;
-import com.bstek.cola.importer.model.MappingRule;
+import com.bstek.cola.excel.annotation.ColumnDesc;
+import com.bstek.cola.excel.filter.EntityManagerFactoryFilter;
+import com.bstek.cola.excel.filter.EntityTypeFilter;
+import com.bstek.cola.excel.model.Entry;
+import com.bstek.cola.excel.model.ImporterSolution;
+import com.bstek.cola.excel.model.MappingRule;
 import com.bstek.cola.log.annotation.Log;
 import com.bstek.cola.utils.FieldUtils;
 

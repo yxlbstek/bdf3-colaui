@@ -1,4 +1,4 @@
-package com.bstek.cola.importer.service;
+package com.bstek.cola.excel.service;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -32,8 +32,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bstek.cola.importer.model.ImporterSolution;
-import com.bstek.cola.importer.model.MappingRule;
+import com.bstek.cola.excel.model.ImporterSolution;
+import com.bstek.cola.excel.model.MappingRule;
 import com.bstek.cola.utils.DateUtils;
 
 

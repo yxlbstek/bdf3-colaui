@@ -1,11 +1,10 @@
-package com.bstek.cola.importer.filter.impl;
+package com.bstek.cola.excel.filter.impl;
 
 import java.util.Map;
 
 import javax.persistence.EntityManagerFactory;
 
-
-import com.bstek.cola.importer.filter.EntityManagerFactoryFilter;
+import com.bstek.cola.excel.filter.EntityManagerFactoryFilter;
 
 /** 
 * 

@@ -1,4 +1,4 @@
-package com.bstek.cola.importer.model;
+package com.bstek.cola.excel.model;
 
 import java.io.Serializable;
 
