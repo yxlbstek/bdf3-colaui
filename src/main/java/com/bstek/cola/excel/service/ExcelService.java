@@ -43,12 +43,12 @@ import com.bstek.cola.utils.DateUtils;
  * @since 2018年7月4日
  *
  */
-@RestController("cola.importController")
-@RequestMapping("/importExcel")
-public class ImportService {
+@RestController("cola.excelService")
+@RequestMapping("/excel")
+public class ExcelService {
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/import")
+	@RequestMapping("/importExcel")
 	@ResponseBody
 	@Transactional
 	public String importExcel(@RequestParam(value = "file") MultipartFile file,
