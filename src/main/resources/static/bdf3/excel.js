@@ -104,7 +104,7 @@
 				$.ajax({
 					data: formData,
                     type: "POST",
-                    url: "importExcel/import",
+                    url: "excel/importExcel",
                     async: false,
                     cache: false,
                     contentType: false,
