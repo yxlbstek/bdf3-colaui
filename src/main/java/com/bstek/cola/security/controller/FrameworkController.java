@@ -228,6 +228,11 @@ public class FrameworkController {
 	public String exists() {
 		return frameworkService.getExistsPage();
 	}
+	
+	@RequestMapping("/exportError") 
+	public String exportError() {
+		return frameworkService.getExportErrorPage();
+	}
 
 	@RequestMapping("/api/menus")
 	@ResponseBody

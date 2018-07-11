@@ -94,13 +94,13 @@
 				cola.widget("dialogImport").hide();
 			},
 			
-			Import: function() {
+			import: function() {
 				var formData = new FormData();
 				var files = $('#file')[0].files;
 				for (var i = 0; i < files.length; i++) {
 					formData.append("file", files[i]);
 				}
-				formData.append("importerSolutionId", "text1");
+				formData.append("importerSolutionId", "3");
 				$.ajax({
 					data: formData,
                     type: "POST",
@@ -114,7 +114,7 @@
                         cola.NotifyTipManager.warning({
                             message: "消息提示",
                             description: result,
-                            showDuration: 3000
+                            showDuration: 5000
                         });
                         
                         var form = document.createElement('form');
@@ -126,6 +126,16 @@
                     	document.body.removeChild(form);
                     }
                 });
+			},
+			
+			exportExcel: function() {
+				var importerSolutionId = "text1";
+				var fileName = "测试文件名称";
+				var keys = ["admin", "lin", "ls"];
+				window.location.href = "http://localhost:8080/bdf3-colaui/excel/exportExcel" 
+					+ "?importerSolutionId=" + importerSolutionId
+					+ "&fileName=" + fileName 
+					+ "&keys=" + keys;
 			},
 			//测试Excel导入方法---------------
 			

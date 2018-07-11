@@ -51,6 +51,8 @@ public interface FrameworkService {
 
 	String getExcelPage(Model model);
 
+	String getExportErrorPage();
+
 
 	//Long getMessageTotal(String username);
 

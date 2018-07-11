@@ -192,12 +192,15 @@ public class FrameworkServiceImpl implements FrameworkService {
 		return "frame/error";
 	}
 	
-
 	@Override
 	public String getExistsPage() {
 		return "frame/exists";
 	}
-
+	
+	@Override
+	public String getExportErrorPage() {
+		return "frame/exportError";
+	}
 
 	@Override
 	public UserDetails getLoginUserInfo() {

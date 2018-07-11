@@ -32,7 +32,8 @@
 										<box>
 											<c-button id="addImporterSolutionBtn" icon="plus" click="addImporterSolution">添加</c-button>
 											<c-button id="createMappingRuleBtn" icon="configure" click="autoCreateMappingRules">生成映射规则</c-button>
-											<!-- <c-button id="singleBtn" icon="upload" click="importTip">Excel导入</c-button> -->
+											<!-- <c-button id="singleBtn" icon="upload" click="importTip">Excel导入</c-button>
+											<c-button id="singleBtn" icon="upload" click="exportExcel">Excel导出</c-button> -->
 										</box>
 										<flex-box>
 										</flex-box>
@@ -115,7 +116,7 @@
 			<form action="api/excel/importExcel" method="post" enctype="multipart/form-data" style="text-align: center;">
 		        <input id="file" type="file" name="fileName"/>
 		        <div style="text-align: center; margin-top: 35px;">
-		        	<c-button icon="upload" click="Import">上传</c-button>
+		        	<c-button icon="upload" click="import">上传</c-button>
 		        	<c-button icon="remove" click="cancelImport">取消</c-button>
 		        </div>
 		    </form>
