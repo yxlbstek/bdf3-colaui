@@ -51,6 +51,17 @@ public final class DateUtils {
 	}
 	
 	/**
+	 * 根据参数获取  参数date 间隔的分钟数 minute 的时间
+	 * @return
+	 */
+	public static Date getDateIntervalMinutes(Date date, int minute) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		long millis = calendar.getTimeInMillis() + minute * 60 * 1000;
+		return new Date(millis);
+	}
+	
+	/**
 	 * 根据参数获取  参数date 间隔的月份 increment 的时间
 	 * @return
 	 */
