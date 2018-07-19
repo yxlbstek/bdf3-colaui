@@ -220,8 +220,31 @@ public final class DateUtils {
 	 * @param lastDate
 	 * @return
 	 */
-	public static int intervalDay(Date firstDate, Date lastDate) {
-		return (int) (firstDate.getTime() - lastDate.getTime()) / (1000 * 3600 * 24);
+	public static long intervalDay(Date firstDate, Date lastDate) {
+		return (firstDate.getTime() - lastDate.getTime()) / (1000 * 3600 * 24);
+	}
+	
+	/**
+	 * 判断 firstDate 与 lastDate 间隔分钟数
+	 * @param firstDate
+	 * @param lastDate
+	 * @return
+	 */
+	public static long intervalMinute(Date firstDate, Date lastDate) {
+		return (firstDate.getTime() - lastDate.getTime()) / (1000 * 60);
+	}
+	
+	/**
+	 * 判断 year 与 month 判断 month 的天数
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	public static int getDay(int year, int month) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month);
+		return calendar.getActualMaximum(Calendar.DATE);
 	}
 
 }
