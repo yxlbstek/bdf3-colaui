@@ -25,6 +25,7 @@ import com.bstek.cola.security.service.MessageService;
 @Service("cola.messageService")
 public class MessageServiceImpl implements MessageService {
 	
+	
 	@Override
 	public Page<Message> loadReceiver(Pageable pageable, String searchKey) {
 		String username = ContextUtils.getLoginUsername();		
