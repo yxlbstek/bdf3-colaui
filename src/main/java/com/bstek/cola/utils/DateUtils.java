@@ -246,5 +246,31 @@ public final class DateUtils {
 		calendar.set(Calendar.MONTH, month);
 		return calendar.getActualMaximum(Calendar.DATE);
 	}
+	
+	/**
+	 * 获取date 间隔 minute 之后的时间
+	 * @param date
+	 * @param minute
+	 * @return
+	 */
+	public static Date getDateByintervalMinute(Date date, int minute){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.MINUTE, minute);
+		return calendar.getTime();
+	}
+	
+	/**
+	 * 获取date 间隔 hour 之后的时间
+	 * @param date
+	 * @param hour
+	 * @return
+	 */
+	public static Date getDateByintervalHour(Date date, int hour){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.HOUR, hour);
+		return calendar.getTime();
+	}
 
 }
