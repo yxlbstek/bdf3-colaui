@@ -120,6 +120,39 @@ public final class DateUtils {
 		calendar.set(Calendar.MILLISECOND, 999);
 		return calendar.getTime();
 	}
+	
+	/**
+	 * 获取date的年份 
+	 * @param date
+	 * @return
+	 */
+	public static int getYear(Date date){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.YEAR);
+	}
+	
+	/**
+	 * 获取date月份
+	 * @param date
+	 * @return
+	 */
+	public static int getMonth(Date date){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.MONTH) + 1;
+	}
+	
+	/**
+	 * 获取date天
+	 * @param date
+	 * @return
+	 */
+	public static int getDay(Date date){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.DATE);
+	}
 
 	/**
 	 * 将 Date 按 patten 格式转换成 String  "yyyy-MM-dd HH:mm:ss"
@@ -128,6 +161,19 @@ public final class DateUtils {
 	 * @return
 	 */
 	public static String dateToString(Date date, String patten) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(patten, Locale.CHINA);
+		return dateFormat.format(date);
+	}
+	
+	/**
+	 * 将 毫秒 millis 按 patten 格式转换成 String  "yyyy-MM-dd HH:mm:ss"
+	 * @param millis
+	 * @param patten
+	 * @return
+	 */
+	public static String timeMillisToString(long millis, String patten) {
+		Date date = new Date();
+		date.setTime(millis);
 		SimpleDateFormat dateFormat = new SimpleDateFormat(patten, Locale.CHINA);
 		return dateFormat.format(date);
 	}
@@ -272,5 +318,17 @@ public final class DateUtils {
 		calendar.add(Calendar.HOUR, hour);
 		return calendar.getTime();
 	}
-
+	/**
+	 * 日期格式化 日期格式为：yyyy-MM-dd
+	 * @param date  日期
+	 * @param pattern  格式，如：DateUtils.DATE_TIME_PATTERN
+	 * @return  返回yyyy-MM-dd格式日期
+	 */
+	public static String format(Date date, String pattern) {
+		if(date != null){
+			SimpleDateFormat df = new SimpleDateFormat(pattern);
+			return df.format(date);
+		}
+		return null;
+	}
 }
